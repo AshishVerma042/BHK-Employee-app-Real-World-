@@ -87,17 +87,17 @@ class Artisans extends ParentWidget {
                                       return InkWell(
                                         onTap: () {
                                           final artisanModel = Artisancontroller.getArtisanListModel.value.data?.docs?[index];
-                                          if (artisanModel != null) {
-                                            final artisan = {
-                                              "name": "${artisanModel.firstName ?? ''} ${artisanModel.lastName ?? ''}",
-                                              "expertize": artisanModel.expertizeField ?? "Not Set",
-                                              "id": artisanModel.id ?? "0000",
-                                              "phone": "${artisanModel.countryCode ?? ''} ${artisanModel.phoneNo ?? ''}",
-                                              "email": artisanModel.email ?? "Not Set",
-
-                                            };
-                                            Get.to(() => ArtisanProfileScreen(artisan: artisan));
-                                          }
+                                          // if (artisanModel != null) {
+                                          //   final artisan = {
+                                          //     "name": "${artisanModel.firstName ?? ''} ${artisanModel.lastName ?? ''}",
+                                          //     "expertize": artisanModel.expertizeField ?? "Not Set",
+                                          //     "id": artisanModel.id ?? "0000",
+                                          //     "phone": "${artisanModel.countryCode ?? ''} ${artisanModel.phoneNo ?? ''}",
+                                          //     "email": artisanModel.email ?? "Not Set",
+                                          //
+                                          //   };
+                                          //   Get.to(() => ArtisanProfileScreen(artisan: artisan));
+                                          // }
 
                                         },
                                         child: Container(
