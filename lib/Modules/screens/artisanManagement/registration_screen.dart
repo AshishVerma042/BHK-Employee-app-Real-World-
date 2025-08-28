@@ -5,15 +5,11 @@ import 'package:bhk_employee/utils/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../../../common/myUtils.dart';
-import '../../../data/response/status.dart';
 import '../../../resources/appconstants.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/images.dart';
 import '../../../resources/inputformatter.dart';
 import '../../../resources/strings.dart';
-
-import '../../controller/addproduct_controller.dart';
 import '../../controller/registrationcontroller.dart';
 
 class Registration extends ParentWidget {
@@ -114,8 +110,7 @@ class Registration extends ParentWidget {
                     12.kH,
                     commonComponent("Last Name", commonTextField(controller.lNameController.value, controller.lNameFocusNode.value, w, (value) {}, hint: "Enter your Last Name", fontSize: 14)),
                     12.kH,
-                    commonComponent("Aadhaar Number", commonTextField(controller.aadhaarController.value, controller.aadhaarFocusNode.value, maxLength: 16, keyboardType: TextInputType.number, w, (value) {}, hint: "Enter your Aadhaar Number", fontSize: 14)),
-                    12.kH,
+                    commonComponent("Aadhaar Number", commonTextField(controller.aadhaarController.value, controller.aadhaarFocusNode.value, maxLength: 16, keyboardType: TextInputType.number, w, (value) {}, hint: "Enter your Aadhaar Number", fontSize: 14,isCounter: true)),
 
                     commonComponentRedStar("Phone Number"),
                     innerPhoneTextField(
@@ -144,7 +139,7 @@ class Registration extends ParentWidget {
                           child: commonComponent(
                             "Category",
                             commonDropdownButton(
-                              controller.casteCategories.value.map((item) {
+                              controller.casteCategories.map((item) {
                                 return DropdownMenuItem<String>(
                                   value: item,
                                   child: Text(item),
@@ -153,8 +148,8 @@ class Registration extends ParentWidget {
                               controller.selectedCast.value,
                               w,h,
                               appColors.backgroundColor,
-                                  (Value) {
-                                  controller.selectedCast.value = Value;
+                                  (value) {
+                                  controller.selectedCast.value = value;
                               },
                               hint: 'Select Category',
                               borderColor: appColors.border,
@@ -186,7 +181,7 @@ class Registration extends ParentWidget {
                     commonComponent(
                       "Expertise",
                       commonDropdownButton(
-                        controller.subExpertise.value.map((item) {
+                        controller.subExpertise.map((item) {
                           return DropdownMenuItem<String>(
                             value: item,
                             child: Text(item),
@@ -202,94 +197,7 @@ class Registration extends ParentWidget {
                         borderColor: appColors.border,
                       ),
                     ),
-
-
-
-                    //
-                    // Container(
-                    //   width: w,
-                    //   decoration: BoxDecoration(
-                    //     border: Border.all(color: controller.isWhite ? Colors.white : appColors.contentPlaceholderPrimary, width: 1),
-                    //     borderRadius: BorderRadius.all(Radius.circular(8)),
-                    //   ),
-                    //   child: DropdownButtonHideUnderline(
-                    //     child: DropdownButton(
-                    //       menuWidth: w * 0.9,
-                    //       padding: EdgeInsets.symmetric(horizontal: 16),
-                    //       hint: Text("Please Select your Expertise", style: TextStyle(color: controller.isWhite ? Colors.white : appColors.contentPlaceholderPrimary)),
-                    //       value: controller.selectedItem.value,
-                    //       icon: Icon(Icons.arrow_drop_down, color: controller.isWhite ? Colors.white : appColors.contentPlaceholderPrimary),
-                    //       onChanged: (value) {
-                    //         controller.updateItem(value);
-                    //       },
-                    //
-                    //       items: controller.items.map((item) => DropdownMenuItem(value: item, child: Text(item))).toList(),
-                    //     ),
-                    //   ),
-                    // ),
-                    // commonComponentRedStar("Upload Images/Videos"),
-                    // SizedBox(height: 5.0),
-                    // Container(
-                    //   width: double.infinity,
-                    //   height: 150.0,
-                    //   decoration: BoxDecoration(
-                    //     border: Border.all(color: Colors.grey),
-                    //     borderRadius: BorderRadius.circular(8),
-                    //   ),
-                    //   child: Column(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //       controller.videofiles.value != null ? Image.file(controller.imageFiles.value!, width: double.infinity, height: 50) : Icon(Icons.image, size: 50, color: Colors.grey),
-                    //       const SizedBox(height: 8.0),
-                    //       controller.videofiles.value != null ? Text("This is you Image") :Text("Upload your image here"),
-                    //       const SizedBox(height: 4.0),
-                    //       ElevatedButton(
-                    //         onPressed: () => controller.openProductVideos(context),
-                    //         child: const Text('Click to browse', style: TextStyle(fontSize: 12)),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    // const SizedBox(height: 8.0),
-                    // Text("Please upload a short video of yourself or your products.This video will be used to showcase your skills and work.", style: TextStyle(color: Colors.grey[600])),
-                    // SizedBox(height: 5),
                     Text(controller.errormessage, style: TextStyle(color: Colors.red)),
-
-
-                    // commonButton(w, 50, appColors.contentButtonBrown, Colors.white, () {
-                    //     if (controller.lNameController.value.text.isEmpty && controller.fNameController.value.text.isEmpty && controller.phoneController.value.text.isEmpty && controller.addressController.value.text.isEmpty && !Validator.isEmailValid(controller.emailController.value.text)) {
-                    //       controller.errorMessage.value = appStrings.artisanRegistererrormessage;
-                    //     } else {
-                    //       showOtpBottomSheet(context, controller);
-                    //     }
-                    //   },
-                    //   radius: 30,
-                    //   hint: "Submit",
-                    // ),
-                    // commonButton(
-                    //   w,
-                    //   50,
-                    //   appColors.contentButtonBrown,
-                    //   Colors.white,
-                    //   () {
-                    //     if (controller.fNameController.value.text.isEmpty ||
-                    //         controller.lNameController.value.text.isEmpty ||
-                    //         controller.phoneController.value.text.isEmpty ||
-                    //         controller.addressController.value.text.isEmpty ||
-                    //         !Validator.isEmailValid(controller.emailController.value.text) ||
-                    //         controller.selectedExpertise.value.isEmpty) {
-                    //       controller.errorMessage.value = appStrings.artisanRegistererrormessage;
-                    //     } else {
-                    //       controller.errorMessage.value = "";
-                    //       showOtpBottomSheet(context, controller);
-                    //     }
-                    //   },
-                    //   radius: 30,
-                    //   hint: "Submit",
-                    // ),
-                    //
-                    // SizedBox(height: 30),
-
                   ],
                 ),
               ),
@@ -321,8 +229,6 @@ class Registration extends ParentWidget {
                 hint: "Submit",
               ),
             ),
-
-
           ),
         ],
       ),

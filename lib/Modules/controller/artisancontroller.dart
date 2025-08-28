@@ -21,9 +21,6 @@ class ArtisanController extends GetxController{
    final rxRequestStatus = Status.COMPLETED.obs;
 
 
-
-
-
    Future<void> getArtisanListApi() async {
      var connection = await CommonMethods.checkInternetConnectivity();
      Utils.printLog("CheckInternetConnection===> ${connection.toString()}");

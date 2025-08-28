@@ -1,4 +1,5 @@
 
+import 'package:bhk_employee/Modules/screens/artisanManagement/artisan_search_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,7 +35,15 @@ class Artisans extends ParentWidget {
                     ),
                     centerTitle: true,
                     iconTheme: const IconThemeData(color: Colors.white),
+                    actions: [Row(
+                      children: [
+                        InkWell(onTap: (){Get.to(ArtisanSearchScreen());},
+                            child: Icon(Icons.search,color: Colors.white70)),
+                        SizedBox(width: 12,)
+                      ],
+                    )],
                   ),
+
                   backgroundColor: appColors.backgroundColor,
 
                   body: RefreshIndicator(
@@ -85,22 +94,14 @@ class Artisans extends ParentWidget {
                                     itemCount: Artisancontroller.getArtisanListModel.value.data?.docs?.length?? 0,
                                     itemBuilder: (context, index) {
                                       return InkWell(
-                                        onTap: () {
-                                          final artisanModel = Artisancontroller.getArtisanListModel.value.data?.docs?[index];
-                                          // if (artisanModel != null) {
-                                          //   final artisan = {
-                                          //     "name": "${artisanModel.firstName ?? ''} ${artisanModel.lastName ?? ''}",
-                                          //     "expertize": artisanModel.expertizeField ?? "Not Set",
-                                          //     "id": artisanModel.id ?? "0000",
-                                          //     "phone": "${artisanModel.countryCode ?? ''} ${artisanModel.phoneNo ?? ''}",
-                                          //     "email": artisanModel.email ?? "Not Set",
-                                          //
-                                          //   };
-                                          //   Get.to(() => ArtisanProfileScreen(artisan: artisan));
-                                          // }
+                                          onTap: () {
+                                            final artisanModel = Artisancontroller.getArtisanListModel.value.data?.docs?[index];
+                                            if (artisanModel != null) {
+                                              Get.to(() => ArtisanProfileScreen(artisan: artisanModel));
+                                            }
+                                          },
 
-                                        },
-                                        child: Container(
+                                          child: Container(
                                           margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                                           decoration: BoxDecoration(
                                             color: appColors.cardBackground,

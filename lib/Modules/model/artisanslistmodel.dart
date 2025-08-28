@@ -84,8 +84,8 @@ class Docs {
   String? verifyStatus;
   String? roleName;
   String? userGroup;
-  Null? expertizeField;
-  Null? aadhaarNumber;
+  String? expertizeField;
+  String? aadhaarNumber;
   Null? loginSource;
   Null? platform;
   Null? guestUserId;

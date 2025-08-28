@@ -1,3 +1,4 @@
+import 'package:bhk_employee/common/map_geolocation/mapcontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../screens/dashboardManagement/home_screen.dart';
@@ -22,6 +23,12 @@ class CommonDashController extends GetxController {
     // const ProductScreen(), //index=2
     const MainProfile(), //index=3
   ];
+
+  @override
+  void onInit() {
+    super.onInit();
+    Get.put(LocationController());
+  }
 
   List<BottomNavigationBarItem> bottomNavigationItems = [
     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),

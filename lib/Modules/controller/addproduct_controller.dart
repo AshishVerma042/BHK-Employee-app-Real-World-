@@ -1,9 +1,6 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../Constants/utils.dart';
 import '../../common/CommonMethods.dart';
 import '../../common/common_widgets.dart';
@@ -13,7 +10,6 @@ import '../model/addproductmodel.dart';
 import '../model/getcategorymodel.dart';
 import '../model/getsubcategorymodel.dart';
 import '../repository/addProductRepository.dart';
-import '../repository/availableproductlist.dart';
 
 class AddProductController extends GetxController {
   var selectedIndex = 0.obs;
@@ -237,21 +233,41 @@ final List<String> textureList = [
     }
   }
 
+  // Future<void> getSubCategoryApi() async {
+  //   var connection = await CommonMethods.checkInternetConnectivity();
+  //   Utils.printLog("CheckInternetConnection===> ${connection.toString()}");
+  //
+  //   if (connection == true) {
+  //     setRxRequestStatus(Status.LOADING);
+  //     _api.getsubCategoryApi(selectedcategoryid )
+  //         .then((value) {
+  //           setRxRequestStatus(Status.COMPLETED);
+  //           setgetSubcategoryModeldata(value);
+  //           Utils.printLog("Response===> ${value.toString()}");
+  //         })
+  //         .onError((error, stackTrace) {
+  //           handleApiError(error, stackTrace, setError: setError, setRxRequestStatus: setRxRequestStatus);
+  //         });
+  //   } else {
+  //     CommonMethods.showToast(appStrings.weUnableCheckData);
+  //   }
+  // }
   Future<void> getSubCategoryApi() async {
     var connection = await CommonMethods.checkInternetConnectivity();
     Utils.printLog("CheckInternetConnection===> ${connection.toString()}");
 
     if (connection == true) {
       setRxRequestStatus(Status.LOADING);
-      _api.getsubCategoryApi(selectedcategoryid)
+
+      _api.getsubCategoryApi(selectedcategoryid.value ?? "")
           .then((value) {
-            setRxRequestStatus(Status.COMPLETED);
-            setgetSubcategoryModeldata(value);
-            Utils.printLog("Response===> ${value.toString()}");
-          })
+        setRxRequestStatus(Status.COMPLETED);
+        setgetSubcategoryModeldata(value);
+        Utils.printLog("Response===> ${value.toString()}");
+      })
           .onError((error, stackTrace) {
-            handleApiError(error, stackTrace, setError: setError, setRxRequestStatus: setRxRequestStatus);
-          });
+        handleApiError(error, stackTrace, setError: setError, setRxRequestStatus: setRxRequestStatus);
+      });
     } else {
       CommonMethods.showToast(appStrings.weUnableCheckData);
     }

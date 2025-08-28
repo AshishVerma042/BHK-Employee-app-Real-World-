@@ -14,6 +14,7 @@ import '../../../resources/images.dart';
 import '../../../routes/RoutesClass.dart';
 import '../../controller/artisancontroller.dart';
 import '../../controller/dashboardcontroller.dart';
+import '../artisanManagement/product_detail_page.dart';
 
 class HomeScreen extends ParentWidget {
   const HomeScreen({super.key});
@@ -59,19 +60,19 @@ class HomeScreen extends ParentWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: 20),
-                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Recently Added Artisans", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                              InkWell(
-                                onTap: () {
-                                  Get.find<CommonDashController>().selectedIndex.value = 1;
-                                },
-                                child: const Text("View All",style: TextStyle(fontSize: 14),),
-                              ),
-
-                            ],
-                          ),
-                          SizedBox(height: 4),
+                          // Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Text("Recently Added Artisans", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                          //     InkWell(
+                          //       onTap: () {
+                          //         Get.find<CommonDashController>().selectedIndex.value = 1;
+                          //       },
+                          //       child: const Text("View All",style: TextStyle(fontSize: 14),),
+                          //     ),
+                          //
+                          //   ],
+                          // ),
+                          // SizedBox(height: 4),
                           // ListView.builder(
                           //   shrinkWrap: true,
                           //   physics: NeverScrollableScrollPhysics(),
@@ -80,164 +81,176 @@ class HomeScreen extends ParentWidget {
                           //     return artisanCard(controller.artisansItem[index], Get.find<CommonDashController>());
                           //   },
                           // ),
-                          (Artisancontroller.getArtisanListModel.value.data?.docs?.isEmpty ?? true)
-                              ? Center(
-                            child: Text("No artisans found", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey.shade600),
+                          Column(
+                            children: [ Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Recently Added Artisans", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                                InkWell(
+                                  onTap: () {
+                                    Get.find<CommonDashController>().selectedIndex.value = 1;
+                                  },
+                                  child: const Text("View All",style: TextStyle(fontSize: 14),),
+                                ),
+
+                              ],
                             ),
-                          )
+                          (Artisancontroller.getArtisanListModel.value.data?.docs?.isEmpty ?? true)
+                              ? SizedBox.shrink()
                               : ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: 5,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  // Get.to(() => ArtisanProfileScreen(artisan: artisan));
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.symmetric(vertical: 8, ),
-                                  decoration: BoxDecoration(
-                                    color: appColors.cardBackground,
-                                    borderRadius: BorderRadius.circular(16),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
-                                        blurRadius: 6,
-                                        offset: const Offset(0, 3), // shadow like Card
+                                      shrinkWrap: true,
+                                       physics: NeverScrollableScrollPhysics(),
+                                       itemCount: 5,
+                                       itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      // Get.to(() => ArtisanProfileScreen(artisan: artisan));
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.symmetric(vertical: 8, ),
+                                      decoration: BoxDecoration(
+                                        color: appColors.cardBackground,
+                                        borderRadius: BorderRadius.circular(16),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.1),
+                                            blurRadius: 6,
+                                            offset: const Offset(0, 3), // shadow like Card
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            ClipRRect(
-                                              borderRadius: BorderRadius.circular(50),
-                                              child: Image.asset(
-                                                "assets/images/Profile.png",
-                                                height: 60,
-                                                width: 60,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                            const SizedBox(width: 12),
+                                            Row(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(50),
+                                                  child: Image.asset(
+                                                    "assets/images/Profile.png",
+                                                    height: 60,
+                                                    width: 60,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 12),
 
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      Flexible(
-                                                        child: Text(
-                                                          " ${Artisancontroller.getArtisanListModel.value.data?.docs?[index].firstName?? "Unknown"} ${Artisancontroller.getArtisanListModel.value.data?.docs?[index].lastName?? "Unknown"}",
-                                                          style: const TextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight: FontWeight.w700,
-                                                            color: Colors.black,
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Flexible(
+                                                            child: Text(
+                                                              " ${Artisancontroller.getArtisanListModel.value.data?.docs?[index].firstName?? "Unknown"} ${Artisancontroller.getArtisanListModel.value.data?.docs?[index].lastName?? "Unknown"}",
+                                                              style: const TextStyle(
+                                                                fontSize: 16,
+                                                                fontWeight: FontWeight.w700,
+                                                                color: Colors.black,
+                                                              ),
+                                                            ),
                                                           ),
-                                                        ),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(height: 4),
-                                                  Text(
-                                                    "${Artisancontroller.getArtisanListModel.value.data?.docs?[index].expertizeField?? "Not Set"}",
-                                                    style: const TextStyle(fontSize: 14, color: Colors.black54),
-                                                  ),
-                                                  const SizedBox(height: 6),
-                                                  Text(
-                                                    "BHE ID: ${Artisancontroller.getArtisanListModel.value.data?.docs?[index].id?? 0000 }",
-                                                    style: const TextStyle(fontSize: 13, color: Colors.black87),
-                                                  ),
-                                                  const SizedBox(height: 6),
-                                                  Row(
-                                                    children: [
-                                                      const Icon(Icons.phone, size: 14, color: Colors.black54),
-                                                      const SizedBox(width: 4),
+                                                      const SizedBox(height: 4),
                                                       Text(
-                                                        "${Artisancontroller.getArtisanListModel.value.data?.docs?[index].countryCode?? "XX"} ${Artisancontroller.getArtisanListModel.value.data?.docs?[index].phoneNo?? "XXXXXXXXXX"}",
+                                                        "${Artisancontroller.getArtisanListModel.value.data?.docs?[index].expertizeField?? "Not Set"}",
+                                                        style: const TextStyle(fontSize: 14, color: Colors.black54),
+                                                      ),
+                                                      const SizedBox(height: 6),
+                                                      Text(
+                                                        "BHE ID: ${Artisancontroller.getArtisanListModel.value.data?.docs?[index].id?? 0000 }",
+                                                        style: const TextStyle(fontSize: 13, color: Colors.black87),
+                                                      ),
+                                                      const SizedBox(height: 6),
+                                                      Row(
+                                                        children: [
+                                                          const Icon(Icons.phone, size: 14, color: Colors.black54),
+                                                          const SizedBox(width: 4),
+                                                          Text(
+                                                            "${Artisancontroller.getArtisanListModel.value.data?.docs?[index].countryCode?? "XX"} ${Artisancontroller.getArtisanListModel.value.data?.docs?[index].phoneNo?? "XXXXXXXXXX"}",
+                                                            style: const TextStyle(fontSize: 13, color: Colors.black87),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const SizedBox(height: 6),
+                                                      Text(
+                                                        "${Artisancontroller.getArtisanListModel.value.data?.docs?[index].email?? "Not Set"}",
                                                         style: const TextStyle(fontSize: 13, color: Colors.black87),
                                                       ),
                                                     ],
                                                   ),
-                                                  const SizedBox(height: 6),
-                                                  Text(
-                                                    "${Artisancontroller.getArtisanListModel.value.data?.docs?[index].email?? "Not Set"}",
-                                                    style: const TextStyle(fontSize: 13, color: Colors.black87),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-
-                                            InkWell(
-                                              onTap: () {
-
-                                                Get.toNamed(RoutesClass.gotoAddProductPage());
-                                              }  ,
-                                              child: Container(padding: EdgeInsets.symmetric(vertical: 6,horizontal: 6),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    const Icon(Icons.add, color: Colors.brown, size: 19.0),
-                                                    const SizedBox(width: 2),
-                                                    Text(
-                                                      "Add Product",
-                                                      style: const TextStyle(color: Colors.brown, fontSize: 14),
-                                                    ),
-                                                  ],
                                                 ),
-                                              ),
+
+                                                InkWell(
+                                                  onTap: () {
+
+                                                    Get.toNamed(RoutesClass.gotoAddProductPage());
+                                                  }  ,
+                                                  child: Container(padding: EdgeInsets.symmetric(vertical: 6,horizontal: 6),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        const Icon(Icons.add, color: Colors.brown, size: 19.0),
+                                                        const SizedBox(width: 2),
+                                                        Text(
+                                                          "Add Product",
+                                                          style: const TextStyle(color: Colors.brown, fontSize: 14),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
+                                            // Wrap(
+                                            //   spacing: 8,
+                                            //   runSpacing: 4,
+                                            //   children: List.generate(
+                                            //     artisan['skills'].length,
+                                            //     (index) => Container(
+                                            //       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                                            //       decoration: BoxDecoration(color: Colors.brown.shade50, borderRadius: BorderRadius.circular(20)),
+                                            //       child: Text(
+                                            //         artisan['skills'][index],
+                                            //         style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.brown),
+                                            //       ),
+                                            //     ),
+                                            //   ),
+                                            // ),
+
+                                            const SizedBox(height: 10),
+
+                                            // SizedBox(
+                                            //   height: 30,
+                                            //   child: ListView.builder(
+                                            //     scrollDirection: Axis.horizontal,
+                                            //     itemCount: artisan['skills'].length,
+                                            //     itemBuilder: (context, index) {
+                                            //       var skill = artisan['skills'][index];
+                                            //       return Padding(
+                                            //         padding: const EdgeInsets.only(right: 8.0),
+                                            //         child: skillCard(skill),
+                                            //       );
+                                            //     },
+                                            //   ),
+                                            // ),
+
+                                            progressBarTransparent(controller.rxRequestStatus.value == Status.LOADING, MediaQuery.of(context).size.height, MediaQuery.of(context).size.height),
+
                                           ],
                                         ),
-                                        // Wrap(
-                                        //   spacing: 8,
-                                        //   runSpacing: 4,
-                                        //   children: List.generate(
-                                        //     artisan['skills'].length,
-                                        //     (index) => Container(
-                                        //       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-                                        //       decoration: BoxDecoration(color: Colors.brown.shade50, borderRadius: BorderRadius.circular(20)),
-                                        //       child: Text(
-                                        //         artisan['skills'][index],
-                                        //         style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.brown),
-                                        //       ),
-                                        //     ),
-                                        //   ),
-                                        // ),
-
-                                        const SizedBox(height: 10),
-
-                                        // SizedBox(
-                                        //   height: 30,
-                                        //   child: ListView.builder(
-                                        //     scrollDirection: Axis.horizontal,
-                                        //     itemCount: artisan['skills'].length,
-                                        //     itemBuilder: (context, index) {
-                                        //       var skill = artisan['skills'][index];
-                                        //       return Padding(
-                                        //         padding: const EdgeInsets.only(right: 8.0),
-                                        //         child: skillCard(skill),
-                                        //       );
-                                        //     },
-                                        //   ),
-                                        // ),
-
-                                        progressBarTransparent(controller.rxRequestStatus.value == Status.LOADING, MediaQuery.of(context).size.height, MediaQuery.of(context).size.height),
-
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
+                                  );
+                                                              },
+                                                            ),
+                                ],
+                              ),
 
                           SizedBox(height: 20),
                           Text("Recently Added Artisans Products", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
@@ -608,7 +621,18 @@ Widget myProductCard(Map<String, dynamic> item, {bool isFavorite = false}) {
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: Colors.green)),
-                  commonButton(100, 30,appColors.brownDarkText, Colors.white, (){},hint:"Preview",fontSize: 12,radius: 50),
+                  commonButton(
+                    100,
+                    30,
+                    appColors.brownDarkText,
+                    Colors.white,
+                        () {
+                          Get.to(() => ProductDetailScreen(product: item));
+                          },
+                    hint: "Preview",
+                    fontSize: 12,
+                    radius: 50,
+                  )
                 ],
               ))
 

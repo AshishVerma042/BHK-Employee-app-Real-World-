@@ -116,6 +116,7 @@ Widget commonTextField(
       dynamic error,
       dynamic maxLines = 1,
       bool readonly = false,
+      bool isCounter = false,
       void Function(String)? onChange,
       double radius = 8,
       double borderWidth = 1,
@@ -152,7 +153,7 @@ Widget commonTextField(
             borderRadius: BorderRadius.circular(radius),
             borderSide: BorderSide(color: isWhite ? Colors.white : appColors.border, width:borderWidth),
           ),
-          counterText: "",
+          counterText: isCounter?null:"",
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(radius),
             borderSide: BorderSide(color: isWhite ? Colors.white : appColors.border, width:borderWidth),

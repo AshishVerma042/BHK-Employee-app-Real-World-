@@ -1,4 +1,5 @@
 
+import 'package:bhk_employee/Modules/screens/artisanManagement/artisan_search_screen.dart';
 import 'package:bhk_employee/Modules/screens/artisanManagement/product_screen.dart';
 import 'package:get/get.dart';
 import '../Modules/screens/artisanManagement/add_product_screen.dart';
@@ -48,8 +49,10 @@ class RoutesClass {
   static String registration = '/registration';
   static String addProductScreen = '/addProductScreen';
   static String productDetailsScreen = "/productDetail";
+  static String artisanSearchScreen = "/artisanSearchScreen";
 
   //BR1
+  static String gotoArtisanSearchScreen() => artisanSearchScreen;
   static String gotoProductDetailsScreen() => productDetailsScreen;
   static String gotoSplash() => splash;
   static String gotoDashboardScreen() => dashboard;
@@ -98,6 +101,11 @@ class RoutesClass {
       page: () => SettingProfile(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 300),
+    ), GetPage(
+      name: artisanSearchScreen,
+      page: () => ArtisanSearchScreen(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
       name: support,
@@ -119,10 +127,11 @@ class RoutesClass {
     ),
     GetPage(
       name: productDetailsScreen,
-      page: () => ProductDetailScreen(
-        product: Get.arguments,
-      ),
+      page: () => ProductDetailScreen(product: Get.arguments),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 300),
     ),
+
     GetPage(
       name: products,
       page: () => ProductScreen(),

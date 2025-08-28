@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bhk_employee/Modules/controller/artisancontroller.dart';
+import 'package:bhk_employee/common/map_geolocation/mapcontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Constants/utils.dart';
@@ -52,6 +53,8 @@ class RegistrationController extends GetxController {
   var phoneFocusNode = FocusNode().obs;
   var addressFocusNode = FocusNode().obs;
 
+  LocationController locationController = Get.put(LocationController());
+
   final _api = RegistrationRepository();
 
   var countryCode = "".obs;
@@ -64,7 +67,6 @@ class RegistrationController extends GetxController {
   RxString error = ''.obs;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   void setRegistrationData(ArtisanRegistrationModel value) => artisanRegistrationData.value = value;
-  var referenceId = 0.obs;
 
   var textFieldFocusNode = FocusNode().obs;
 
@@ -88,6 +90,8 @@ class RegistrationController extends GetxController {
         "phoneNo": phoneController.value.text,
         "countryCode": countryCode.value,
         "expertizeField": selectedExpertise.value,
+        "longitude":locationController.longitude.value,
+        "latitude":locationController.latitude.value
         // "aadharNumber": addressController.value.text,
       };
       Utils.printLog(data);
@@ -98,8 +102,6 @@ class RegistrationController extends GetxController {
             setRegistrationData(value);
             CommonMethods.showToast("${value.message}");
             Utils.printLog("Response===> ${value.toString()}");
-            referenceId.value = value.data?.referenceId ?? 0;
-            Utils.printLog("ReferenceId saved => ${referenceId.value}");
             print("redirect");
           })
           .onError((error, stackTrace) {
@@ -183,7 +185,7 @@ class RegistrationController extends GetxController {
 
     if (connection) {
       setRxRequestStatus(Status.LOADING);
-      Map<String, dynamic> data = {"referenceId": referenceId.value, "otp": otp.value.toString()};
+      Map<String, dynamic> data = {"referenceId": artisanRegistrationData.value.data?.referenceId, "otp": otp.value.toString()};
       _api
           .verifyOtpApi(data)
           .then((value) {
@@ -219,6 +221,7 @@ class RegistrationController extends GetxController {
 
   bool status = true;
   bool isprofileimage = false;
+
   Future<void> profileRefresh() async {
     await Future.delayed(const Duration(seconds: 1));
     selectedExpertise.value = "";
@@ -237,23 +240,6 @@ class RegistrationController extends GetxController {
     artisansRegister(context);
     Get.snackbar("OTP", "New OTP has been sent to your phone");
   }
-
-  openProductVideos(context) async {
-    try {
-      final video = await ImagePicker().pickVideo(source: ImageSource.gallery);
-
-      if (video == null) return;
-
-      final videoTemp = File(video.path);
-
-      videofiles.value = videoTemp;
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
-    }
-  }
-
-
-
 
 
   void verifyOtp(BuildContext context) {
@@ -291,12 +277,8 @@ class RegistrationController extends GetxController {
   //     referenceId.value = 0;
   //   }
   // }
-  @override
-  void onInit() {
-    super.onInit();
-
-    if (Get.arguments != null && Get.arguments is Map && Get.arguments.containsKey("referenceId")) {
-      referenceId.value = Get.arguments["referenceId"];
-    }
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  // }
 }

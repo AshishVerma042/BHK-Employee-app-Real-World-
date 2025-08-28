@@ -12,9 +12,10 @@ import '../../../resources/appconstants.dart';
 import '../../../resources/colors.dart';
 import '../../../routes/RoutesClass.dart';
 import '../../controller/dashboardcontroller.dart';
+import '../../model/artisanslistmodel.dart';
 
 class ArtisanProfileScreen extends ParentWidget {
-  final Map<String, dynamic> artisan;
+  final Docs artisan;
   const ArtisanProfileScreen({super.key, required this.artisan});
 
   @override
@@ -69,7 +70,7 @@ class ArtisanProfileScreen extends ParentWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  artisan['name'] ?? "Unknown",
+                                  "${artisan.firstName  ?? "Unknown"}${artisan.lastName  ?? "Unknown" }",
                                   style: const TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold,
@@ -87,7 +88,7 @@ class ArtisanProfileScreen extends ParentWidget {
                                             size: 16,
                                             color: Colors.grey[700]),
                                         6.kW,
-                                        Text("ID: ${artisan['id'] ?? 'ART000'}"),
+                                        Text("ID: ${artisan.id ?? 'ART000'}"),
                                       ],
                                     ),
                                     20.kW,
@@ -97,7 +98,7 @@ class ArtisanProfileScreen extends ParentWidget {
                                             size: 16,
                                             color: Colors.grey[700]),
                                         6.kW,
-                                        Text(artisan['gender'] ?? "Female"),
+                                        Text(artisan.expertizeField ?? "Female"),
                                       ],
                                     ),
                                   ],
@@ -114,7 +115,7 @@ class ArtisanProfileScreen extends ParentWidget {
                                         const Icon(Icons.phone,
                                             size: 16, color: Colors.black54),
                                         6.kW,
-                                        Text(artisan['phone'] ??
+                                        Text(artisan.phoneNo ??
                                             "+91 0000000000"),
                                       ],
                                     ),
@@ -125,7 +126,7 @@ class ArtisanProfileScreen extends ParentWidget {
                                         const Icon(Icons.email,
                                             size: 16, color: Colors.black54),
                                         6.kW,
-                                        Text(artisan['email'] ??
+                                        Text(artisan.email ??
                                             "example@gmail.com"),
                                       ],
                                     ),
@@ -135,7 +136,7 @@ class ArtisanProfileScreen extends ParentWidget {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    "Expertise - ${artisan['expertize'] ?? "Handloom"}",
+                                    "Expertise - ${artisan.expertizeField ?? "Handloom"}",
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -155,7 +156,7 @@ class ArtisanProfileScreen extends ParentWidget {
                                 ),
                                 6.kH,
                                 Text(
-                                  artisan['skillsDesc'] ??
+
                                       "Beautifully crafted design, branding, and creative direction.",
                                   style:
                                   const TextStyle(color: Colors.black54),
@@ -361,7 +362,8 @@ Widget myProductCard(Map<String, dynamic> item, {bool isFavorite = false}) {
                 ),
                 Center(
                   child: commonButton(double.infinity, 35,
-                      appColors.brownDarkText, Colors.white, () {Get.toNamed(RoutesClass.gotoProductDetailsScreen());},
+                      appColors.brownDarkText, Colors.white, () {Get.to(() => ProductDetailScreen(product: item));
+                      },
                       hint: "Preview", fontSize: 15, radius: 50),
                 )
               ],

@@ -5,6 +5,8 @@ import 'package:geocoding/geocoding.dart' as geo;   // 👈 prefix
 
 class LocationController extends GetxController {
   var location = "Fetching location...".obs;
+  var longitude = 0.0.obs;
+  var latitude = 0.0.obs;
 
   @override
   void onInit() {
@@ -40,19 +42,26 @@ class LocationController extends GetxController {
         desiredAccuracy: LocationAccuracy.best,
       );
 
-      // Convert coordinates to address (from geocoding package)
-      List<geo.Placemark> placemarks =
-      await geo.placemarkFromCoordinates(pos.latitude, pos.longitude);
+      longitude.value = pos.longitude;
+      latitude.value = pos.latitude;
 
-      if (placemarks.isNotEmpty) {
-        final place = placemarks.first;
-        location.value =
-        "${place.street}, ${place.subLocality}, ${place.locality}, ${place.administrativeArea}, ${place.country}";
-        debugPrint("location===>$place");
+      print("location==>${location.value}");
 
-      } else {
-        location.value = "No address available";
-      }
+      print("longitude==>${longitude.value} latitude==>${latitude.value}");
+
+      // // Convert coordinates to address (from geocoding package)
+      // List<geo.Placemark> placemarks =
+      // await geo.placemarkFromCoordinates(pos.latitude, pos.longitude);
+      //
+      // if (placemarks.isNotEmpty) {
+      //   final place = placemarks.first;
+      //   location.value =
+      //   "${place.street}, ${place.subLocality}, ${place.locality}, ${place.administrativeArea}, ${place.country}";
+      //   debugPrint("location===>$place");
+      //
+      // } else {
+      //   location.value = "No address available";
+      // }
     } catch (e) {
       location.value = "Error: $e";
     }
