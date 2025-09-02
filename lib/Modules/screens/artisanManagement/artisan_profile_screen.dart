@@ -1,16 +1,12 @@
-
-
 import 'package:bhk_employee/Modules/screens/artisanManagement/product_detail_page.dart';
 import 'package:bhk_employee/utils/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-
 import '../../../common/common_widgets.dart';
 import '../../../main.dart';
 import '../../../resources/appconstants.dart';
 import '../../../resources/colors.dart';
-import '../../../routes/RoutesClass.dart';
 import '../../controller/dashboardcontroller.dart';
 import '../../model/artisanslistmodel.dart';
 
@@ -40,6 +36,18 @@ class ArtisanProfileScreen extends ParentWidget {
                     ),
                   ),
                 ),
+                Positioned(
+                  top: 40,
+                  left: 16,
+                  child: GestureDetector(
+                    onTap: () => Get.back(),
+                    child:  Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                      size: 28,
+                    ),
+                  ),
+                ),
 
                 Positioned(
                   bottom: -190,
@@ -51,8 +59,8 @@ class ArtisanProfileScreen extends ParentWidget {
                         clipBehavior: Clip.none,
                         children: [
                           Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 16),
-                            padding: const EdgeInsets.only(
+                            margin:  EdgeInsets.symmetric(horizontal: 16),
+                            padding:  EdgeInsets.only(
                                 top: 70, left: 20, right: 20, bottom: 20),
                             decoration: BoxDecoration(
                               color: appColors.cardBackground,
@@ -266,8 +274,8 @@ Widget myProductCard(Map<String, dynamic> item, {bool isFavorite = false}) {
                 children: [
                   Container(
                     padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                    decoration: const BoxDecoration(
+                     EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                    decoration:  BoxDecoration(
                       color: Colors.green,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(14),
@@ -275,7 +283,7 @@ Widget myProductCard(Map<String, dynamic> item, {bool isFavorite = false}) {
                       ),
                     ),
                     child: Row(
-                      children: const [
+                      children:  [
                         Icon(Icons.check, size: 16, color: Colors.white),
                         SizedBox(width: 2),
                         Text("verified",
@@ -290,7 +298,7 @@ Widget myProductCard(Map<String, dynamic> item, {bool isFavorite = false}) {
                       isFavorite = !isFavorite;
                     },
                     child: Container(
-                      padding: const EdgeInsets.all(6),
+                      padding:  EdgeInsets.all(6),
                       decoration: BoxDecoration(
                         color: Colors.black.withOpacity(0.3),
                         shape: BoxShape.circle,
@@ -308,9 +316,9 @@ Widget myProductCard(Map<String, dynamic> item, {bool isFavorite = false}) {
           ),
         ),
         Container(
-          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+          padding:  EdgeInsets.symmetric(vertical: 2, horizontal: 2),
           decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
+            borderRadius:  BorderRadius.only(
               bottomRight: Radius.circular(16),
               bottomLeft: Radius.circular(16),
             ),
@@ -323,7 +331,7 @@ Widget myProductCard(Map<String, dynamic> item, {bool isFavorite = false}) {
           ),
           child: Padding(
             padding:
-            const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
+             EdgeInsets.symmetric(horizontal: 4, vertical: 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -334,7 +342,7 @@ Widget myProductCard(Map<String, dynamic> item, {bool isFavorite = false}) {
                     Expanded(
                       child: Text(
                         item['name'],
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontSize: 15,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

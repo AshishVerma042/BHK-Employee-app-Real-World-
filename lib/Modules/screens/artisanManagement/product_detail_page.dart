@@ -2,8 +2,7 @@ import 'package:bhk_employee/main.dart';
 import 'package:bhk_employee/utils/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:linear_progress_bar/linear_progress_bar.dart';
 import '../../../resources/appconstants.dart';
 import '../../../resources/colors.dart';
 import '../../controller/product_Details_controller.dart';
@@ -15,300 +14,245 @@ class ProductDetailScreen extends ParentWidget {
 
   @override
   Widget buildingView(BuildContext context, double h, double w) {
-    final ProductController controller = Get.put(ProductController());
+    final ProductController productController = Get.put(ProductController(image: product['image']));
 
-    return Scaffold(
-      backgroundColor: appColors.backgroundColor,
-      appBar:  AppBar(
-        flexibleSpace: Container(decoration: const BoxDecoration(gradient: AppConstants.customGradient)),
-        iconTheme: const IconThemeData(color: Colors.white),
-        title:   Text(
-          product['name'] ?? "Product",
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
+    // final List<String> images = [
+    //   product['image'] ?? "assets/images/ArticianImage1.jpg",
+    //   "assets/images/ArticianImage1.jpg",
+    //   "assets/images/ArticianImage4.jpg",
+    //   "assets/images/ArticianImage1.jpg",
+    //   "assets/images/ArticianImage4.jpg",
+    //   "assets/images/ArticianImage1.jpg",
+    //   "assets/images/ArticianImage4.jpg",
+    //   "assets/images/ArticianImage1.jpg",
+    //   "assets/images/ArticianImage4.jpg"
+    // ];
+
+    return DefaultTabController(
+      length: productController.imagesfetch.length,
+      child: Scaffold(
+        backgroundColor: appColors.backgroundColor,
+        appBar: AppBar(
+          flexibleSpace: Container(
+              decoration:
+               BoxDecoration(gradient: AppConstants.customGradient)),
+          iconTheme:  IconThemeData(color: Colors.white),
+          title: Text(
+            product['name'] ?? "Product",
+            style:  TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w600),
           ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
 
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-
-            Stack(
-              children: [
-                AspectRatio(
-                  aspectRatio: 1,
-                  child: ClipRRect(
-                    child: Image.asset(
-                      product['image'] ?? "assets/images/placeholder.png",
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-
-                Positioned(
-                  bottom: 12,
-                  left: 0,
-                  right: 0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(product.length, (index) {
-                      return Container(
-                        margin:  EdgeInsets.symmetric(horizontal: 4),
-                        height: 8,
-                        width: 8,
-                        decoration: BoxDecoration(
-                          color: index == 0 ? Colors.white : Colors.white.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                      );
-                    }),
-                  ),
-                ),
-              ],
-            ),
-        SizedBox(height: 4,),
-        SizedBox(
-          height: 80,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: product.length,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () => controller.selectedIndex.value = index,
-                child: Obx(
-                      () => Container(
-                    margin:  EdgeInsets.symmetric(horizontal: 6),
-                    padding:  EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: controller.selectedIndex.value == index
-                            ? Colors.brown
-                            : Colors.transparent,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child:  ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                      child: Image.asset(
-                        product['image'] ?? "assets/images/placeholder.png",
-                        fit: BoxFit.cover,
+              SizedBox(
+                height: 510,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: TabBarView(
+                        children: productController.imagesfetch.map((img) {
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 16,left: 16.0,top: 16),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(16)),
+                              child: Image.asset(
+                                img,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
+                            ),
+                          );
+                        }).toList(),
                       ),
                     ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0,right: 8,top: 20),
-              child: Text(
-                product['name'] ?? "Unknown Product",
-                style:  TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  height: 1.3,
-                ),
-              ),
-            ),
+                    SizedBox(height: 8),
 
-
-
-
-            Container(
-              padding:  EdgeInsets.only(left: 16,right: 16,bottom: 16,top: 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-
-                   SizedBox(height: 14),
-
-                  Text(
-                    product['description'] ??
-                        "This is a high-quality handcrafted product by skilled artisans. Perfect for gifting and daily use.",
-                    style:  TextStyle(
-                      fontSize: 15,
-                      color: Colors.black87,
-                      height: 1.5,
-                    ),
-                  ),
-                  20.kH,
-                  Row(
-                    children: [
-                      Text(
-                        "Rs. ${product['price'] ?? "0"}",
-                        style:  TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green,
+                    SizedBox(
+                      height: 80,
+                      child: Padding(
+                        padding:  EdgeInsets.only(left: 12.0),
+                        child: TabBar(
+                          labelPadding: EdgeInsets.symmetric(horizontal: 1),
+                          isScrollable: true,
+                          tabAlignment: TabAlignment.start,
+                          dividerColor: Colors.transparent,
+                          indicator: BoxDecoration(
+                            border: Border.all(color: Colors.brown, width: 2),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          tabs: productController.imagesfetch.map((img) {
+                            return Padding(padding: EdgeInsets.symmetric(horizontal: 6.0,vertical: 4),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.asset(
+                                  img,
+                                  height: 70,
+                                  width: 70,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            );
+                          }).toList(),
                         ),
                       ),
-                      4.kW,
-                      Text("MRP",style: TextStyle(fontSize: 12),)
-                    ],
-                  ),
-                  Text("Including all the texes",style: TextStyle(fontSize: 12),)
-                ],
-              ),
-            ),
-            Divider(
-              thickness: 3,
-              color: Colors.grey[300],
-              indent: 10,
-              endIndent: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal:  8.0),
-              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Available Quantity",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                  Container(height: 25, width: 40,decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(4)),color: Colors.transparent,border: Border.all(color: Colors.red,width: 1)),
-                  child: Center(child: Text('20')),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(height: 20,),
-            Container(
-              margin:  EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-              padding:  EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                   Text(
-                    "Product Details",
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
                     ),
-                  ),
-                   SizedBox(height: 12),
-                  detailRow("Category", product['category'] ?? "Handloom"),
-                  detailRow("Material", product['material'] ?? "Cotton"),
-                  detailRow("Size", product['size'] ?? "Medium"),
-                  detailRow("Stock", product['stock'] ?? "Available"),
-                  detailRow("Dimension", product['stock'] ?? '8" X 8" X 16"'),
-                  detailRow("NetWeight", product['stock'] ?? '850gm'),
-                ],
+                  ],
+                ),
               ),
-            ),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text("Quality Assurance",
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                      Column(crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Quality Score",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black)),
-                          Text(" 9.2/10",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.green)),
-                        ],
+              Padding(
+                padding:
+                 EdgeInsets.only(left: 14.0, right: 14, top: 40),
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product['name'] ?? "Unknown Product",
+                      style:  TextStyle(
+                        fontSize: 21,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        height: 1.3,
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 18),
-                  Column(
-                    children:  [
-                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconText( Icons.check,  "Authenticity Verified"),
-                          IconText( Icons.check, "Quality Inspected"),
-                        ],
+                    ),
+                    Text(
+                      product['description'] ??
+                          "This is a high-quality handcrafted product by skilled artisans. Perfect for gifting and daily use.",
+                      style:  TextStyle(
+                        fontSize: 15,
+                        color: Colors.black87,
+                        height: 1.5,
                       ),
-                      16.kH,
-
-                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconText( Icons.check,  "Damage Protection"),
-                          IconText( Icons.check,  "Insured Shipping"),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                    20.kH,
+                    Row(
+                      children: [
+                        Text(
+                          "₹ ${product['price'] ?? "0"}",
+                          style:  TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        5.kW,
+                        Text("MRP",
+                            style: TextStyle(fontSize: 13)),
+                      ],
+                    ),
+                    Text("Including all the taxes",
+                        style: TextStyle(fontSize: 13)),
+                  ],
+                ),
               ),
-            ),
 
-            const SizedBox(height: 20),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("Quality Inspection Report",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 12),
-                  reportRow("Craftsmanship", "Excellent"),
-                  reportRow("Material Grade", "Premium"),
-                  reportRow("Finish Quality", "Superior"),
-                  reportRow("Structural Integrity", "Perfect"),
-                ],
+              Divider(
+                thickness: 3,
+                color: Colors.grey[300],
+                indent: 14,
+                endIndent: 14,
               ),
-            ),
-            30.kH
-          ],
+
+              Padding(
+                padding:
+                 EdgeInsets.symmetric(horizontal: 20.0,vertical: 12),
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                         Text("Available Quantity",
+                            style: TextStyle(
+                                fontSize: 21,
+                                fontWeight: FontWeight.bold)),
+                        Container(
+                          height: 28,
+                          width: 50,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                  color: Colors.brown, width: 1.6)),
+                          child:  Center(child: Text('20')),
+                        )
+                      ],
+                    ),
+                    28.kH,
+                    Text(
+                      "Product Details",
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                    12.kH,
+                    detailRow("Material", "High-grade ceramic with natural clay base"),
+                    detailRow("NetWeight", '850gm'),
+                    detailRow("Art Technique", "Traditional pottery wheel throwing"),
+                    detailRow("Dimension", '8\" X 8\" X 16\"'),
+
+                    detailRow("Texture", "Matte glazed finish with textured bands"),
+                    detailRow("Pattern", "Geometric relief patterns with organic motifs"),
+                    8.kH,
+                    Text("Care Instructions",style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500,color: Colors.black45),),
+                    2.kH,
+                    Container(margin: EdgeInsets.symmetric(vertical: 12),height: 60,width: double.infinity,decoration: BoxDecoration(
+                        color:Color.fromARGB(27, 96, 61, 1) ,borderRadius: BorderRadius.all(Radius.circular(12))
+                    ),
+                      child: Center(child: Text("Hand wash with mild soap, avoid abrasive cleaners",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),)),
+                    ),
+                    20.kH,
+                   auction(context),
+                    28.kH,
+                    assurance(),
+                    28.kH,
+                    inspectionReport(),
+                    18.kH
+                  ],
+                ),
+              ),
+
+            ],
+          ),
         ),
       ),
     );
   }
 
-
-
   Widget detailRow(String title, String value) {
     return Padding(
       padding:  EdgeInsets.symmetric(vertical: 8),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style:  TextStyle(fontSize: 14, color: Colors.black54),
-          ),
+          Text(title,
+              style:  TextStyle(fontSize: 14, fontWeight: FontWeight.w500,color: Colors.black45)),
           2.kH,
-          Text(
-            value,
-            style:  TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
-          ),
+          Text(value,
+              style:  TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black)),
         ],
       ),
     );
   }
 }
 
-
-Widget IconText(IconData icon, String text) {
+Widget IconText(String text) {
   return Row(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Icon(icon, color: Colors.green, size: 18),
-      SizedBox(width: 6),
-      Text(text, style:  TextStyle(fontSize: 14)),
+       Icon(Icons.task_alt_sharp,
+          color: Colors.green, size: 18),
+       SizedBox(width: 6),
+      Text(text, style:  TextStyle(fontSize: 14,fontWeight: FontWeight.w500)),
     ],
   );
 }
@@ -319,11 +263,211 @@ Widget reportRow(String title, String value) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style:  TextStyle(fontSize: 14, color: Colors.black54)),
+        Text(title,
+            style:
+             TextStyle(fontSize: 15,fontWeight: FontWeight.bold, color: Colors.black45)),
         Text(value,
             style:  TextStyle(
-                fontSize: 14, fontWeight: FontWeight.w600, color: Colors.green)),
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+                color: Colors.green)),
       ],
     ),
+  );
+}
+
+Widget auction (context){
+  return Column(
+    children: [
+      Row(
+        children: [
+          Text("Live Auction",style: TextStyle(fontSize: 21,fontWeight: FontWeight.bold),),
+          4.kW,
+          Container(height: 12,width: 12,decoration: BoxDecoration(color: Colors.red,borderRadius: BorderRadius.all(Radius.circular(16))),)
+        ],
+      ),
+      Container(
+        margin:  EdgeInsets.only(top: 12),
+        decoration: BoxDecoration(
+          color:  Color.fromARGB(27, 96, 61, 1),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: ListTile(
+          contentPadding:  EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          leading: ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: Image.asset(
+              "assets/images/Profile.png",
+              height: 50,
+              width: 46,
+              fit: BoxFit.cover,
+            ),
+          ),
+          title: Row(
+            children: [
+              Text(
+                "Alex Chen",
+                style:  TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: Colors.black,
+                ),
+              ),
+               SizedBox(width: 6),
+              Container(
+                padding:  EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: Colors.green.shade50,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child:  Text(
+                  "Latest Bid",
+                  style: TextStyle(color: Colors.green,fontSize: 11, fontWeight: FontWeight.w500),
+                ),
+              ),
+            ],
+          ),
+          subtitle:  Text(
+            "2 minutes ago",
+            style: TextStyle( color: Colors.black54),
+          ),
+          trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children:  [
+              Text(
+                "₹258",
+                style: TextStyle(
+                  color: Colors.brown,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 2),
+              Text(
+                "Current Highest",
+                style: TextStyle(fontSize: 14, color: Colors.black54),
+              ),
+            ],
+          ),
+          onTap: () {
+          },
+        ),
+      ),
+      12.kH,
+      Container(
+        margin:  EdgeInsets.only(top: 12),
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color:  Color.fromARGB(27, 96, 61, 1),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.gavel,color: Colors.brown,size: 18,),2.kW,
+                    Text("Auction End in:",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),
+                  ],
+                ),
+              Text("1h 56m 20s",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500))],
+            ),
+            10.kH,
+            LinearProgressBar(
+              maxSteps: 6,
+              progressType: LinearProgressBar.progressTypeLinear,
+              currentStep: 1,
+              progressColor:  appColors.brownDarkText,
+              backgroundColor: Colors.black12,
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+            )
+             ,
+            // Stack(
+            //   children: [
+            //     Container(
+            //       height: 10,decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(16)),color: Colors.black12 ),
+            //     ),
+            //     Positioned(
+            //         child: Container(
+            //           height: 10,width: MediaQuery.of(context).size.width*0.7,decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(16)),gradient: AppConstants.customGradientForBar ),
+            //         )
+            //     )
+            //   ],
+            // ),
+
+          ],
+        ),
+      ),
+    ],
+  );
+}
+Widget assurance (){
+  return Column(
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children:  [
+          Text("Quality Assurance",
+              style: TextStyle(
+                  fontSize: 21,
+                  fontWeight: FontWeight.bold)),
+          Column(
+            crossAxisAlignment:
+            CrossAxisAlignment.start,
+            children: [
+              Text("Quality Score",
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black)),
+              Text("9.2/10",
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.green)),
+            ],
+          ),
+        ],
+      ),
+      18.kH,
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IconText("Authenticity Verified"),
+              16.kH,
+              IconText("Damage Protection"),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IconText("Quality Inspected"),
+              16.kH,
+              IconText("Insured Shipping"),
+            ],
+          ),
+        ],
+      ),
+    ],
+  );
+}
+Widget inspectionReport(){
+  return Column(crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text("Quality Inspection Report",
+          style: TextStyle(
+              fontSize: 21,
+              fontWeight: FontWeight.bold)),
+      8.kH,
+      reportRow("Craftsmanship", "Excellent"),
+      reportRow("Material Grade", "Premium"),
+      reportRow("Finish Quality", "Superior"),
+      reportRow("Structural Integrity", "Perfect"),
+
+    ],
   );
 }

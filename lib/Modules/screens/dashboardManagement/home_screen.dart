@@ -99,7 +99,11 @@ class HomeScreen extends ParentWidget {
                               : ListView.builder(
                                       shrinkWrap: true,
                                        physics: NeverScrollableScrollPhysics(),
-                                       itemCount: 5,
+                                       itemCount: Artisancontroller.getArtisanListModel.value.data?.docs == null
+                                           ? 0
+                                           : (Artisancontroller.getArtisanListModel.value.data!.docs!.length > 5
+                                           ? 5
+                                           : Artisancontroller.getArtisanListModel.value.data!.docs!.length) ,
                                        itemBuilder: (context, index) {
                                   return InkWell(
                                     onTap: () {
@@ -114,7 +118,7 @@ class HomeScreen extends ParentWidget {
                                           BoxShadow(
                                             color: Colors.black.withOpacity(0.1),
                                             blurRadius: 6,
-                                            offset: const Offset(0, 3), // shadow like Card
+                                            offset: const Offset(0, 3),
                                           ),
                                         ],
                                       ),
@@ -518,10 +522,138 @@ PreferredSizeWidget topAppBar(){
 //     ),
 //   );
 // }
+// Widget myProductCard(Map<String, dynamic> item, {bool isFavorite = false}) {
+//   return Container(
+//     width: double.infinity,
+//     decoration: BoxDecoration(
+//       border: Border.all(color: Colors.grey.shade300),
+//       borderRadius: BorderRadius.circular(16),
+//       color: Colors.white,
+//       boxShadow: [
+//         BoxShadow(
+//           color: Colors.black.withOpacity(0.05),
+//           blurRadius: 6,
+//           offset: const Offset(0, 3),
+//         ),
+//       ],
+//     ),
+//     child: Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Padding(
+//           padding: const EdgeInsets.all(6.0),
+//           child: Stack(
+//             children: [
+//               ClipRRect(
+//                 borderRadius: const BorderRadius.all( Radius.circular(16)),
+//                 child: Image.asset(
+//                   item['image'],
+//                   width: double.infinity,
+//                   height: 160,
+//                   fit: BoxFit.cover,
+//                 ),
+//               ),
+//               Positioned(
+//                 top: 10,
+//                 right: 10,
+//                 child: GestureDetector(
+//                   onTap: () {
+//                     isFavorite = !isFavorite;
+//                   },
+//                   child: Container(
+//                     padding: const EdgeInsets.all(6),
+//                     decoration: BoxDecoration(
+//                       color: Colors.black.withOpacity(0.3),
+//                       shape: BoxShape.circle,
+//                     ),
+//                     child: Icon(
+//                       isFavorite ? Icons.favorite : Icons.favorite_border,
+//                       color: isFavorite ? Colors.red : Colors.white,
+//                       size: 20,
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//         Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 0),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   Expanded(
+//                     child: Text(
+//                       item['name'],
+//                       style: const TextStyle(
+//                         fontSize: 15,
+//                         color: Colors.brown,
+//                         fontWeight: FontWeight.bold,
+//                       ),
+//                       maxLines: 1,
+//                       overflow: TextOverflow.ellipsis,
+//                     ),
+//                   ),
+//                   Row(
+//                     children: const [
+//                       Icon(Icons.star, size: 16, color: Colors.orange),
+//                       SizedBox(width: 4),
+//                       Text("4.8", style: TextStyle(fontSize: 13)),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//
+//               SizedBox(height: 2),
+//               // Text(item['category'],
+//               //     style: const TextStyle(fontSize: 13, color: Colors.black54)),
+//               // const SizedBox(height: 2),
+//
+//                   Row(
+//                     children: [Icon(Icons.workspace_premium,color: Colors.orangeAccent,size: 16,),
+//                       Text(item['category'],
+//                           style: const TextStyle(fontSize: 12, color: Colors.black54)),
+//                     ],
+//                   ),
+//
+//               Center(child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [Text("₹${item['price']}",
+//                     style: const TextStyle(
+//                         fontSize: 14,
+//                         fontWeight: FontWeight.bold,
+//                         color: Colors.green)),
+//                   commonButton(
+//                     100,
+//                     30,
+//                     appColors.brownDarkText,
+//                     Colors.white,
+//                         () {
+//                           Get.to(() => ProductDetailScreen(product: item));
+//                           },
+//                     hint: "Preview",
+//                     fontSize: 12,
+//                     radius: 50,
+//                   )
+//                 ],
+//               ))
+//
+//             ],
+//           ),
+//         ),
+//       ],
+//     ),
+//   );
+// }
+
 Widget myProductCard(Map<String, dynamic> item, {bool isFavorite = false}) {
   return Container(
     width: double.infinity,
     decoration: BoxDecoration(
+      image: DecorationImage(
+          image: AssetImage(item['image']), fit: BoxFit.cover),
       border: Border.all(color: Colors.grey.shade300),
       borderRadius: BorderRadius.circular(16),
       color: Colors.white,
@@ -535,108 +667,119 @@ Widget myProductCard(Map<String, dynamic> item, {bool isFavorite = false}) {
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
           padding: const EdgeInsets.all(6.0),
           child: Stack(
             children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.all( Radius.circular(16)),
-                child: Image.asset(
-                  item['image'],
-                  width: double.infinity,
-                  height: 160,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Positioned(
-                top: 10,
-                right: 10,
-                child: GestureDetector(
-                  onTap: () {
-                    isFavorite = !isFavorite;
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.3),
-                      shape: BoxShape.circle,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                    decoration:  BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(14),
+                        bottomRight: Radius.circular(14),
+                      ),
                     ),
-                    child: Icon(
-                      isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: isFavorite ? Colors.red : Colors.white,
-                      size: 20,
+                    child: Row(
+                      children:  [
+                        Icon(Icons.check, size: 16, color: Colors.white),
+                        SizedBox(width: 2),
+                        Text("verified",
+                            style:
+                            TextStyle(fontSize: 10, color: Colors.white)),
+                        SizedBox(width: 2),
+                      ],
                     ),
                   ),
-                ),
+                  GestureDetector(
+                    onTap: () {
+                      isFavorite = !isFavorite;
+                    },
+                    child: Container(
+                      padding:  EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.3),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: isFavorite ? Colors.red : Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      item['name'],
-                      style: const TextStyle(
-                        fontSize: 15,
-                        color: Colors.brown,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Row(
-                    children: const [
-                      Icon(Icons.star, size: 16, color: Colors.orange),
-                      SizedBox(width: 4),
-                      Text("4.8", style: TextStyle(fontSize: 13)),
-                    ],
-                  ),
-                ],
-              ),
-
-              SizedBox(height: 2),
-              // Text(item['category'],
-              //     style: const TextStyle(fontSize: 13, color: Colors.black54)),
-              // const SizedBox(height: 2),
-            
-                  Row(
-                    children: [Icon(Icons.workspace_premium,color: Colors.orangeAccent,size: 16,),
-                      Text(item['category'],
-                          style: const TextStyle(fontSize: 12, color: Colors.black54)),
-                    ],
-                  ),
-
-              Center(child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text("₹${item['price']}",
-                    style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green)),
-                  commonButton(
-                    100,
-                    30,
-                    appColors.brownDarkText,
-                    Colors.white,
-                        () {
-                          Get.to(() => ProductDetailScreen(product: item));
-                          },
-                    hint: "Preview",
-                    fontSize: 12,
-                    radius: 50,
-                  )
-                ],
-              ))
-
+        Container(
+          padding:  EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+          decoration: BoxDecoration(
+            borderRadius:  BorderRadius.only(
+              bottomRight: Radius.circular(16),
+              bottomLeft: Radius.circular(16),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.6),
+                blurRadius: 6,
+              )
             ],
+          ),
+          child: Padding(
+            padding:
+            EdgeInsets.symmetric(horizontal: 4, vertical: 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        item['name'],
+                        style:  TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          shadows: [
+                            Shadow(color: Colors.grey, blurRadius: 5)
+                          ],
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 2),
+                Row(
+                  children: [
+                    const Icon(Icons.workspace_premium,
+                        color: Colors.white70, size: 16),
+                    Text(item['category'],
+                        style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white70)),
+                  ],
+                ),
+                Center(
+                  child: commonButton(double.infinity, 35,
+                      appColors.brownDarkText, Colors.white, () {Get.to(() => ProductDetailScreen(product: item));
+                      },
+                      hint: "Preview", fontSize: 15, radius: 50),
+                )
+              ],
+            ),
           ),
         ),
       ],

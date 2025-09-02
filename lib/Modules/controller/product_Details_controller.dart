@@ -1,18 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class ProductController extends GetxController {
-  var images = <String>[].obs;
+  final String image;
 
-  var selectedIndex = 0.obs;
+  ProductController({required this.image});
 
-  void setImages(List<String> imgList) {
-    images.assignAll(imgList);
-    selectedIndex.value = 0;
-  }
+  late final List<String> imagesfetch = [
+    image.isNotEmpty ? image : "assets/images/ArticianImage1.jpg",
+    "assets/images/ArticianImage1.jpg",
+    "assets/images/ArticianImage4.jpg",
+    "assets/images/ArticianImage1.jpg",
+    "assets/images/ArticianImage4.jpg",
 
-  void changeImage(int index) {
-    if (index >= 0 && index < images.length) {
-      selectedIndex.value = index;
-    }
-  }
+  ];
+
+
 }
