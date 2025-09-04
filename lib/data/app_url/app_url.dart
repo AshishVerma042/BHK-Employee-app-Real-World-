@@ -7,8 +7,6 @@ class AppUrl {
   static const String baseUrl2 = 'http://157.20.214.239';
   static const String baseUrl3 = 'http://157.20.214.239/users';
 
-
-
   //Authenication
   static String register = '$baseUrl/api/user/register';
   static String login = '$baseUrl2/auth/api/auth/loginOrRegister';
@@ -22,6 +20,8 @@ class AppUrl {
   static String categorylist = '$baseUrl/api/category/main-categories?page=1&pageSize=10';
   static String subcategorylist = '$baseUrl/api/category/getsubcategory/1';
   static String artisanslist = '$baseUrl/api/product/artisan_added_by_employee';
+  static String addaddress = '$baseUrl3/api/users/addAddress';
+
 
   //get
   static String getcategory =

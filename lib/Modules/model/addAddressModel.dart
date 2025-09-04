@@ -1,0 +1,107 @@
+class AddAddressModel {
+  String? message;
+  Data? data;
+
+  AddAddressModel({this.message, this.data});
+
+  AddAddressModel.fromJson(Map<String, dynamic> json) {
+    message = json['message'];
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['message'] = this.message;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    return data;
+  }
+}
+
+class Data {
+  bool? isDefault;
+  String? street;
+  String? houseNo;
+  String? postalCode;
+  String? city;
+  String? country;
+  String? state;
+  String? addressType;
+  double? latitude;
+  double? longitude;
+  String? landmark;
+  User? user;
+  int? id;
+  String? createdAt;
+
+  Data(
+      {this.isDefault,
+        this.street,
+        this.houseNo,
+        this.postalCode,
+        this.city,
+        this.country,
+        this.state,
+        this.addressType,
+        this.latitude,
+        this.longitude,
+        this.landmark,
+        this.user,
+        this.id,
+        this.createdAt});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    isDefault = json['isDefault'];
+    street = json['street'];
+    houseNo = json['houseNo'];
+    postalCode = json['postalCode'];
+    city = json['city'];
+    country = json['country'];
+    state = json['state'];
+    addressType = json['addressType'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
+    landmark = json['landmark'];
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    id = json['id'];
+    createdAt = json['createdAt'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['isDefault'] = this.isDefault;
+    data['street'] = this.street;
+    data['houseNo'] = this.houseNo;
+    data['postalCode'] = this.postalCode;
+    data['city'] = this.city;
+    data['country'] = this.country;
+    data['state'] = this.state;
+    data['addressType'] = this.addressType;
+    data['latitude'] = this.latitude;
+    data['longitude'] = this.longitude;
+    data['landmark'] = this.landmark;
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
+    data['id'] = this.id;
+    data['createdAt'] = this.createdAt;
+    return data;
+  }
+}
+
+class User {
+  int? id;
+
+  User({this.id});
+
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    return data;
+  }
+}
