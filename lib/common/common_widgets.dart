@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bhk_employee/common/gradient.dart';
 import 'package:bhk_employee/utils/sized_box_extension.dart';
@@ -14,9 +15,12 @@ import 'package:intl_phone_field/phone_number.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../Constants/utils.dart';
+import '../Modules/screens/artisanManagement/product_detail_page.dart';
 import '../data/response/status.dart';
 import '../resources/colors.dart';
 import '../resources/font.dart';
+import '../resources/strings.dart';
+import '../routes/RoutesClass.dart';
 import 'CommonMethods.dart';
 
 PreferredSizeWidget commonAppBar(String title) {
@@ -104,75 +108,6 @@ Widget innerPhoneTextField(
     },
   );
 }
-Widget commonTextField(
-    TextEditingController controller,
-    FocusNode focusNode,
-    double width,
-    void Function(String) onSubmitted, {
-      bool isWhite = false,
-      int maxLength = 254,
-      double contentPadding = 12,
-      String hint = '',
-      dynamic error,
-      dynamic maxLines = 1,
-      bool readonly = false,
-      bool isCounter = false,
-      void Function(String)? onChange,
-      double radius = 8,
-      double borderWidth = 1,
-      String prefix ="",
-      String suffix ="",
-      double fontSize = 12,
-      TextInputType keyboardType = TextInputType.text,
-      TextInputAction textInputAction = TextInputAction.done,
-      List<TextInputFormatter>? inputFormatters,
-    }) {
-  return StatefulBuilder(
-    builder: (context, setState) {
-      return TextField(
-        controller: controller,
-        focusNode: focusNode,
-        maxLength: maxLength,
-        onSubmitted: onSubmitted,
-        readOnly: readonly,
-        onTapOutside: (value) => focusNode.unfocus(),
-        onChanged: onChange,
-        maxLines: maxLines,
-        inputFormatters: inputFormatters,
-        keyboardType: keyboardType,
-        cursorColor: isWhite ? Colors.white : appColors.contentPlaceholderPrimary,
-        style: TextStyle(color: isWhite ? Colors.white : appColors.contentPrimary),
-        decoration: InputDecoration(
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          labelText: hint,
-          prefixText: prefix,
-          suffixText: suffix,
-          labelStyle: TextStyle(color: isWhite ? Colors.white : appColors.contentPlaceholderPrimary,fontSize: fontSize),
-          alignLabelWithHint: true,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(radius),
-            borderSide: BorderSide(color: isWhite ? Colors.white : appColors.border, width:borderWidth),
-          ),
-          counterText: isCounter?null:"",
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(radius),
-            borderSide: BorderSide(color: isWhite ? Colors.white : appColors.border, width:borderWidth),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(radius),
-            borderSide:  BorderSide(color: Colors.red, width:borderWidth),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(radius),
-            borderSide:  BorderSide(color: Colors.red, width:borderWidth),
-          ),
-          contentPadding: EdgeInsets.symmetric(horizontal: contentPadding),
-        ),
-      );
-    },
-  );
-}
-
 Widget commonLocation({void Function(String)? onCountryChanged, ValueChanged<String?>? onStateChanged, ValueChanged<String?>? onCityChanged, double radius = 25, double height = 1.8}) {
   return StatefulBuilder(
     builder: (context, setState) {
@@ -198,6 +133,78 @@ Widget commonLocation({void Function(String)? onCountryChanged, ValueChanged<Str
         onCountryChanged: onCountryChanged,
         onStateChanged: onStateChanged,
         onCityChanged: onCityChanged,
+      );
+    },
+  );
+}
+
+Widget commonTextField(
+    TextEditingController controller,
+    FocusNode focusNode,
+    double width,
+    void Function(String) onSubmitted, {
+      bool isWhite = false,
+      int maxLength = 254,
+      double contentPadding = 12,
+      String hint = '',
+      String label = '',
+      dynamic error,
+      dynamic maxLines = 1,
+      bool readonly = false,
+      bool isCounter = false,
+      void Function(String)? onChange,
+      double radius = 8,
+      double borderWidth = 1,
+      String prefix ="",
+      String suffix ="",
+      double fontSize = 12,
+      TextInputType keyboardType = TextInputType.text,
+      TextInputAction textInputAction = TextInputAction.done,
+      List<TextInputFormatter>? inputFormatters,
+      bool alwaysHint = false,
+    }) {
+  return StatefulBuilder(
+    builder: (context, setState) {
+      return TextField(
+        controller: controller,
+        focusNode: focusNode,
+        maxLength: maxLength,
+        onSubmitted: onSubmitted,
+        readOnly: readonly,
+        onTapOutside: (value) => focusNode.unfocus(),
+        onChanged: onChange,
+        maxLines: maxLines,
+        inputFormatters: inputFormatters,
+        keyboardType: keyboardType,
+        cursorColor: isWhite ? Colors.white : appColors.contentPlaceholderPrimary,
+        style: TextStyle(color: isWhite ? Colors.white : appColors.contentPrimary),
+        decoration: InputDecoration(
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          hintText: alwaysHint ? hint : null,
+          labelText: hint,
+          prefixText: prefix,
+          suffixText: suffix,
+          labelStyle: TextStyle(color: isWhite ? Colors.white : appColors.contentPlaceholderPrimary,fontSize: fontSize),
+          alignLabelWithHint: true,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(radius),
+            borderSide: BorderSide(color: isWhite ? Colors.white : appColors.border, width:borderWidth),
+          ),
+          counterText: isCounter?null:"",
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(radius),
+            borderSide: BorderSide(color: isWhite ? Colors.white : appColors.border, width:borderWidth),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(radius),
+            borderSide:  BorderSide(color: Colors.red, width:borderWidth),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(radius),
+            borderSide:  BorderSide(color: Colors.red, width:borderWidth),
+          ),
+          contentPadding: EdgeInsets.symmetric(horizontal: contentPadding),
+        ),
       );
     },
   );
@@ -941,6 +948,59 @@ Future<void> bottomDrawerMultiFile(
     },
   );
 }
+Future<void> bottomDrawerVideoFile(
+    BuildContext context,
+    double height,
+    double width,
+    Rxn<File> imageFiles,
+    VoidCallback onCameraTap,
+    VoidCallback onGalleryTap,
+    ) async {
+  return showModalBottomSheet(
+    context: context,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+    ),
+    builder: (BuildContext context) {
+      return Container(
+        height: height,
+        width: width,
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey[400],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              "Select File Source",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            ListTile(
+              leading: const Icon(Icons.camera_alt, color: Colors.blue),
+              title: const Text("Use Camera"),
+              onTap: onCameraTap,
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo_library, color: Colors.green),
+              title: const Text("Choose from Gallery"),
+              onTap: onGalleryTap,
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
 
 Future<void> pickMultipleImagesFromGallery(
     List<String> imageFiles,
@@ -964,5 +1024,320 @@ Future<void> pickMultipleImagesFromGallery(
       }
     }
   }
+}
+Future<void> pickVideoFromGallery(
+    Rxn<File> videoFiles,
+    bool fromCamera,
+    ) async {
+  final picker = ImagePicker();
+
+  if (fromCamera) {
+    final pickedVideo = await picker.pickVideo(
+      source: ImageSource.camera,
+      maxDuration: const Duration(seconds: 15),
+    );
+    if (pickedVideo != null) {
+      videoFiles.value = File(pickedVideo.path);
+    }
+    Get.back();
+  }
+  else {
+    final pickedVideo = await picker.pickVideo(
+      source: ImageSource.gallery,
+    );
+    if (pickedVideo != null) {
+      videoFiles.value = File(pickedVideo.path);
+    }
+    Get.back();
+      }
+    }
+
+
+Widget myProductCard(Map<String, dynamic> item, {bool isFavorite = false}) {
+  return Container(
+    width: double.infinity,
+    decoration: BoxDecoration(
+      image: DecorationImage(
+          image: AssetImage(item['image']), fit: BoxFit.cover),
+      border: Border.all(color: Colors.grey.shade300),
+      borderRadius: BorderRadius.circular(16),
+      color: Colors.white,
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.05),
+          blurRadius: 6,
+          offset: const Offset(0, 3),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding:  EdgeInsets.all(6.0),
+          child: Stack(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                    decoration:  BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(14),
+                        bottomRight: Radius.circular(14),
+                      ),
+                    ),
+                    child: Row(
+                      children:  [
+                        Icon(Icons.check, size: 16, color: Colors.white),
+                        SizedBox(width: 2),
+                        Text("verified",
+                            style:
+                            TextStyle(fontSize: 10, color: Colors.white)),
+                        SizedBox(width: 2),
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      isFavorite = !isFavorite;
+                    },
+                    child: Container(
+                      padding:  EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.3),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: isFavorite ? Colors.red : Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Container(
+          padding:  EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+          decoration: BoxDecoration(
+            borderRadius:  BorderRadius.only(
+              bottomRight: Radius.circular(16),
+              bottomLeft: Radius.circular(16),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.6),
+                blurRadius: 6,
+              )
+            ],
+          ),
+          child: Padding(
+            padding:
+            EdgeInsets.symmetric(horizontal: 4, vertical: 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        item['name'],
+                        style:  TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          shadows: [
+                            Shadow(color: Colors.grey, blurRadius: 5)
+                          ],
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 2),
+                Row(
+                  children: [
+                    const Icon(Icons.workspace_premium,
+                        color: Colors.white70, size: 16),
+                    Text(item['category'],
+                        style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white70)),
+                  ],
+                ),
+                Center(
+                  child: commonButton(double.infinity, 35,
+                      appColors.brownDarkText, Colors.white, () {Get.to(() => ProductDetailScreen(product: item));
+                      },
+                      hint: appStrings.preview, fontSize: 15, radius: 50),
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+
+Widget artisanDetailCard(dynamic artisan,{
+
+  VoidCallback? onTap,
+  VoidCallback? onAddProduct,
+}) {
+  return InkWell(
+    onTap: onTap,
+
+    child: Container(
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      decoration: BoxDecoration(
+        color: appColors.cardBackground,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 6,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Image.asset(
+                    "assets/images/Profile.png",
+                    height: 60,
+                    width: 60,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                12.kW,
+
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              " ${artisan.firstName?? "Unknown"} ${artisan.lastName?? "Unknown"}",
+                              style:  TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      4.kH,
+                      Text(
+                        "${artisan.expertizeField?? "Not Set"}",
+                        style:  TextStyle(fontSize: 14, color: Colors.black54),
+                      ),
+                      6.kH,
+                      Text(
+                        "${appStrings.BHKEID} ${artisan.id?? 0000 }",
+                        style:  TextStyle(fontSize: 13, color: Colors.black87),
+                      ),
+                      6.kH,
+                      Row(
+                        children: [
+                           Icon(Icons.phone, size: 14, color: Colors.black54),
+                          4.kW,
+                          Text(
+                            "${artisan.countryCode?? "XX"} ${artisan.phoneNo?? "XXXXXXXXXX"}",
+                            style:  TextStyle(fontSize: 13, color: Colors.black87),
+                          ),
+                        ],
+                      ),
+                      6.kH,
+                      Text(
+                        "${artisan.email?? "Not Set"}",
+                        style:  TextStyle(fontSize: 13, color: Colors.black87),
+                      ),
+                    ],
+                  ),
+                ),
+
+                InkWell(
+                  onTap: onAddProduct,
+                  child: Container(padding: EdgeInsets.symmetric(vertical: 6,horizontal: 6),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                         Icon(Icons.add, color: Colors.brown, size: 19.0),
+                        2.kW,
+                        Text(
+                          appStrings.addProduct,
+                          style:  TextStyle(color: Colors.brown, fontSize: 14),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            // Wrap(
+            //   spacing: 8,
+            //   runSpacing: 4,
+            //   children: List.generate(
+            //     artisan['skills'].length,
+            //     (index) => Container(
+            //       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+            //       decoration: BoxDecoration(color: Colors.brown.shade50, borderRadius: BorderRadius.circular(20)),
+            //       child: Text(
+            //         artisan['skills'][index],
+            //         style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.brown),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+
+            10.kH,
+
+            // SizedBox(
+            //   height: 30,
+            //   child: ListView.builder(
+            //     scrollDirection: Axis.horizontal,
+            //     itemCount: artisan['skills'].length,
+            //     itemBuilder: (context, index) {
+            //       var skill = artisan['skills'][index];
+            //       return Padding(
+            //         padding: const EdgeInsets.only(right: 8.0),
+            //         child: skillCard(skill),
+            //       );
+            //     },
+            //   ),
+            // ),
+
+
+          ],
+        ),
+      ),
+    ),
+  );
 }
 

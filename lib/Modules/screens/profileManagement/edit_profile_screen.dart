@@ -5,6 +5,7 @@ import 'package:bhk_employee/resources/appconstants.dart';
 import 'package:bhk_employee/resources/inputformatter.dart';
 import 'package:bhk_employee/resources/images.dart';
 import 'package:bhk_employee/resources/strings.dart';
+import 'package:bhk_employee/utils/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -128,7 +129,7 @@ class EditProfile extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
+                        20.kH,
                         Row(
                           children: [
                             const SizedBox(width: 5),
@@ -137,7 +138,7 @@ class EditProfile extends StatelessWidget {
                               size: 20.0,
                               color: Colors.blue,
                             ),
-                            const SizedBox(width: 10.0),
+                            10.kW,
                             Text(
                               appStrings.personalInformation,
                               style: const TextStyle(
@@ -146,7 +147,7 @@ class EditProfile extends StatelessWidget {
                           ],
                         ),
 
-                        SizedBox(height: 20),
+                        20.kH,
 
                         Row(
                           mainAxisSize: MainAxisSize.min,
@@ -168,7 +169,7 @@ class EditProfile extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 5.0),
+                        5.kH,
                         TextFormField(
                           validator: (value) {
                             if (value == '') {
@@ -204,7 +205,7 @@ class EditProfile extends StatelessWidget {
                           ),
                         ),
 
-                        const SizedBox(height: 20),
+                        20.kH,
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -292,46 +293,7 @@ class EditProfile extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 5.0),
-                        // TextFormField(
-                        //   validator: (value) {
-                        //     if (value == null || value.isEmpty) {
-                        //       return 'Please Enter your phone number';
-                        //     }
-                        //     // Simple phone validation
-                        //     if (value.length != 10) {
-                        //       return 'Enter a valid phone number';
-                        //     }
-                        //     return null;
-                        //   },
-                        //   cursorColor: Colors.grey,
-                        //   keyboardType: TextInputType.phone,
-                        //   cursorWidth: 1.5,
-                        //   readOnly: true,
-                        //   style: const TextStyle(height: 1),
-                        //   controller: _phoneController,
-                        //   decoration: InputDecoration(
-                        //     hintText: 'Enter your Phone Number',
-                        //     hintStyle: const TextStyle(fontSize: 12),
-                        //     suffixIcon: _isPhoneVerified
-                        //         ? Icon(Icons.verified, color: Colors.green)
-                        //         : TextButton(
-                        //             child: Text('Verify'),
-                        //             onPressed: () {
-                        //               showOtpDialog("Phone");
-                        //             },
-                        //           ),
-                        //     border: const OutlineInputBorder(
-                        //       borderSide: BorderSide(width: 2.0),
-                        //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        //     ),
-                        //     focusedBorder: const OutlineInputBorder(
-                        //       borderSide: BorderSide(
-                        //           color: Color.fromARGB(82, 151, 92, 71),
-                        //           width: 2.0), // Customize focused border
-                        //     ),
-                        //   ),
-                        // ),
+                        5.kH,
                         IntlPhoneField(
                           controller: controller.phoneController.value,
                           inputFormatters: [
@@ -340,17 +302,9 @@ class EditProfile extends StatelessWidget {
                             LengthLimitingTextInputFormatter(10),
                           ],
                           decoration: InputDecoration(
-                            hintText: 'Enter your Phone Number',
+                            hintText: appStrings.enterYourPhoneNumber,
                             hintStyle: const TextStyle(fontSize: 12),
-                            // suffixIcon: controller.isPhoneVerified
-                            //     ? Icon(Icons.verified, color: Colors.green)
-                            //     : TextButton(
-                            //         child: Text('Verify'),
-                            //         onPressed: () {
-                            //           controller.showOtpDialog(
-                            //               "Phone", context);
-                            //         },
-                            //       ),
+
                             border: const OutlineInputBorder(
                               borderSide: BorderSide(width: 2.0),
                               borderRadius:
@@ -387,26 +341,7 @@ class EditProfile extends StatelessWidget {
                           },
                         ),
 
-                        //const SizedBox(height: 16.0),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //   children: [
-                        //     const Text("Set as default Address"),
-                        //     FlutterSwitch(
-                        //       width: 40.0,
-                        //       height: 18.0,
-                        //       valueFontSize: 12.0,
-                        //       toggleSize: 18.0,
-                        //       padding: 1,
-                        //       value: status4,
-                        //       onToggle: (val) {
-                        //         setState(() {
-                        //           status4 = val;
-                        //         });
-                        //       },
-                        //     ),
-                        //   ],
-                        // ),
+
                         Padding(
                           padding: EdgeInsets.only(
                               left: 20.0, right: 20.0, top: 35.0),

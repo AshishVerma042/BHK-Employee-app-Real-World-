@@ -1,7 +1,33 @@
+import 'package:bhk_employee/resources/colors.dart';
+import 'package:bhk_employee/resources/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-
+Visibility progressBarTransparentAnimationLoader(value, h, w) {
+  return Visibility(
+    visible: value,
+    child: Container(
+      height: h,
+      width: w,
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Colors.black.withOpacity(0.4),
+              Colors.black.withOpacity(0.6),
+            ],
+          )),
+      child:  Center(
+        child: LoadingAnimationWidget.hexagonDots(
+          color: appColors.brownDarkText,
+          size: 70,
+        ),
+      ),
+    ),
+  );
+}
 
 Visibility progressBarTransparent(value, h, w) {
   return Visibility(

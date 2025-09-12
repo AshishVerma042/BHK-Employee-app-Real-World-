@@ -30,7 +30,7 @@ class Registration extends ParentWidget {
             appBar: AppBar(
               flexibleSpace: Container(decoration: const BoxDecoration(gradient: AppConstants.customGradient)),
               iconTheme: const IconThemeData(color: Colors.white),
-              title: const Text("Registration", style: TextStyle(color: Colors.white, fontSize: 24)),
+              title:  Text(appStrings.registration, style: TextStyle(color: Colors.white, fontSize: 24)),
               centerTitle: true,
             ),
             body: RefreshIndicator(
@@ -71,7 +71,7 @@ class Registration extends ParentWidget {
                                     backgroundColor: Colors.green,
                                     radius: 20.0,
                                     child: IconButton(
-                                      icon: const Icon(Icons.camera_alt),
+                                      icon:   Icon(Icons.camera_alt),
                                       color: Colors.white,
                                       onPressed: () {
                                         controller.openImages(context);
@@ -100,19 +100,19 @@ class Registration extends ParentWidget {
                     Row(
                       children: [
                         const Icon(Icons.edit_document, size: 20.0, color: Colors.blue),
-                        const SizedBox(width: 8.0),
+                        8.kW,
                         Text(appStrings.personalInformation, style: const TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold)),
                       ],
                     ),
                     20.kH,
 
-                    commonComponent("First Name", commonTextField(controller.fNameController.value, controller.fNameFocusNode.value, w, (value) {}, hint: "Enter your First Name", fontSize: 14)),
+                    commonComponent(appStrings.firstName, commonTextField(controller.fNameController.value, controller.fNameFocusNode.value, w, (value) {}, hint: appStrings.enterYourFirstName, fontSize: 14)),
                     12.kH,
-                    commonComponent("Last Name", commonTextField(controller.lNameController.value, controller.lNameFocusNode.value, w, (value) {}, hint: "Enter your Last Name", fontSize: 14)),
+                    commonComponent(appStrings.lastName, commonTextField(controller.lNameController.value, controller.lNameFocusNode.value, w, (value) {}, hint: appStrings.enterYourLastName, fontSize: 14)),
                     12.kH,
-                    commonComponent("Aadhaar Number", commonTextField(controller.aadhaarController.value, controller.aadhaarFocusNode.value, maxLength: 16, keyboardType: TextInputType.number, w, (value) {}, hint: "Enter your Aadhaar Number", fontSize: 14,isCounter: true)),
+                    commonComponent(appStrings.aadhaarNumber, commonTextField(controller.aadhaarController.value, controller.aadhaarFocusNode.value, maxLength: 16, keyboardType: TextInputType.number, w, (value) {}, hint: appStrings.enterYourAadhaarNumber, fontSize: 14,isCounter: true)),
 
-                    commonComponentRedStar("Phone Number"),
+                    commonComponentRedStar(appStrings.phoneNumber),
                     innerPhoneTextField(
                       controller.phoneController.value,
                       controller.phoneFocusNode.value,
@@ -137,7 +137,7 @@ class Registration extends ParentWidget {
                       children: [
                         Expanded(
                           child: commonComponent(
-                            "Category",
+                            appStrings.category,
                             commonDropdownButton(
                               controller.casteCategories.map((item) {
                                 return DropdownMenuItem<String>(
@@ -151,15 +151,15 @@ class Registration extends ParentWidget {
                                   (value) {
                                   controller.selectedCast.value = value;
                               },
-                              hint: 'Select Category',
+                              hint: appStrings.selectCategory,
                               borderColor: appColors.border,
                             ),
                           ),
                         ),
-                        SizedBox(width: 10),
+                        10.kW,
                         Expanded(
                           child: commonComponent(
-                            "Community",
+                            "Caste",
                             commonTextField(controller.subCastController.value, controller.subCastFocusNode.value, w, (value) {}, hint: "Enter your Community", fontSize: 14),
 
                           ),
@@ -169,17 +169,17 @@ class Registration extends ParentWidget {
                     12.kH,
 
 
-                    Text("Email", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                    Text(appStrings.email, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                     5.kH,
-                    commonTextField(controller.emailController.value, controller.emailFocusNode.value, w, (value) {}, keyboardType: TextInputType.emailAddress, hint: "Enter your Email", fontSize: 14),
+                    commonTextField(controller.emailController.value, controller.emailFocusNode.value, w, (value) {}, keyboardType: TextInputType.emailAddress, hint: appStrings.enterYourEmail, fontSize: 14),
                     12.kH,
-                    commonComponent("Address", commonTextField(controller.addressController.value, controller.addressFocusNode.value, w, maxLines: 4, (value) {}, hint: "Enter your Current Address", fontSize: 14)),
+                    commonComponent(appStrings.address, commonTextField(controller.addressController.value, controller.addressFocusNode.value, w, maxLines: 4, (value) {}, hint: appStrings.enterYourCurrentAddress, fontSize: 14)),
                     12.kH,
                     // commonComponentRedStar("Expertise"),
                     // 5.kH,
                     // dropDownList(controller),
                     commonComponent(
-                      "Expertise",
+                      appStrings.expertise,
                       commonDropdownButton(
                         controller.subExpertise.map((item) {
                           return DropdownMenuItem<String>(
@@ -193,7 +193,7 @@ class Registration extends ParentWidget {
                             (Value) {
                           controller.selectedExpertise.value = Value;
                         },
-                        hint: 'Select Expertise',
+                        hint: appStrings.selectExpertise,
                         borderColor: appColors.border,
                       ),
                     ),
@@ -226,7 +226,7 @@ class Registration extends ParentWidget {
                   }
                 },
                 radius: 30,
-                hint: "Submit",
+                hint: appStrings.submit,
               ),
             ),
           ),
@@ -253,15 +253,15 @@ class Registration extends ParentWidget {
                 width: 50,
                 decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(10)),
               ),
-              const SizedBox(height: 16),
-              Text("OTP Verification", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
+              16.kH,
+              Text(appStrings.OTPVerification, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              8.kH,
               Text(
-                "Enter the OTP sent to your phone",
+                appStrings.enterTheOTPSentToYourPhone,
                 style: TextStyle(fontSize: 14, color: Colors.grey),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 20),
+              20.kH,
 
               otpField(context, otpController.value, 6, (pin) => controller.otp.value = pin.toString(), backgroundColor:  appColors.cardBackground),
 
@@ -269,7 +269,7 @@ class Registration extends ParentWidget {
 
               Obx(() => controller.startTime.value > 0
                   ? Text(
-                "Resend in ${controller.startTime.value} sec",
+                "${appStrings.resendIn} ${controller.startTime.value} ${appStrings.sec}",
                 style: TextStyle(fontSize: 14, color: Colors.black),
               )
                   : InkWell(
@@ -278,7 +278,7 @@ class Registration extends ParentWidget {
                   controller.startTimer();
                 },
                 child: Text(
-                  "Resend OTP",
+                  appStrings.resendOTP,
                   style: TextStyle(fontSize: 14, color: Colors.blue),
                 ),
               )),
@@ -323,11 +323,11 @@ class Registration extends ParentWidget {
               // ),
 
 
-              const SizedBox(height: 18),
+              18.kH,
 
               commonButton(double.infinity, 45, appColors.brownDarkText, Colors.white, () => controller.otpVerification(), hint: appStrings.verifyPhoneNumber, radius: 30),
 
-              const SizedBox(height: 20),
+              20.kH,
             ],
           ),
         );
@@ -335,46 +335,4 @@ class Registration extends ParentWidget {
     );
   }
 }
-
-// Widget dropDownList(RegistrationController controller) {
-//   return DropdownButtonFormField<String>(
-//     value: controller.selectedExpertise.value.isEmpty ? null : controller.selectedExpertise.value,
-//     decoration: InputDecoration(
-//       floatingLabelBehavior: FloatingLabelBehavior.never,
-//       labelText: "Select Expertise",
-//       labelStyle: TextStyle(color: appColors.contentPlaceholderPrimary, fontSize: 12),
-//       enabledBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(8),
-//         borderSide: BorderSide(color: appColors.border, width: 1),
-//       ),
-//       focusedBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(8),
-//         borderSide: BorderSide(color: appColors.border, width: 1),
-//       ),
-//       errorBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(8),
-//         borderSide: const BorderSide(color: Colors.red, width: 1),
-//       ),
-//
-//       focusedErrorBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(8),
-//         borderSide: const BorderSide(color: Colors.red, width: 1),
-//       ),
-//       contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-//     ),
-//     style: TextStyle(fontSize: 12, color: appColors.contentPrimary),
-//     icon: const Icon(Icons.arrow_drop_down),
-//     items: controller.subExpertise
-//         .map(
-//           (sub) => DropdownMenuItem(
-//             value: sub,
-//             child: Text(sub, style: TextStyle(fontSize: 12, color: appColors.contentPrimary)),
-//           ),
-//         )
-//         .toList(),
-//     onChanged: (val) {
-//       controller.selectedExpertise.value = val ?? "";
-//     },
-//   );
-// }
 

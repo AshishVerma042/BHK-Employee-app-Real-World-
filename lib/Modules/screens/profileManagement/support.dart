@@ -1,5 +1,7 @@
 import 'package:bhk_employee/common/common_widgets.dart';
 import 'package:bhk_employee/main.dart';
+import 'package:bhk_employee/resources/images.dart';
+import 'package:bhk_employee/resources/strings.dart';
 import 'package:bhk_employee/utils/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,36 +21,36 @@ class Support extends ParentWidget {
       backgroundColor: appColors.backgroundColor,
       appBar: AppBar(
         flexibleSpace: Container(
-          decoration: const BoxDecoration(
+          decoration:  BoxDecoration(
             gradient: AppConstants.customGradient,
           ),
         ),
-        iconTheme: const IconThemeData(color: Colors.white),
-        title: const Text(
-          "Support",
+        iconTheme:  IconThemeData(color: Colors.white),
+        title:  Text(
+          appStrings.support,
           style: TextStyle(color: Colors.white, fontSize: 24),
         ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 16),
+        padding:  EdgeInsets.symmetric(horizontal: 20,vertical: 16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-              child: Image.asset('assets/images/support.png', width: 400,),),
-            commonComponent("Name",commonTextField(controller.nameController.value, controller.nameFocusNode.value, w, (value){},hint: "Enter your Name",fontSize: 14),
+              child: Image.asset(AppImages.support, width: 400,),),
+            commonComponent(appStrings.name,commonTextField(controller.nameController.value, controller.nameFocusNode.value, w, (value){},hint: appStrings.enterYourName,fontSize: 14),
             ),
             12.kH,
-            commonComponent("Email",commonTextField(controller.emailController.value, controller.nameFocusNode.value, w, (value){},hint: "Enter your Email",fontSize: 14),
+            commonComponent(appStrings.email,commonTextField(controller.emailController.value, controller.nameFocusNode.value, w, (value){},hint: appStrings.enterYourEmail,fontSize: 14),
             ),
             12.kH,
-            commonComponent("Phone Number", commonTextField(controller.phoneController.value, controller.nameFocusNode.value, w, (value){},hint: "Enter your Phone number",fontSize: 14),
+            commonComponent(appStrings.phoneNumber, commonTextField(controller.phoneController.value, controller.nameFocusNode.value, w, (value){},hint: appStrings.enterYourPhoneNumber,fontSize: 14),
             ),
             12.kH,
-            commonComponent("Message",commonTextField(controller.messageController.value, controller.nameFocusNode.value, w,maxLines: 4, (value){},hint: "Enter your messages",fontSize: 15),
+            commonComponent(appStrings.message,commonTextField(controller.messageController.value, controller.nameFocusNode.value, w,maxLines: 4, (value){},hint: appStrings.enterYourMessages,fontSize: 15),
             ),
             20.kH,
-            commonButton(w, 50, appColors.contentButtonBrown, Colors.white, (){},hint: "Send message"),
+            commonButton(w, 50, appColors.contentButtonBrown, Colors.white, (){},hint: appStrings.sendMessage),
             SizedBox(height: 30,),
             contactDetails(Icons.call,"(246)264 845"),
             contactDetails(Icons.email_outlined,"BharathasthKaushal@gmail.com"),

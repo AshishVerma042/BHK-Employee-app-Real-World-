@@ -5,6 +5,7 @@ import 'package:bhk_employee/common/commonmethods.dart';
 import 'package:bhk_employee/data/response/status.dart';
 import 'package:bhk_employee/resources/strings.dart';
 import 'package:bhk_employee/routes/RoutesClass.dart';
+import 'package:bhk_employee/utils/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bhk_employee/Modules/repository/logoutRepository.dart';
@@ -25,16 +26,15 @@ class ProfileController extends GetxController {
     print(index);
     switch (index) {
       case 1: //MyOrders
-        //commonDashController.selectedScreenIndex.value = 1;
-
+        Get.toNamed(RoutesClass.gotoAddressScreen());
         break;
       case 2: //Mystores
       // Get.toNamed(RoutesClass.gotoStoreScreen());
 
         break;
 
-      case 3: //Notifications
-        Get.toNamed(RoutesClass.gotoNotificationScreen());
+      case 3: //Support
+        Get.toNamed(RoutesClass.gotoSupport());
 
         break;
       case 4:
@@ -83,11 +83,11 @@ class ProfileController extends GetxController {
   }
 
   Future<void> getProfileApi() async {
+    setRxRequestStatus(Status.LOADING);
     var connection = await CommonMethods.checkInternetConnectivity();
     Utils.printLog("CheckInternetConnection===> ${connection.toString()}");
 
     if (connection == true) {
-      setRxRequestStatus(Status.LOADING);
 
       repository.getprofileApi().then((value) {
         setRxRequestStatus(Status.COMPLETED);
@@ -122,11 +122,11 @@ class ProfileController extends GetxController {
     print("items.length");
   }
   Future<void> logOutApi() async {
+    setRxRequestStatus(Status.LOADING);
     var connection = await CommonMethods.checkInternetConnectivity();
     Utils.printLog("CheckInternetConnection===> ${connection.toString()}");
 
     if (connection == true) {
-      setRxRequestStatus(Status.LOADING);
 
       logoutrepository.logoutApi().then((value) {
         setRxRequestStatus(Status.COMPLETED);
@@ -186,65 +186,68 @@ class ProfileController extends GetxController {
   }
 
   Widget logoutbuildProfileOptionCard(
-      String title, String subtitle, IconData icon, int index) {
+      String title, String subtitle, IconData icon) {
     return Column(
       children: [
         ListTile(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 15),
+          contentPadding:  EdgeInsets.symmetric(horizontal: 15),
           leading: Icon(icon, color: Colors.brown[700]),
-          title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+          title: Text(title, style:  TextStyle(fontWeight: FontWeight.bold)),
           subtitle: Text(subtitle,
-              style: const TextStyle(fontSize: 12, color: Colors.grey)),
+              style:  TextStyle(fontSize: 12, color: Colors.grey)),
           onTap: () {
             Get.dialog(
               AlertDialog(
-                backgroundColor: Colors.orange.shade50,
-                title: const Text("Confirm Logout"),
-                content: const Text("Are you sure you want to log out?"),
+                insetPadding:  EdgeInsets.symmetric(horizontal: 80, vertical: 24),
+                backgroundColor:Colors.white,
+                title:  Row(
+                  children: [
+                     Icon(Icons.logout,color: Colors.brown,),
+                    4.kW,
+                    Text(appStrings.confirmLogout,style: TextStyle( fontWeight: FontWeight.bold,fontSize: 18),),
+                  ],
+                ),
+                content:  Text(appStrings.areYouSureYou,style: TextStyle(fontSize: 12),),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                actionsAlignment: MainAxisAlignment.start,
                 actions: [
-                  InkWell(
-                    onTap: ()=>Get.back(),
-                    child: const Text("Cancel"),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      logOutApi();
-                      },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 155, 105, 89),
-                      padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 8.0),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
+                  Column(
+                    children: [
+                      10.kH,
+                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: ()=>Get.back(),
+                            child:  Text(appStrings.cancel,style: TextStyle(fontWeight: FontWeight.bold,color: Color.fromARGB(255, 155, 105, 89)),),
+                          ),
+                          InkWell(
+                            onTap: (){logOutApi();},
+                            child:  Text(appStrings.logout,style: TextStyle(fontWeight: FontWeight.bold,color: Color.fromARGB(255, 155, 105, 89)),),
+                          ),
+                          // ElevatedButton(
+                          //   onPressed: () {
+                          //     logOutApi();
+                          //     },
+                          //   style: ElevatedButton.styleFrom(
+                          //     backgroundColor: Colors.white,
+                          //     padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 8.0),
+                          //     foregroundColor: const Color.fromARGB(255, 155, 105, 89),
+                          //     shape: RoundedRectangleBorder(
+                          //       borderRadius: BorderRadius.circular(18.0),
+                          //     ),
+                          //   ),
+                          //   child:  Text(appStrings.logout, style: TextStyle(fontSize: 12)),
+                          // ),
+                        ],
                       ),
-                    ),
-                    child: const Text("Logout", style: TextStyle(fontSize: 12)),
+                    ],
                   ),
                 ],
               ),
             );
           },
-        ),
-        const Divider(
-          height: 3,
-          thickness: 0.25,
-          endIndent: 0,
-          color: Colors.black,
-        ),
-      ],
-    );
-  }
-  Widget supportbuildProfileOptionCard(
-      String title, String subtitle, IconData icon, int index) {
-    return Column(
-      children: [
-        ListTile(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 15),
-          leading: Icon(icon, color: Colors.brown[700]),
-          title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-          subtitle: Text(subtitle,
-              style: const TextStyle(fontSize: 12, color: Colors.grey)),
-           onTap: () => Get.toNamed(RoutesClass.gotoSupport()),
         ),
         const Divider(
           height: 3,

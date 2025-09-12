@@ -213,11 +213,12 @@ final List<String> textureList = [
   void setaddProductModeldata(AddProductModel value) => addProductData.value = value;
 
   Future<void> getCategoryApi() async {
+    setRxRequestStatus(Status.LOADING);
     var connection = await CommonMethods.checkInternetConnectivity();
     Utils.printLog("CheckInternetConnection===> ${connection.toString()}");
 
     if (connection == true) {
-      setRxRequestStatus(Status.LOADING);
+
       _api.getcategoryApi()
           .then((value) {
             setRxRequestStatus(Status.COMPLETED);
@@ -253,13 +254,14 @@ final List<String> textureList = [
   //   }
   // }
   Future<void> getSubCategoryApi() async {
+    setRxRequestStatus(Status.LOADING);
+
     var connection = await CommonMethods.checkInternetConnectivity();
     Utils.printLog("CheckInternetConnection===> ${connection.toString()}");
 
     if (connection == true) {
-      setRxRequestStatus(Status.LOADING);
 
-      _api.getsubCategoryApi(selectedcategoryid.value ?? "")
+      _api.getsubCategoryApi(selectedcategoryid)
           .then((value) {
         setRxRequestStatus(Status.COMPLETED);
         setgetSubcategoryModeldata(value);
@@ -274,36 +276,50 @@ final List<String> textureList = [
   }
 
   Future<void> addProductApi( ) async {
+    setRxRequestStatus(Status.LOADING);
+
     var connection = await CommonMethods.checkInternetConnectivity();
     Utils.printLog("CheckInternetConnection===> ${connection.toString()}");
 
     if (connection == true) {
-      setRxRequestStatus(Status.LOADING);
 
       Map<String, String> data = {
         "product_name": nameController.value.text,
+        "description": detaileddescriptionController.value.text,
         "categoryId": selectedcategoryid.value ?? "",
         "subCategoryId": selectedsubcategoryid.value ?? "",
-        "description": detaileddescriptionController.value.text,
-        "price": priceController.value.text,
+        "productPricePerPiece": priceController.value.text,
         "quantity": quantityController.value.text,
         "material": materialController.value.text,
+        "discount": "",
         if (netweightController.value.text.isNotEmpty) "netWeight": getWeight(),
         if (lengthController.value.text.isNotEmpty && breadthController.value.text.isNotEmpty && heightController.value.text.isNotEmpty) "dimension": getDimensions(),
+        "color": "Brown",
+        "size": "Large",
+        "targetArtisanId": "52",
+        "images": imagefiles.join(","),
+        "timeToMake": timeController.value.text,
+        "texture": selectedTexture.value.toString(),
+        "washCare": "${selectedWashCare.value}",
+        "artUsed": techniqueController.value.text,
+        "patternUsed": patternController.value.text,
+        "adminRemarks": " ",
+
+
       };
 
       _api
-          .addproductApi(data, )
+          .addproductApi(data, imagefiles)
           .then((value) {
-            setRxRequestStatus(Status.COMPLETED);
-            setaddProductModeldata(value);
-            Utils.printLog("Response===> ${value.toString()}");
-            Get.back();
-            CommonMethods.showToast("Product Added Successfully...",);
-          })
+        setRxRequestStatus(Status.COMPLETED);
+        setaddProductModeldata(value);
+        Utils.printLog("Response===> ${value.toString()}");
+        Get.back();
+        CommonMethods.showToast("Product Added Successfully...",);
+      })
           .onError((error, stackTrace) {
-            handleApiError(error, stackTrace, setError: setError, setRxRequestStatus: setRxRequestStatus);
-          });
+        handleApiError(error, stackTrace, setError: setError, setRxRequestStatus: setRxRequestStatus);
+      });
     } else {
       CommonMethods.showToast(appStrings.weUnableCheckData);
     }

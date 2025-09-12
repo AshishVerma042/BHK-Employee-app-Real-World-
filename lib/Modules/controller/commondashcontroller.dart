@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../screens/dashboardManagement/home_screen.dart';
 import '../screens/artisanManagement/artisans.dart';
-import '../screens/productManagement/product_screen.dart';
 import '../screens/profileManagement/main_profile.dart';
 
 class CommonDashController extends GetxController {

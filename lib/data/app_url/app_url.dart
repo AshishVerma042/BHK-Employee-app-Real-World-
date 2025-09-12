@@ -18,9 +18,13 @@ class AppUrl {
   static String updateprofile = '$baseUrl3/api/users/updateprofile';
   static String addproduct = '$baseUrl/api/product/addproduct';
   static String categorylist = '$baseUrl/api/category/main-categories?page=1&pageSize=10';
-  static String subcategorylist = '$baseUrl/api/category/getsubcategory/1';
+  static String subcategorylist = '$baseUrl/api/category/getsubcategory';
   static String artisanslist = '$baseUrl/api/product/artisan_added_by_employee';
   static String addaddress = '$baseUrl3/api/users/addAddress';
+  static String addresslist = '$baseUrl3/api/users/addresses_self';
+  static String updateAddress = '$baseUrl3/api/users/updateAddress';
+  static String artisansproductlist = '$baseUrl/api/product/artisan/added_by_employee';
+
 
 
   //get

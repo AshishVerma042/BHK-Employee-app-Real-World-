@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart' as geo;   // 👈 prefix
-
 class LocationController extends GetxController {
   var location = "Fetching location...".obs;
   var longitude = 0.0.obs;
   var latitude = 0.0.obs;
+  var place = <geo.Placemark>[].obs; // 👈 store full list of placemarks
 
   @override
   void onInit() {
@@ -45,23 +45,19 @@ class LocationController extends GetxController {
       longitude.value = pos.longitude;
       latitude.value = pos.latitude;
 
-      print("location==>${location.value}");
+      // Convert coordinates to address
+      List<geo.Placemark> placemarks =
+      await geo.placemarkFromCoordinates(pos.latitude, pos.longitude);
 
-      print("longitude==>${longitude.value} latitude==>${latitude.value}");
+      if (placemarks.isNotEmpty) {
+        place.assignAll(placemarks); // 👈 save whole list
+        final firstPlace = place.first;
 
-      // // Convert coordinates to address (from geocoding package)
-      // List<geo.Placemark> placemarks =
-      // await geo.placemarkFromCoordinates(pos.latitude, pos.longitude);
-      //
-      // if (placemarks.isNotEmpty) {
-      //   final place = placemarks.first;
-      //   location.value =
-      //   "${place.street}, ${place.subLocality}, ${place.locality}, ${place.administrativeArea}, ${place.country}";
-      //   debugPrint("location===>$place");
-      //
-      // } else {
-      //   location.value = "No address available";
-      // }
+        location.value =
+        "${firstPlace.street}, ${firstPlace.subLocality}, ${firstPlace.locality}, ${firstPlace.administrativeArea}, ${firstPlace.country}";
+      } else {
+        location.value = "No address available";
+      }
     } catch (e) {
       location.value = "Error: $e";
     }

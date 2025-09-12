@@ -22,6 +22,10 @@ import '../repository/registrationRepository.dart';
 class RegistrationController extends GetxController {
   ArtisanController artisanController = Get.put(ArtisanController());
 
+
+
+
+  var imagefiles = <String>[].obs;
   bool isWhite = false;
   var fNameController = TextEditingController().obs;
   var lNameController = TextEditingController().obs;
@@ -61,11 +65,11 @@ class RegistrationController extends GetxController {
   var checkInternetValue = false.obs();
   var errorMessage = "".obs;
 
-  final rxRequestStatus = Status.COMPLETED.obs;
   void setError(String value) => error.value = value;
-  final artisanRegistrationData = ArtisanRegistrationModel().obs;
   RxString error = ''.obs;
+  final rxRequestStatus = Status.COMPLETED.obs;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+  final artisanRegistrationData = ArtisanRegistrationModel().obs;
   void setRegistrationData(ArtisanRegistrationModel value) => artisanRegistrationData.value = value;
 
   var textFieldFocusNode = FocusNode().obs;

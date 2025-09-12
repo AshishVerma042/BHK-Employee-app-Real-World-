@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   get backgroundColor =>  const Color.fromARGB(195, 247, 243, 233);
+  get backgroundColorSecond =>  const Color.fromARGB(249, 247, 243, 233);
   get brownDarkText =>Color.fromARGB(255, 123, 64, 35);
   get brownbuttonBg=>Color.fromARGB(255, 204, 157, 118);
 

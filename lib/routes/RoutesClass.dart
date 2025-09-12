@@ -1,11 +1,12 @@
 
 import 'package:bhk_employee/Modules/screens/artisanManagement/artisan_search_screen.dart';
-import 'package:bhk_employee/Modules/screens/artisanManagement/product_screen.dart';
 import 'package:get/get.dart';
 import '../Modules/screens/artisanManagement/add_product_screen.dart';
+import '../Modules/screens/artisanManagement/artisan_profile_screen.dart';
 import '../Modules/screens/artisanManagement/artisans.dart';
 import '../Modules/screens/artisanManagement/product_detail_page.dart';
 import '../Modules/screens/artisanManagement/registration_screen.dart';
+import '../Modules/screens/profileManagement/address_screen.dart';
 import '../Modules/screens/profileManagement/edit_profile_screen.dart';
 import '../Modules/screens/profileManagement/settingprofile.dart';
 import '../Modules/screens/profileManagement/support.dart';
@@ -50,10 +51,14 @@ class RoutesClass {
   static String addProductScreen = '/addProductScreen';
   static String productDetailsScreen = "/productDetail";
   static String artisanSearchScreen = "/artisanSearchScreen";
+  static String artisanProfile = '/artisanProfile';
+  static String address = '/address';
 
   //BR1
   static String gotoArtisanSearchScreen() => artisanSearchScreen;
+  static String gotoArtisanProfileScreen() => artisanProfile;
   static String gotoProductDetailsScreen() => productDetailsScreen;
+  static String gotoAddressScreen() => address;
   static String gotoSplash() => splash;
   static String gotoDashboardScreen() => dashboard;
   static String gotoLoginScreen() => login;
@@ -97,6 +102,12 @@ class RoutesClass {
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
+      name: address,
+      page: () => AddressScreen(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
       name: setting,
       page: () => SettingProfile(),
       transition: Transition.fade,
@@ -126,18 +137,19 @@ class RoutesClass {
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
+      name: artisanProfile,
+      page: () => ArtisanProfileScreen(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
       name: productDetailsScreen,
       page: () => ProductDetailScreen(product: Get.arguments),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 300),
     ),
 
-    GetPage(
-      name: products,
-      page: () => ProductScreen(),
-      transition: Transition.fade,
-      transitionDuration: const Duration(milliseconds: 300),
-    ),
+
     GetPage(
         name: login,
         page: () =>LoginScreen(),

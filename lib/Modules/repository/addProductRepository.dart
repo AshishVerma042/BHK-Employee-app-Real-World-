@@ -8,23 +8,19 @@ import '../model/getsubcategorymodel.dart';
 class AddProductRepository {
   final _apiServices = NetworkApiServices();
 
-  Future<AddProductModel> addproductApi(var data) async {
-    dynamic response = await _apiServices.postEncodeApi(data, AppUrl.addproduct);
-    print(response);
-    return AddProductModel.fromJson(response);
-  }
+
   Future<GetCategoryModel> getcategoryApi() async {
     dynamic response = await _apiServices.getApi(AppUrl.categorylist);
     return GetCategoryModel.fromJson(response);
   }
-  Future<GetSubCategoryModel> getsubCategoryApi(String categoryId) async {
-    try {
-      final response = await _apiServices.getApi("${AppUrl.subcategorylist}?categoryId=$categoryId");
+  Future<GetSubCategoryModel> getsubCategoryApi(var selectedCategory) async {
+      dynamic response = await _apiServices.getApi("${AppUrl.subcategorylist}/$selectedCategory");
       return GetSubCategoryModel.fromJson(response);
-    } catch (e, st) {
-      Utils.printLog("getsubCategoryApi error: $e");
-      rethrow;
-    }
   }
+  Future<AddProductModel> addproductApi(var data, var path) async {
+    dynamic response = await _apiServices.multiPartMediaApi(data, AppUrl.addproduct, path, "images");
+    return AddProductModel.fromJson(response);
+  }
+
 
 }

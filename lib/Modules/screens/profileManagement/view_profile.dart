@@ -2,6 +2,7 @@
 import 'package:bhk_employee/resources/appconstants.dart';
 import 'package:bhk_employee/resources/images.dart';
 import 'package:bhk_employee/resources/strings.dart';
+import 'package:bhk_employee/utils/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,36 +15,36 @@ class ViewProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     ProfileController controller = Get.put(ProfileController());
     return Container(
-      color: const Color.fromARGB(195, 247, 243, 233),
+      color:  Color.fromARGB(195, 247, 243, 233),
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 247, 243, 233),
+        backgroundColor:  Color.fromARGB(255, 247, 243, 233),
         appBar: AppBar(
           flexibleSpace: Container(
-            decoration: const BoxDecoration(
+            decoration:  BoxDecoration(
               gradient: AppConstants.customGradient,
             ),
           ),
-          iconTheme: const IconThemeData(color: Colors.white),
+          iconTheme:  IconThemeData(color: Colors.white),
           centerTitle: true,
           title: Text(
             appStrings.viewProfile.toUpperCase(),
-            style: const TextStyle(fontSize: 16, color: Colors.white),
+            style:  TextStyle(fontSize: 16, color: Colors.white),
           ),
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding:  EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 30.0),
+                  padding:  EdgeInsets.only(top: 30.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CircleAvatar(
-                        backgroundColor: const Color.fromARGB(195, 250, 248, 238),
+                        backgroundColor:  Color.fromARGB(195, 250, 248, 238),
                         radius: 70.0,
                         backgroundImage: controller.getProfileModel
                             .value.data?.avatar?.isNotEmpty ??
@@ -60,59 +61,59 @@ class ViewProfile extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 40),
+                40.kH,
 
                 Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding:  EdgeInsets.only(left: 20),
                   child: Row(
                     children: [
-                      const Icon(Icons.edit_document, size: 20.0, color: Colors.blue),
-                      const SizedBox(width: 8.0),
+                       Icon(Icons.edit_document, size: 20.0, color: Colors.blue),
+                       SizedBox(width: 8.0),
                       Text(
                         appStrings.personalInformation,
-                        style: const TextStyle(
+                        style:  TextStyle(
                             fontSize: 17.0, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
                 ),
 
-                const SizedBox(height: 20),
+                20.kH,
 
 
                 ListTile(
                   leading: const Icon(Icons.person_outline, color: Colors.black),
-                  title: Text("First Name", style: const TextStyle(color: Colors.grey)),
+                  title: Text(appStrings.firstName, style: const TextStyle(color: Colors.grey)),
                   subtitle: Text(
-                      "Please set your First name",
+                      appStrings.pleaseSetYourFirstName,
                     style: const TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ),
                 ListTile(
                   leading: const Icon(Icons.person_outline, color: Colors.black),
-                  title: Text("Last Name", style: const TextStyle(color: Colors.grey)),
+                  title: Text(appStrings.lastName, style: const TextStyle(color: Colors.grey)),
                   subtitle: Text(
-                    "Please set your Last name",
+                    appStrings.pleaseSetYourLastName,
                     style: const TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ),
 
 
                 ListTile(
-                  leading: const Icon(Icons.phone_outlined, color: Colors.black),
-                  title: Text(appStrings.phoneNumber, style: const TextStyle(color: Colors.grey)),
+                  leading:  Icon(Icons.phone_outlined, color: Colors.black),
+                  title: Text(appStrings.phoneNumber, style:  TextStyle(color: Colors.grey)),
                   subtitle: Text(
                     "${controller.getProfileModel.value.data?.countryCode??""} ${controller.getProfileModel.value.data?.phoneNo??"Please set your Phone number"}" ,
-                    style: const TextStyle(fontSize: 16, color: Colors.black),
+                    style:  TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ),
 
                 ListTile(
-                  leading: const Icon(Icons.email_outlined, color: Colors.black),
+                  leading:  Icon(Icons.email_outlined, color: Colors.black),
                   title: Text(appStrings.email, style: const TextStyle(color: Colors.grey)),
                   subtitle: Text(
-                      "Please set your Email ",
-                    style: const TextStyle(fontSize: 16, color: Colors.black),
+                      appStrings.pleaseSetYourEmail,
+                    style:  TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ),
               ],

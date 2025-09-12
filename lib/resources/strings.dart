@@ -9,15 +9,100 @@ class AppStrings {
   String get addBrand => 'Add Brand';
   String get addABrand => 'Add a Brand.';
 
+
+  String get pleaseSetYourEmail => "Please set your Email";
+  String get pleaseSetYourLastName=> "Please set your Last name";
+  String get lastName => "Last Name";
+  String get pleaseSetYourFirstName => "Please set your First name";
+  String get firstName => "First Name";
+  String get sendMessage => "Send message";
+  String get message => "Message";
+  String get phoneNumber => "Phone Number";
+  String get email => "Email";
+  String get name => "Name";
+  String get enterYourName => "Enter your Name";
+  String get enterYourEmail => "Enter your Email";
+  String get enterYourPhoneNumber => "Enter your Phone number";
+  String get enterYourMessages => "Enter your messages";
+  String get support => "Support";
+  String get myAddress => "My Address";
+  String get confirmLogout => "Confirm Logout";
+  String get areYouSureYou => "Are you sure you want to log out?";
+  String get profile => "Profile";
+  String get cancel => "Cancel";
+  String get checkYourAddressDetails => "Check your Address Details";
+  String get logout => "Logout";
+  String get logOutOfYourAccount => "Log out of your account";
+  String get wereHereToHelp => "We’re here to help";
+  String get manageAddress => "Manage Address";
+  String get Default => "Default";
+  String get recentlyAddedArtisans => "Recently Added Artisans";
+  String get viewAll => "View All";
+  String get addProduct => "Add Product";
+  String get recentlyAddedArtisansProducts => "Recently Added Artisans Products";
+  String get totalArtisans => "Total Artisans";
+  String get approvedArtisans => "Approved Artisans";
+  String get pendingArtisans => "Pending Artisans";
+  String get goodMorning => "Good Morning";
+  String get user => "User";
+  String get preview => "Preview";
+  String get submit => "Submit";
+  String get resendOTP => "Resend OTP";
+  String get resendIn => "Resend in";
+  String get sec => "sec";
+  String get enterTheOTPSentToYourPhone => "Enter the OTP sent to your phone";
+  String get OTPVerification => "OTP Verificatione";
+  String get selectExpertise => "Select Expertise";
+  String get expertise => "Expertise";
+  String get address => "Address";
+  String get enterYourCurrentAddress => "Enter your Current Address";
+  String get community => "Community";
+  String get category => "Category";
+  String get selectCategory => "Select Category";
+  String get aadhaarNumber => "Aadhaar Number";
+  String get enterYourLastName => "Enter your Last Name";
+  String get enterYourFirstName => "Enter your First Name";
+  String get enterYourAadhaarNumber => "Enter your Aadhaar Number";
+  String get registration => "Registration";
+  String get products => "Products";
+  String get noProductsFound => "No products found";
+  String get stock => "Stock";
+  String get artTechnique => "Art Technique";
+  String get texture => "Texture";
+  String get careInstructions => "Care Instructions";
+  String get finishTexture => "Finish/Texture";
+  String get pattern => "Pattern";
+  String get pickedFiles => "Picked Files:";
+  String get totalPrice => "Total Price";
+  String get enterQuantity => "Enter Quantity";
+  String get enterProductPricePerPiece => "Enter Product Price per Piece";
+  String get productPricePerPiece => "Product Price per Piece";
+  String get productName => "Product Name";
+  String get enterADetailedDescription => "Enter a detailed description\neg. product history, technique, culture, uniqueness...";
+  String get enterHowLongItTook => "Enter how long it took to make (e.g. 2 days)";
+  String get enterYourProductName => "Enter your Product name";
+  String get timeToMake => "Time to Make";
+  String get description => "Description";
+  String get searchArtisans => "Search artisans...";
+  String get BHKEID => "BHKE ID:";
+  String get addArtisan => "Add Artisan";
+  String get noArtisansFound => "No artisans found";
+  String get artisansList => "Artisans List";
+  String get handWashWithMildSoap => "Hand wash with mild soap, avoid abrasive cleaners";
+  String get thisIsAHighQualityHandcrafted => "This is a high-quality handcrafted product by skilled artisans. Perfect for gifting and daily use.";
+
+
+
+
   String get brandName => 'Brand Name';
   String get starSymbol => ' *';
   String get requiredFieldPleaseEnterBrandName => '*Required Field! Please Enter Brand Name';
   String get enterBrandName => 'Enter Brand Name';
   String get giveABrandName => 'Give a Brand Name';
-  String get description => 'Description';
   String get enterADetailedDescriptionHere => 'Enter a detailed description here...';
   String get giveADetailedDescription => 'Give a detailed description';
   String get uploadImage => 'Upload Image';
+  String get addUpToImagesToYourProduct => 'Add up to 10 images to your product. Used to represent your product during checkout, in email, social sharing, and more.';
   String get uploadYourImageHere => 'Upload your image here';
   String get clickToBrowse => 'Click to browse';
   String get addAImageToYourBrand => 'Add a image to your brand. Used to represent your brand during checkout, in email, social sharing, and more.';
@@ -69,7 +154,6 @@ class AppStrings {
   String get aNewUpdateIsAvailableForYourSystem => 'A new update is available for your system.';
   String get close => 'Close';
   String get recentlyAddedProducts => 'Recently Added Products';
-  String get viewAll => 'View All>';
   String get productid => 'productid';
   String get noImageDataFound => "No Image data Found";
   String get salesStatistics => "Sales Statistics";
@@ -124,7 +208,6 @@ class AppStrings {
   String get markAsShipped => 'Mark as Shipped';
   String get addMore => 'Add More';
   String get editProduct => "Edit Product";
-  String get addProduct => 'Add Product';
   String get editAndManageYourProduct => 'Edit and manage your product.';
   String get addANewProductToYourStore => 'Add a new product to your store.';
   String get size => 'Size';
@@ -142,7 +225,6 @@ class AppStrings {
   String get  rupees0 => '₹ 0';
   String get quantity => 'Quantity';
   String get requiredFieldPleaseEnterQuantity => '*Required Field! Please enter Quantity';
-  String get enterQuantity => 'Enter Quantity';
   String get netWeight => 'Net Weight';
   String get requiredFieldPleaseEnterNetWeight => '*Required Field! Please enter Net Weight';
   String get enterNetWeightIn => 'Enter Net Weight(in';
@@ -162,20 +244,23 @@ class AppStrings {
   String get uploadYourImagesHere => 'Upload your images here';
   String get addUpToImagesAndVideoToYourProduct => 'Add up to 4 images and 1 Video to your product. Used to represent your product during checkout, in email, social sharing, and more.';
   String get yourProductImages => 'Your Product Images:';
-  String get pickedFiles => 'Picked Files:';
   String get requiredFieldPleaseUploadTheImages => '*Required Field! Please Upload the Images';
   String get  pleaseUploadImages =>  "Please Upload Images";
-  String get submit => 'Submit';
-  String get selectCategory => 'Select Category';
-  String get category => 'Category';
+
   String get subCategory => 'SubCategory';
   String get brand => "Brand";
   String get selectSubCategory => 'Select SubCategory';
   String get selectBrand => 'Select Brand';
-  String get name => 'Name';
   String get requiredFieldPleaseEnterProductName => '*Required Field! Please enter Product name';
-  String get enterYourProductName => 'Enter your  Product name';
   String get store => 'Store';
+  String get uploadImages => 'Upload Images';
+  String get enterPatternUsed => 'Enter Pattern Used';
+  String get enterCraftingTechnique => 'Enter Crafting Technique';
+  String get enterNetWeight  => 'Enter Net Weight(in ';
+  String get techniqueUsed  => 'Technique Used';
+  String get washCare => 'Wash Care';
+  String get patternUsed => 'Pattern Used';
+  String get selectTexture => 'Select Texture';
   String get selectAStore => 'Select a Store';
   String get pleaseAddStoreToAddProduct => 'Please Add Store to Add Product...!';
   String get general => 'General';
@@ -215,14 +300,11 @@ class AppStrings {
   String get acceptedFileTypes => 'Accepted file types :';
   String get personalInformation => 'Personal Information';
   String get requiredFieldPleaseEnterYourName => '*Required Field! Please Enter Your Name';
-  String get enterYourName => 'Enter your Name';
   String get enterEmail => 'Enter Email';
   String get requiredFieldPleaseEnterEmail => '*Required Field! Please Enter Email';
-  String get enterYourEmail => 'Enter your Email';
   String get enterPhone => 'Enter Phone';
   String get cancelableCompleter => 'Cancel';
   String get pleaseUploadProfileImage => 'Please upload profile image';
-  String get user => 'User';
   String get userGmailCom => 'User@gmail.com';
   String get userPhoneNo => 'XXXXXXXX10';
   String get avatar => 'avatar';
@@ -237,8 +319,6 @@ class AppStrings {
   String get editProfileManageYourProfile => 'Edit Profile, Manage your profile';
   String get editOrChangeYourProfile => 'Edit, or Change your Profile';
   String get pleaseSetYourName => 'Please set your Name';
-  String get phoneNumber => 'Phone Number';
-  String get pleaseSetYourEmail => 'Please set your Email';
 
   // Stock Management
   String get myProductsStocks => 'My Products Stocks';
@@ -255,7 +335,6 @@ class AppStrings {
   String get  areYouSureYouWant => 'Are you sure you want to add the product to the Deal Of the Day';
   String get poppins => 'Poppins';
   String get requiredFieldPleaseDiscount => '*Required Field! Please Discount';
-  String get cancel => 'CANCEL';
   String get yes  => 'YES';
   String get myStores => 'My Stores';
   String get addStore => 'Add Store';
@@ -301,7 +380,6 @@ class AppStrings {
   String get countryChangedTo => 'Country changed to:';
   String get continueWithGoogle => 'Continue with Google';
   String get weNeedToRegisterYourPhoneWithoutGettingStarted => 'We need to register your phone without getting started!';
-  String get sec => 'sec';
   String get verifyPhoneNumber => 'Verify Phone Number';
   String get thisPrivacyPolicyDescribesOurPolicies => 'This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You. We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy was generated by TermsFeed App Privacy Policy Generator.';
   String get retentionOfYourPersonalData => 'Retention of Your Personal Data';
@@ -316,7 +394,6 @@ class AppStrings {
 
 
 
-  String get email => 'Email';
   String get phone => 'Phone Number';
 
   String get emailHint => 'Enter Email';
