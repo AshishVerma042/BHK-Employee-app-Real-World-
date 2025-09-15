@@ -47,9 +47,11 @@ class HomeScreen extends ParentWidget {
                       child: Obx(() => Row(
                         children: [
                           Icon(Icons.location_pin,color: Colors.redAccent,size: 22,),
-                          Text(
-                            locationController.location.value,
-                            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.brown),
+                          Expanded(
+                            child: Text(
+                              locationController.location.value,
+                              style:  TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.brown),
+                            ),
                           ),
                         ],
                       )),
@@ -63,27 +65,6 @@ class HomeScreen extends ParentWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           20.kH,
-                          // Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //   children: [
-                          //     Text("Recently Added Artisans", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                          //     InkWell(
-                          //       onTap: () {
-                          //         Get.find<CommonDashController>().selectedIndex.value = 1;
-                          //       },
-                          //       child: const Text("View All",style: TextStyle(fontSize: 14),),
-                          //     ),
-                          //
-                          //   ],
-                          // ),
-                          // SizedBox(height: 4),
-                          // ListView.builder(
-                          //   shrinkWrap: true,
-                          //   physics: NeverScrollableScrollPhysics(),
-                          //   itemCount: controller.artisansItem.length,
-                          //   itemBuilder: (context, index) {
-                          //     return artisanCard(controller.artisansItem[index], Get.find<CommonDashController>());
-                          //   },
-                          // ),
                           Column(
                             children: [ Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

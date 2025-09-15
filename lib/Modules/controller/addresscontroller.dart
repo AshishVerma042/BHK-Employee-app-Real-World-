@@ -9,6 +9,7 @@ import '../../common/CommonMethods.dart';
 import '../../common/common_widgets.dart';
 import '../../common/map_geolocation/mapcontroller.dart';
 import '../../data/response/status.dart';
+import '../../resources/enumAddress.dart';
 import '../../resources/strings.dart';
 import '../../routes/RoutesClass.dart';
 import '../model/AddressListModel.dart';
@@ -20,7 +21,7 @@ class AddressController extends GetxController{
   final _api = AddAddressRepository();
 
 
-  var selectedType = "Home".obs;
+  var selectedType = AddressType.HOME.addressValue.obs;
   var defaultType = "".obs;
   var isDefaultAddress = false.obs;
   var usedAddressTypes = <String>[].obs;
@@ -55,6 +56,46 @@ class AddressController extends GetxController{
   var countryFocusNode = FocusNode().obs;
   var pincodeFocusNode = FocusNode().obs;
   var addresstypeFocusNode = FocusNode().obs;
+
+  void fillAddressFromLocation(LocationController locationController) {
+    if (locationController.place.isNotEmpty) {
+      final place = locationController.place.first;
+
+      houseController.value.text =
+          place.subLocality ?? houseController.value.text;
+
+      streetController.value.text =
+          place.street ?? streetController.value.text;
+
+      cityController.value.text =
+          place.locality ?? cityController.value.text;
+
+      stateController.value.text =
+          place.administrativeArea ?? stateController.value.text;
+
+      countryController.value.text =
+          place.country ?? countryController.value.text;
+
+      pincodeController.value.text =
+          place.postalCode ?? pincodeController.value.text;
+    }
+  }
+
+  void fillUpdateAddressFromLocation(dynamic data) {
+    houseController.value.text = data.houseNo ?? "";
+    streetController.value.text = data.street ?? "";
+    landmarkController.value.text = data.landmark ?? "";
+    cityController.value.text = data.city ?? "";
+    stateController.value.text = data.state ?? "";
+    countryController.value.text = data.country ?? "";
+    pincodeController.value.text = data.postalCode ?? "";
+
+    selectedType.value = data.addressType?.toUpperCase() ?? "";
+
+    isDefaultAddress.value = data.isDefault ?? false;
+  }
+
+
 
   void setError(String value) => error.value = value;
   RxString error = ''.obs;
