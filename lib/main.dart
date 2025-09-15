@@ -1,4 +1,4 @@
-import 'package:bhk_employee/resources/colors.dart';
+  import 'package:bhk_employee/resources/colors.dart';
 import 'package:bhk_employee/routes/RoutesClass.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

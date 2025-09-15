@@ -114,13 +114,16 @@ class ArtisanController extends GetxController {
       filteredArtisans.value = getArtisanListModel.value.data?.docs ?? [];
     } else {
       filteredArtisans.value = (getArtisanListModel.value.data?.docs ?? [])
-          .where((artisan) =>
-          (artisan.name ?? "")
-              .toLowerCase()
-              .contains(query.toLowerCase()))
+          .where((artisan) {
+        final searchData =
+            '${artisan.firstName ?? ""} ${artisan.lastName ?? ""} ${artisan.id ?? ""} ${artisan.expertizeField ?? ""}';
+        return searchData.toLowerCase().contains(query.toLowerCase());
+      })
           .toList();
     }
   }
+
+
 
   @override
   void onInit() {

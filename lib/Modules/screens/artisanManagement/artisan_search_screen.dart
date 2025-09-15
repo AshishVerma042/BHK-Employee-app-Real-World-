@@ -84,27 +84,48 @@ class ArtisanSearchScreen extends ParentWidget {
                     //     );
                     //   },
                     // ),
-                    Obx(() => ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: Artisancontroller.filteredArtisans.length,
-                      itemBuilder: (context, index) {
-                        final artisan = Artisancontroller.filteredArtisans[index];
-                        return artisanDetailCard(
-                          artisan,
-                          onTap: () {
-                            final artisanId = artisan.id;
-                            if (artisanId != null) {
-                              Get.toNamed(RoutesClass.gotoArtisanProfileScreen(),
-                                  arguments: artisanId);
-                            }
-                          },
-                          onAddProduct: () {
-                            Get.toNamed(RoutesClass.gotoAddProductPage());
-                          },
+                    Obx(() {
+                      if (Artisancontroller.filteredArtisans.isEmpty) {
+                        return SizedBox(width: w,height: h * 0.6 ,
+                          child: Center(
+                            child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.search,size: 88,color: appColors.brownDarkText,),
+                                Text(
+                                  "No Artisans Found",
+                                  style: TextStyle(color:  appColors.brownDarkText, fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
                         );
-                      },
-                    )),
+                      }
+
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: Artisancontroller.filteredArtisans.length,
+                        itemBuilder: (context, index) {
+                          final artisan = Artisancontroller.filteredArtisans[index];
+                          return artisanDetailCard(
+                            artisan,
+                            onTap: () {
+                              final artisanId = artisan.id;
+                              if (artisanId != null) {
+                                Get.toNamed(
+                                  RoutesClass.gotoArtisanProfileScreen(),
+                                  arguments: artisanId,
+                                );
+                              }
+                            },
+                            onAddProduct: () {
+                              Get.toNamed(RoutesClass.gotoAddProductPage());
+                            },
+                          );
+                        },
+                      );
+                    }),
+
 
                   ],
                 ),

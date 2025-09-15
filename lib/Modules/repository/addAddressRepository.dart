@@ -29,6 +29,10 @@ class AddAddressRepository {
     return AddressUpdateModel.fromJson(response);
   }
 
+  Future<AddressUpdateModel> deleteAddressApi(var id) async {
+    dynamic response = await _apiServices.deleteAddressApi("${AppUrl.deleteAddress}/$id");
+    return AddressUpdateModel.fromJson(response);
+  }
 
 
 

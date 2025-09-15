@@ -186,12 +186,16 @@ final List<String> textureList = [
     if((selectedcategoryid.value?.isNotEmpty??false)&&(selectedsubcategoryid.value?.isNotEmpty??false)&&(nameController.value.text.isNotEmpty)&&(detaileddescriptionController.value.text.isNotEmpty)&&(priceController.value.text.isNotEmpty)&&(materialController.value.text.isNotEmpty)&&(quantityController.value.text.isNotEmpty)&&(imagefiles.length>=10)) return true;
     return false;
   }
+  var artisanId = 0.obs;
 
   @override
   void onInit() {
     super.onInit();
+    final args = Get.arguments as Map;
     totalPriceController.value.text = "0.0";
     getCategoryApi();
+    artisanId.value = args['artisanId']?? 0;
+
     // getBrandApi();
     // getStoreApi();
     // if (producteditId == true) {
@@ -296,14 +300,14 @@ final List<String> textureList = [
         if (lengthController.value.text.isNotEmpty && breadthController.value.text.isNotEmpty && heightController.value.text.isNotEmpty) "dimension": getDimensions(),
         "color": "Brown",
         "size": "Large",
-        "targetArtisanId": "52",
+        "targetArtisanId":"${artisanId.value}",
         "images": imagefiles.join(","),
         "timeToMake": timeController.value.text,
         "texture": selectedTexture.value.toString(),
         "washCare": "${selectedWashCare.value}",
         "artUsed": techniqueController.value.text,
         "patternUsed": patternController.value.text,
-        "adminRemarks": " ",
+        "adminRemarks": "nice product. try it once. ",
 
 
       };

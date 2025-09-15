@@ -194,9 +194,13 @@ class AddressController extends GetxController{
         CommonMethods.showToast(value.message);
         Utils.printLog("Response===> ${value.toString()}");
         Get.offAllNamed(RoutesClass.gotoAddressScreen());
+
+
       }).onError((error, stackTrace) {
         setError(error.toString());
         setRxRequestStatus(Status.ERROR);
+
+
         if (error.toString().contains("{")) {
           var errorResponse = json.decode(error.toString());
           print("errrrorrr=====>$errorResponse");
@@ -213,6 +217,39 @@ class AddressController extends GetxController{
       CommonMethods.showToast(appStrings.weUnableCheckData);
     }
   }
+
+  Future<void> deleteAddressApi(context,  id) async {
+    var connection = await CommonMethods.checkInternetConnectivity();
+    Utils.printLog("CheckInternetConnection===> ${connection.toString()}");
+
+    if (connection == true) {
+      setRxRequestStatus(Status.LOADING);
+        _api.deleteAddressApi(id).then((value) {
+          setRxRequestStatus(Status.COMPLETED);
+          setupdateAddressModeldata(value);
+          CommonMethods.showToast(value.message);
+          Utils.printLog("Response===> ${value.toString()}");
+
+
+      }).onError((error, stackTrace) {
+        setError(error.toString());
+        setRxRequestStatus(Status.ERROR);
+
+        if (error.toString().contains("{")) {
+          var errorResponse = json.decode(error.toString());
+          if (errorResponse is Map && errorResponse.containsKey('message')) {
+            CommonMethods.showToast(errorResponse['message']);
+          } else {
+            CommonMethods.showToast("An unexpected error occurred.");
+          }
+        }
+        Utils.printLog("Delete Error===> ${error.toString()}");
+      });
+    } else {
+      CommonMethods.showToast(appStrings.weUnableCheckData);
+    }
+  }
+
 
 
 

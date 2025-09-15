@@ -10,6 +10,7 @@ import '../../../resources/colors.dart';
 import '../../../resources/strings.dart';
 import '../../controller/artisanprofile_controller.dart';
 import '../../controller/dashboardcontroller.dart';
+import '../../model/artisanProductListModel.dart';
 
 class ArtisanProfileScreen extends ParentWidget {
   const ArtisanProfileScreen({super.key});
@@ -305,19 +306,34 @@ class ArtisanProfileScreen extends ParentWidget {
                 ),
               ),
               10.kH,
+              // GridView.builder(
+              //   shrinkWrap: true,
+              //   physics: const NeverScrollableScrollPhysics(),
+              //   itemCount:dashboardcontroller.serviceItems.length,
+              //   padding: const EdgeInsets.all(16),
+              //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              //     crossAxisCount: 2,
+              //     crossAxisSpacing: 12,
+              //     mainAxisSpacing: 12,
+              //     childAspectRatio: 0.70,
+              //   ),
+              //   itemBuilder: (context, index) {
+              //     return  myProductCard(dashboardcontroller.serviceItems[index]);
+              //   },
+              // ),
               GridView.builder(
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount:dashboardcontroller.serviceItems.length,
-                padding: const EdgeInsets.all(16),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                physics:  NeverScrollableScrollPhysics(),
+                itemCount:controller.getArtisanProductListModel.value.data?.docs?.length?? 0,
+                padding:  EdgeInsets.all(16),
+                gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
                   childAspectRatio: 0.70,
                 ),
                 itemBuilder: (context, index) {
-                  return  myProductCard(dashboardcontroller.serviceItems[index]);
+                  return  myProductCardReview(controller.getArtisanProductListModel.value.data?.docs?[index]);
                 },
               ),
             ],
@@ -328,7 +344,7 @@ class ArtisanProfileScreen extends ParentWidget {
   }
 }
 
-Widget myProductCardReview( {bool isFavorite = false}) {
+Widget myProductCardReview(Docs? artisan, {bool isFavorite = false}) {
   return Container(
     width: double.infinity,
     decoration: BoxDecoration(
@@ -424,7 +440,7 @@ Widget myProductCardReview( {bool isFavorite = false}) {
                   children: [
                     Expanded(
                       child: Text(
-                        'name',
+                        artisan?.category?.categoryName?? "",
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white,

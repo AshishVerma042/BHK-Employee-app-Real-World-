@@ -140,14 +140,25 @@ class NetworkApiServices extends BaseApiServices {
       final responseHttp = await http.Response.fromStream(response);
       responseJson = returnResponse(responseHttp);
     } on SocketException {
+      Utils.printLog(responseJson);
+
       throw InternetException('');
     } on RequestTimeOut {
+      Utils.printLog(responseJson);
+
       throw RequestTimeOut('');
     } on TimeoutException {
+      Utils.printLog(responseJson);
+
       throw RequestTimeOut('');
-    } on UnauthorizedException {
-      throw AuthenticationException('');
+    } on UnauthorizedException {    Utils.printLog(responseJson);
+
+    throw AuthenticationException('');
+
     }
+    Utils.printLog(responseJson);
+    Utils.printLog(responseJson);
+    Utils.printLog(responseJson);
     Utils.printLog(responseJson);
     return responseJson;
   }
@@ -376,6 +387,72 @@ class NetworkApiServices extends BaseApiServices {
     Utils.printLog(responseJson);
     return responseJson;
   }
+
+  Future<dynamic> deleteAddressApi(String url ) async {
+    String token = await Utils.getPreferenceValues(Constants.accessToken) ?? "";
+    dynamic responseJson;
+
+    try {
+      final response = await http.delete(
+        Uri.parse(url),
+
+        headers: {
+          "Content-Type": "application/json",
+          "accesstoken": token ,
+        },
+      )   .timeout(const Duration(seconds: 2));
+      responseJson = returnResponse(response);
+      Utils.printLog('Response: $response');
+    } on SocketException {
+      throw InternetException('');
+    } on RequestTimeOut {
+      throw RequestTimeOut('');
+    } on TimeoutException {
+      throw RequestTimeOut('');
+    } on UnauthorizedException {
+      throw AuthenticationException('');
+    }
+    Utils.printLog(responseJson);
+    return responseJson;
+  }
+
+
+  // Future<dynamic> deleteApi(String url, {dynamic data}) async {
+  //   Utils.printLog("DELETE: $url");
+  //   if (data != null) Utils.printLog(data);
+  //
+  //   dynamic responseJson;
+  //   String token = await Utils.getPreferenceValues(Constants.accessToken) ?? "";
+  //
+  //   try {
+  //     final response = await http
+  //         .delete(
+  //       Uri.parse(url),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "accesstoken": token ,
+  //       },
+  //       body: data != null ? jsonEncode(data) : null,
+  //     )
+  //         .timeout(const Duration(seconds: 3));
+  //
+  //     responseJson = returnResponse(response);
+  //     Utils.printLog("Response: $response");
+  //   } on SocketException {
+  //     throw InternetException('');
+  //   } on RequestTimeOut {
+  //     throw RequestTimeOut('');
+  //   } on TimeoutException {
+  //     throw RequestTimeOut('');
+  //   } on UnauthorizedException {
+  //     throw AuthenticationException('');
+  //   }
+  //
+  //   Utils.printLog(responseJson);
+  //   return responseJson;
+  // }
+
+
 
 
 }

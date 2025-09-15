@@ -98,12 +98,19 @@ class Artisans extends ParentWidget {
                                         Artisancontroller.getArtisanListModel.value.data?.docs?[index],
                                         onTap: ()  {
                                           final artisan = Artisancontroller.getArtisanListModel.value.data?.docs?[index];
+                                          final artisanId = Artisancontroller.getArtisanListModel.value.data?.docs?[index].id;
                                           if (artisan != null) {
-                                            Get.toNamed(RoutesClass.gotoArtisanProfileScreen(),arguments: artisan  );
+                                            Get.toNamed(RoutesClass.gotoArtisanProfileScreen(),arguments: {
+                                              'artisan': artisan,
+                                              'extraData': artisanId,
+                                            },   );
                                           }
                                         },
                                         onAddProduct: () {
-                                          Get.toNamed(RoutesClass.gotoAddProductPage());
+                                          final artisanId = Artisancontroller.getArtisanListModel.value.data?.docs?[index].id;
+                                           if (artisanId != null) {
+                                             Get.toNamed(RoutesClass.gotoAddProductPage(), arguments:{ 'artisanId' :artisanId});
+                                           }
                                         },
                                       );
                                     },

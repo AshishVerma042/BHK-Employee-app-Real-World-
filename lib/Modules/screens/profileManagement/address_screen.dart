@@ -96,7 +96,9 @@ class AddressScreen extends ParentWidget {
                                       icon: Icon(Icons.more_vert, color: Colors.brown),
                                       onSelected: (value) {
                                         if (value == 'edit') {
-                                        } else if (value == 'delete') {}
+                                        } else if (value == 'delete') {
+
+                                        }
                                       },
                                       itemBuilder: (BuildContext context) => [
                                         PopupMenuItem(
@@ -107,6 +109,9 @@ class AddressScreen extends ParentWidget {
                                           child: Text("Edit", style: TextStyle(color: Colors.brown)),
                                         ),
                                         PopupMenuItem(
+                                          onTap: (){
+                                            controller.deleteAddressApi(context,"${controller.getaddressModel.value.data?[index].id ?? ""}");
+                                          },
                                           value: 'delete',
                                           child: Text("Delete", style: TextStyle(color: Colors.brown)),
                                         ),
@@ -121,60 +126,6 @@ class AddressScreen extends ParentWidget {
                                     style: TextStyle(fontSize: 16, color: Colors.black87, fontWeight: FontWeight.w600),
                                   ),
                                 ),
-
-                                // ListTile(contentPadding: EdgeInsets.symmetric(horizontal: 0,vertical: 0),
-                                //   leading: Icon(
-                                //    Icons.home, color: Colors.brown,
-                                //   ),
-                                //   title: Row(
-                                //     children: [
-                                //       Text( "${controller.getaddressModel.value.data?[index].addressType}",
-                                //         style: TextStyle(fontWeight: FontWeight.w500),),
-                                //       2.kW,
-                                //       if(controller.getaddressModel.value.data?[index].isDefault==true)Container(padding: EdgeInsets.symmetric(vertical: 2,horizontal: 6),
-                                //         decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),border: Border.all(width: 1.2,color: Colors.black45)),
-                                //         child: Text("Default",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold,color: Colors.black45),),)
-                                //     ],
-                                //   ),
-                                //   trailing: PopupMenuButton(
-                                //     color: appColors.backgroundColorSecond,
-                                //     offset:  Offset(0, 40),
-                                //     icon:  Icon(Icons.more_vert, color: Colors.brown),
-                                //     onSelected: (value) {
-                                //       if (value == 'edit') {
-                                //       } else if (value == 'delete') {
-                                //       }
-                                //     },
-                                //     itemBuilder: (BuildContext context) => [
-                                //        PopupMenuItem(
-                                //         value: 'edit',
-                                //         child: Row(
-                                //           children: [
-                                //             Icon(Icons.edit, color: Colors.brown),
-                                //             SizedBox(width: 8),
-                                //             Text("Edit", style: TextStyle(color: Colors.brown)),
-                                //           ],
-                                //         ),
-                                //       ),
-                                //        PopupMenuItem(
-                                //         value: 'delete',
-                                //         child: Row(
-                                //           children: [
-                                //             Icon(Icons.delete, color: Colors.brown),
-                                //             SizedBox(width: 8),
-                                //             Text("Delete", style: TextStyle(color: Colors.brown)),
-                                //           ],
-                                //         ),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
-                                // Padding(
-                                //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                //   child: Text("${controller.getaddressModel.value.data?[index].houseNo?? ""} ${controller.getaddressModel.value.data?[index].street?? ""} ${controller.getaddressModel.value.data?[index].landmark?? ""} ${controller.getaddressModel.value.data?[index].state?? ""} ${controller.getaddressModel.value.data?[index].country?? ""} ${controller.getaddressModel.value.data?[index].state?? ""} ${controller.getaddressModel.value.data?[index].postalCode?? ""}",style: TextStyle(
-                                //       fontSize: 12,color: Colors.black45
-                                //   ),),
-                                // ),
                               ],
                             ),
                           );
