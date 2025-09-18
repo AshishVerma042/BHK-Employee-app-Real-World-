@@ -3,6 +3,7 @@
 
 import 'dart:io';
 
+import 'package:bhk_employee/Modules/model/artisanDetailsModel.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -23,6 +24,15 @@ class ArtisanProfileController extends GetxController {
 
 
 
+  RxBool isFavorite = false.obs ;
+  void toggleHeart() {
+    if (isFavorite.value==false) {
+      isFavorite.value = true;
+    } else {
+      isFavorite.value = false;
+    }
+  }
+
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   final getArtisanProductListModel = ArtisanProductListModel().obs;
   void setgetArtisanProductListModeldata(ArtisanProductListModel value) => getArtisanProductListModel.value = value;
@@ -42,7 +52,7 @@ class ArtisanProfileController extends GetxController {
           .then((value) {
         setRxRequestStatus(Status.COMPLETED);
         setgetArtisanProductListModeldata(value);
-        //CommonMethods.showToast(value.message);
+        // CommonMethods.showToast(value.message);
         Utils.printLog("Response===> ${value.toString()}");
       })
           .onError((error, stackTrace) {
@@ -53,20 +63,43 @@ class ArtisanProfileController extends GetxController {
     }
   }
 
+  final getArtisanDetailModel = ArtisanDetailsModel().obs;
+  void setgetArtisanDetailsModeldata(ArtisanDetailsModel value) => getArtisanDetailModel.value = value;
+
+  Future<void> getArtisanDetailsApi() async {
+    setRxRequestStatus(Status.LOADING);
+
+    var connection = await CommonMethods.checkInternetConnectivity();
+    Utils.printLog("CheckInternetConnection===> ${connection.toString()}");
+
+    if (connection == true) {
+      _api.getartisansDetailsApi(artisanId.value).then((value) {
+        setRxRequestStatus(Status.COMPLETED);
+        getArtisanProductListApi();
+        setgetArtisanDetailsModeldata(value);
+        Utils.printLog("Response===> ${value.toString()}");
+      }).onError((error, stackTrace) {
+        handleApiError(error, stackTrace,
+            setError: setError, setRxRequestStatus: setRxRequestStatus);
+      });
+    } else {
+      CommonMethods.showToast(appStrings.weUnableCheckData);
+    }
+  }
+
   var introVideoFile = Rxn<File>();
 
 
-  var artisanId = "".obs;
+  var artisanId = 0.obs;
   @override
   void onInit() {
     super.onInit();
     final args = Get.arguments as Map;
 
-    artisanId.value = args['artisanId']?? "";
-     artisanData.value =args['artisan'];
-    getArtisanProductListApi();
+    artisanId.value = int.tryParse(args['artisanId'].toString()) ?? 0;
+    getArtisanDetailsApi();
+
   }
-   var artisanData = Rxn<artisanListModel.Docs>();
 
 
 

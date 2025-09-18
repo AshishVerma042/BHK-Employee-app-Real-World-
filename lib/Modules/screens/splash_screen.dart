@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:bhk_employee/Modules/controller/splashController.dart';
 import 'package:bhk_employee/main.dart';
+import 'package:bhk_employee/resources/colors.dart';
 import 'package:bhk_employee/resources/images.dart';
 import 'package:bhk_employee/resources/strings.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class SplashScreen extends ParentWidget {
   Widget buildingView(BuildContext context, double h, double w) {
     SplashController controller = Get.put(SplashController());
     return Scaffold(
-      backgroundColor: const Color.fromARGB(195, 247, 243, 233),
+      backgroundColor:  appColors.backgroundColor,
       body: Stack(
         children: [
           Center(
@@ -51,7 +52,7 @@ class SplashScreen extends ParentWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color:
-                    Color.fromARGB(255, 123, 64, 35),
+                    appColors.brownDarkText,
               ),
             ),
           ),

@@ -1,5 +1,5 @@
-import 'package:bhk_employee/Modules/screens/artisanManagement/product_detail_page.dart';
 import 'package:bhk_employee/utils/sized_box_extension.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -7,17 +7,15 @@ import '../../../common/common_widgets.dart';
 import '../../../main.dart';
 import '../../../resources/appconstants.dart';
 import '../../../resources/colors.dart';
-import '../../../resources/strings.dart';
+import '../../../routes/RoutesClass.dart';
 import '../../controller/artisanprofile_controller.dart';
-import '../../controller/dashboardcontroller.dart';
-import '../../model/artisanProductListModel.dart';
+import 'VideoPlayerScreen.dart';
 
 class ArtisanProfileScreen extends ParentWidget {
   const ArtisanProfileScreen({super.key});
 
   @override
   Widget buildingView(BuildContext context, double h, double w) {
-    Dashboardcontroller dashboardcontroller = Get.put(Dashboardcontroller());
     ArtisanProfileController controller = Get.put(ArtisanProfileController());
 
     return Obx(()
@@ -81,53 +79,64 @@ class ArtisanProfileScreen extends ParentWidget {
                                 children: [
                                   Text(
                                     // "${controller.getArtisanProductListModel.value.data?.docs?[0].artisan?.firstName ?? ""} ${controller.getArtisanProductListModel.value.data?.docs?[0].artisan?.lastName?? ""}",
-                                    "${controller.artisanData.value?.firstName ?? ''} ${controller.artisanData.value?.lastName?? ''}",
-                                    style: const TextStyle(
+                                    "${controller.getArtisanDetailModel.value.data?.firstName ?? ''} ${controller.getArtisanDetailModel.value.data?.lastName?? ''}",
+                                    style:  TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
                                   ),
                                   6.kH,
-                                  GestureDetector(
-                                    onTap: () => bottomDrawerVideoFile(
-                                      context,
-                                      h * 0.25,
-                                      w,
-                                      controller.introVideoFile,
-                                          () {
+                                  Obx(() {
+                                    final hasVideo = controller.introVideoFile.value != null;
 
-                                        pickVideoFromGallery(controller.introVideoFile, true);
-                                      },
-                                          () {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        if (hasVideo) {
+                                          Get.to(() => VideoPlayerScreen(), arguments: {
+                                            'videoFile': controller.introVideoFile.value!
+                                          });
+                                        } else {
 
-                                        pickVideoFromGallery(controller.introVideoFile, false);
+                                          bottomDrawerVideoFile(
+                                            context,
+                                            h * 0.25,
+                                            w,
+                                            controller.introVideoFile,
+                                                () {
+                                              pickVideoFromGallery(controller.introVideoFile, true);
+                                            },
+                                                () {
+                                              pickVideoFromGallery(controller.introVideoFile, false);
+                                            },
+                                          );
+                                        }
                                       },
-                                    ),
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                                      decoration: BoxDecoration(
-                                        color: appColors.backgroundColorSecond,
-                                        borderRadius: BorderRadius.circular(30),
-                                        border: Border.all(color: Colors.brown, width: 1.5),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Icon(Icons.play_circle_fill, color: Colors.brown, size: 20),
-                                          SizedBox(width: 6),
-                                          Text(
-                                            "Intro video",
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.brown.shade800,
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                                        decoration: BoxDecoration(
+                                          color: appColors.backgroundColorSecond,
+                                          borderRadius: BorderRadius.circular(30),
+                                          border: Border.all(color: Colors.brown, width: 1.5),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const Icon(Icons.play_circle_fill, color: Colors.brown, size: 20),
+                                            const SizedBox(width: 6),
+                                            Text(
+                                              hasVideo ? "Preview" : "Intro video",
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.brown.shade800,
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ),
+                                    );
+                                  }),
 
                                   16.kH,
                                   Row(
@@ -141,7 +150,7 @@ class ArtisanProfileScreen extends ParentWidget {
                                               color: Colors.grey[700]),
                                           6.kW,
                                           Text(
-                                            "BHKE ID: ${controller.artisanData.value?.id?? ''} ",
+                                            "BHKE ID: ${controller.getArtisanDetailModel.value.data?.id?? ''} ",
                                             style: TextStyle(fontSize: 14),
                                           ),
                                         ],
@@ -155,7 +164,7 @@ class ArtisanProfileScreen extends ParentWidget {
                                               size: 16, color: Colors.black54),
                                           6.kW,
                                           Text(
-                                            "${controller.artisanData.value?.email?? ''}",
+                                            "${controller.getArtisanDetailModel.value.data?.email?? ''}",
                                             style: TextStyle(fontSize: 14),
                                           ),
                                         ],
@@ -176,7 +185,7 @@ class ArtisanProfileScreen extends ParentWidget {
                                           6.kW,
                                           Text(
                                             // "${controller.getArtisanProductListModel.value.data?.docs?[0].artisan?.countryCode?? "00"} ${controller.getArtisanProductListModel.value.data?.docs?[0].artisan?.phoneNo?? "00"}",
-                                            "${controller.artisanData.value?.countryCode?? ''} ${controller.artisanData.value?.phoneNo?? ''}",
+                                            "${controller.getArtisanDetailModel.value.data?.countryCode?? ''} ${controller.getArtisanDetailModel.value.data?.phoneNo?? ''}",
                                             style: TextStyle(fontSize: 14),
                                           ),
                                         ],
@@ -228,7 +237,7 @@ class ArtisanProfileScreen extends ParentWidget {
                                         children: [
                                           Text(
                                             // controller.getArtisanProductListModel.value.data?.docs?[0].artisan?.expertizeField?? "00",
-                                             "${controller.artisanData.value?.expertizeField}",
+                                             "${controller.getArtisanDetailModel.value.data?.expertizeField}",
                                             style: TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.w600,
@@ -306,22 +315,50 @@ class ArtisanProfileScreen extends ParentWidget {
                 ),
               ),
               10.kH,
-              // GridView.builder(
-              //   shrinkWrap: true,
-              //   physics: const NeverScrollableScrollPhysics(),
-              //   itemCount:dashboardcontroller.serviceItems.length,
-              //   padding: const EdgeInsets.all(16),
-              //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              //     crossAxisCount: 2,
-              //     crossAxisSpacing: 12,
-              //     mainAxisSpacing: 12,
-              //     childAspectRatio: 0.70,
-              //   ),
-              //   itemBuilder: (context, index) {
-              //     return  myProductCard(dashboardcontroller.serviceItems[index]);
-              //   },
-              // ),
-              GridView.builder(
+              (controller.getArtisanProductListModel.value.data?.docs?.isEmpty ?? true)
+                  ? Container(
+                height: Get.height * 0.34,
+                width: double.infinity,
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(24),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+                    20.kH,
+                    Text(
+                      "No Product Found",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: appColors.brownDarkText,
+                      ),
+                    ),
+                    10.kH,
+                    Text(
+                      "Start by adding your first Product to manage them here.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                    20.kH,
+                    commonButton(
+                      150,
+                      45,
+                      appColors.brownDarkText,
+                      Colors.white,
+                          () {  final artisanId = controller.artisanId;
+                          if (artisanId != null) {
+                            Get.toNamed(RoutesClass.gotoAddProductPage(), arguments:{ 'artisanId' :artisanId});
+                          }},
+                      hint: "Add Product",
+                    )
+                  ],
+                ),
+              )
+                  : GridView.builder(
                 shrinkWrap: true,
                 physics:  NeverScrollableScrollPhysics(),
                 itemCount:controller.getArtisanProductListModel.value.data?.docs?.length?? 0,
@@ -344,12 +381,20 @@ class ArtisanProfileScreen extends ParentWidget {
   }
 }
 
-Widget myProductCardReview(Docs? artisan, {bool isFavorite = false}) {
+Widget myProductCardReview(dynamic artisan, {bool isFavorite = false}) {
   return Container(
     width: double.infinity,
     decoration: BoxDecoration(
       image: DecorationImage(
-          image: AssetImage("asserts/images/ArticianImage1.jpg"), fit: BoxFit.cover),
+        image: (artisan?.images != null &&
+            artisan!.images!.isNotEmpty &&
+            (artisan.images![0].imageUrl?.isNotEmpty ?? false))
+            ? CachedNetworkImageProvider(artisan.images![0].imageUrl!)
+            : const AssetImage("assets/images/Product2.png") as ImageProvider,
+        fit: BoxFit.cover,
+      ),
+
+
       border: Border.all(color: Colors.grey.shade300),
       borderRadius: BorderRadius.circular(16),
       color: Colors.white,
@@ -376,7 +421,7 @@ Widget myProductCardReview(Docs? artisan, {bool isFavorite = false}) {
                     padding:
                     EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                     decoration: BoxDecoration(
-                      color: Colors.green,
+                      color: artisan?.adminApprovalStatus== "PENDING"? Colors.brown.shade800 : Colors.green,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(14),
                         bottomRight: Radius.circular(14),
@@ -384,33 +429,36 @@ Widget myProductCardReview(Docs? artisan, {bool isFavorite = false}) {
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.check, size: 14, color: Colors.white),
+                        artisan?.adminApprovalStatus == "PENDING"
+                            ?  SizedBox.shrink()
+                            :  Icon(Icons.check, size: 14, color: Colors.white),
                         SizedBox(width: 2),
-                        Text("verified",
+                        Text(artisan?.adminApprovalStatus?? "",
                             style: TextStyle(
                                 fontSize: 11,
-                                color: Colors.white)),
+                                color: Colors.white,fontWeight: FontWeight.bold)),
                         SizedBox(width: 2),
                       ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      isFavorite = !isFavorite;
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.3),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: isFavorite ? Colors.red : Colors.white,
-                        size: 18,
-                      ),
-                    ),
-                  ),
+                  // GestureDetector(
+                  //     onTap: () {
+                  //       isFavorite = !isFavorite;
+                  //     },
+                  //     child: Container(
+                  //       padding: EdgeInsets.all(6),
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.black.withOpacity(0.3),
+                  //         shape: BoxShape.circle,
+                  //       ),
+                  //       child: Icon(
+                  //         isFavorite? Icons.favorite : Icons.favorite_border,
+                  //         color: isFavorite? Colors.red : Colors.white,
+                  //         size: 18,
+                  //       ),
+                  //     ),
+                  //   ),
+
                 ],
               ),
             ],
@@ -440,7 +488,7 @@ Widget myProductCardReview(Docs? artisan, {bool isFavorite = false}) {
                   children: [
                     Expanded(
                       child: Text(
-                        artisan?.category?.categoryName?? "",
+                        artisan?.productName?? "",
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white,
@@ -455,13 +503,13 @@ Widget myProductCardReview(Docs? artisan, {bool isFavorite = false}) {
                     ),
                   ],
                 ),
-                const SizedBox(height: 2),
+                 SizedBox(height: 2),
                 Row(
                   children: [
-                    const Icon(Icons.workspace_premium,
+                     Icon(Icons.workspace_premium,
                         color: Colors.white70, size: 14),
-                    Text('category',
-                        style: const TextStyle(
+                    Text( artisan?.category?.categoryName?? "",
+                        style:  TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: Colors.white70)),
@@ -471,7 +519,10 @@ Widget myProductCardReview(Docs? artisan, {bool isFavorite = false}) {
                   child: commonButton(
                       double.infinity, 35, appColors.brownDarkText, Colors.white,
                           () {
-                        // Get.to(() => ProductDetailScreen(product: item));
+                            final productId = artisan?.productId;
+                            if (productId != null) {
+                              Get.toNamed(RoutesClass.gotoProductDetailScreen(), arguments:{ 'productId' :productId});
+                            }
                       },
                       hint: "Preview",
                       fontSize: 14,

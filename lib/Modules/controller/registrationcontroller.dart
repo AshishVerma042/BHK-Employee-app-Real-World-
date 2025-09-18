@@ -3,12 +3,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bhk_employee/Modules/controller/artisancontroller.dart';
+import 'package:bhk_employee/Modules/model/expertiseModel.dart';
 import 'package:bhk_employee/common/map_geolocation/mapcontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Constants/utils.dart';
 import '../../common/CommonMethods.dart';
 import '../../common/Constants.dart';
+import '../../common/common_widgets.dart';
 import '../../data/response/status.dart';
 import '../../resources/strings.dart';
 
@@ -22,6 +24,7 @@ import '../repository/registrationRepository.dart';
 class RegistrationController extends GetxController {
   ArtisanController artisanController = Get.put(ArtisanController());
 
+  var introVideoFile = Rxn<File>();
 
 
 
@@ -39,8 +42,8 @@ class RegistrationController extends GetxController {
   final verifyOTPData = VerifyOTPModel().obs;
 
 
-  var subExpertise = <String>["Handloom", "Handicraft"].obs;
-  var casteCategories =<String> ["General", "OBC", "SC/ST"].obs;
+  var Expertise = <String>[].obs;
+  var casteCategories =<String> ["General", "OBC", "SC" , "ST"].obs;
 
 
 
@@ -148,42 +151,38 @@ class RegistrationController extends GetxController {
   }
 
 
-  // Future<void> otpVerification(context) async {
-  //   var connection = await CommonMethods.checkInternetConnectivity();
-  //   Utils.printLog("CheckInternetConnection===> ${connection.toString()}");
-  //
-  //   if (connection == true) {
-  //     setRxRequestStatus(Status.LOADING);
-  //
-  //     Map<String, dynamic> data = {
-  //       "referenceId": referenceId.value,
-  //       "otp": otp.value.toString()
-  //     };
-  //     _api.verifyOtpApi(data).then((value) {
-  //       setRxRequestStatus(Status.COMPLETED);
-  //       setVerifyData(value);
-  //       Utils.printLog("Response===> ${value}");
-  //       redirect();
-  //     }).onError((error, stackTrace) {
-  //       setError(error.toString());
-  //       setRxRequestStatus(Status.ERROR);
-  //       if (error.toString().contains("{")) {
-  //         var errorResponse = json.decode(error.toString());
-  //         print("errrrorrr=====>$errorResponse");
-  //         if (errorResponse is Map || errorResponse.containsKey('message')) {
-  //           CommonMethods.showToast(errorResponse['message']);
-  //         } else {
-  //           CommonMethods.showToast("An unexpected error occurred.");
-  //         }
-  //       }
-  //       Utils.printLog("Error===> ${error.toString()}");
-  //       Utils.printLog("StackTrace===> ${stackTrace.toString()}");
-  //
-  //     });
-  //   } else {
-  //     CommonMethods.showToast(appStrings.weUnableCheckData);
-  //   }
-  // }
+  final expertiseListData = ExpertiseModel().obs;
+  void setgetexpertisModeldata(ExpertiseModel value) => expertiseListData.value = value;
+
+  Future<void> getExpertiseApi() async {
+    setRxRequestStatus(Status.LOADING);
+    var connection = await CommonMethods.checkInternetConnectivity();
+    Utils.printLog("CheckInternetConnection===> ${connection.toString()}");
+
+    if (connection == true) {
+
+      _api.getexpertiseApi()
+          .then((value) {
+        setRxRequestStatus(Status.COMPLETED);
+        setgetexpertisModeldata(value);
+        Utils.printLog("Response===> ${value.toString()}");
+        Expertise.clear();
+
+        if (value.data?.docs != null && value.data!.docs!.isNotEmpty) {
+          Expertise.addAll(
+            value.data!.docs!.map((doc) => doc.categoryName ?? "").toList(),
+          );
+        }
+      })
+          .onError((error, stackTrace) {
+        handleApiError(error, stackTrace, setError: setError, setRxRequestStatus: setRxRequestStatus);
+      });
+    } else {
+      CommonMethods.showToast(appStrings.weUnableCheckData);
+    }
+  }
+
+
   Future<void> otpVerification() async {
     var connection = await CommonMethods.checkInternetConnectivity();
 
@@ -285,4 +284,10 @@ class RegistrationController extends GetxController {
   // void onInit() {
   //   super.onInit();
   // }
+
+@override
+  void onInit() {
+    super.onInit();
+    getExpertiseApi();
+  }
 }

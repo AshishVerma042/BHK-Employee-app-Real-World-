@@ -58,6 +58,7 @@
 //    }
 //
 // }
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../Constants/utils.dart';
@@ -75,7 +76,6 @@ class ArtisanController extends GetxController {
   final rxRequestStatus = Status.COMPLETED.obs;
   RxString error = ''.obs;
 
-  /// 🔹 Holds the filtered artisans (used for search)
   var filteredArtisans = <Docs>[].obs;
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;

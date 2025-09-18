@@ -1,6 +1,8 @@
+import 'package:bhk_employee/Modules/screens/profileManagement/main_profile.dart';
 import 'package:bhk_employee/main.dart';
 import 'package:bhk_employee/resources/strings.dart';
 import 'package:bhk_employee/utils/sized_box_extension.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
@@ -11,37 +13,23 @@ import '../../../resources/colors.dart';
 import '../../controller/product_Details_controller.dart';
 
 class ProductDetailScreen extends ParentWidget {
-  final Map<String, dynamic> product;
 
-  const ProductDetailScreen({super.key, required this.product});
+  const ProductDetailScreen({super.key,});
 
 
   @override
   Widget buildingView(BuildContext context, double h, double w) {
-    final ProductController productController = Get.put(ProductController(image: product['image']));
+    final ProductController controller = Get.put(ProductController());
 
     return Obx(
             () => Stack(
         children: [
           Scaffold(
             backgroundColor: appColors.backgroundColor,
-            appBar: AppBar(
-              flexibleSpace: Container(
-                  decoration:
-                   BoxDecoration(gradient: AppConstants.customGradient)),
-              iconTheme:  IconThemeData(color: Colors.white),
-              title: Text(
-                product['name'] ?? "Product",
-                style:  TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600),
-              ),
-              centerTitle: true,
-            ),
+            appBar: topAppBar("Product"),
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding:  EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -51,72 +39,71 @@ class ProductDetailScreen extends ParentWidget {
                           child: Column(
                             children: [
                               CarouselSlider(
-                                carouselController: productController.carouselController,
+                                carouselController: controller.carouselController,
                                 options: CarouselOptions(
                                   height: 420,
-                                  autoPlay: true,
                                   enlargeCenterPage: true,
                                   viewportFraction: 1,
                                   onPageChanged: (index, reason) {
-                                    productController.currentIndex.value = index;
+                                   controller.currentIndex.value = index;
                                   },
                                 ),
-                                items: productController.imagesfetch.map((img) {
+                                items: controller.imagesfetch.map((img) {
                                   return ClipRRect(
                                     borderRadius: BorderRadius.circular(16),
-                                    child: Image.asset(
-                                      img,
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
-                                    ),
+                                    child: CachedNetworkImage(imageUrl:  img,fit: BoxFit.cover,width: double.infinity,)
                                   );
                                 }).toList(),
                               ),
 
-                              const SizedBox(height: 12),
 
-                              SingleChildScrollView(scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: productController.imagesfetch
-                                      .asMap()
-                                      .entries
-                                      .map((entry) {
-                                    final isActive =
-                                        productController.currentIndex.value == entry.key;
-                                    return GestureDetector(
-                                      onTap: () {
-                                        productController.carouselController.animateToPage(entry.key);
-                                       },
-                                      child: Container(
-                                        width: 80,
-                                        height: 80,
-                                        padding: EdgeInsets.symmetric(horizontal: 2,vertical: 2),
-                                        margin:  EdgeInsets.only(right: 6),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: isActive ? Colors.brown : Colors.transparent,
-                                            width: 2,
+                              12.kH,
+
+                              SizedBox(width: w,
+                                child: SingleChildScrollView(scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: controller.imagesfetch
+                                        .asMap()
+                                        .entries
+                                        .map((entry) {
+                                      final isActive =
+                                          controller.currentIndex.value == entry.key;
+                                      return GestureDetector(
+                                        onTap: () {
+                                          controller.carouselController.animateToPage(entry.key);
+                                         },
+                                        child: Container(
+                                          width: 80,
+                                          height: 80,
+                                          padding: EdgeInsets.symmetric(horizontal: 2,vertical: 2),
+                                          margin:  EdgeInsets.only(right: 6),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: isActive ? Colors.brown : Colors.transparent,
+                                              width: 2,
+                                            ),
+                                            borderRadius: BorderRadius.circular(8),
                                           ),
-                                          borderRadius: BorderRadius.circular(8),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(8),
+                                            child: CachedNetworkImage(imageUrl: entry.value,fit: BoxFit.cover,width: double.infinity,)
+                                          ),
                                         ),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(8),
-                                          child: Image.asset(entry.value, fit: BoxFit.cover),
-                                        ),
-                                      ),
-                                    );
-                                  }).toList(),
+                                      );
+                                    }).toList(),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
+
                     28.kH,
 
                     Column(crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          product['name'] ?? "Unknown Product",
+                          controller.getProductDetailModel.value.data?.productName??"Product",
                           style:  TextStyle(
                             fontSize: 21,
                             fontWeight: FontWeight.bold,
@@ -124,20 +111,21 @@ class ProductDetailScreen extends ParentWidget {
                             height: 1.3,
                           ),
                         ),
+                        2.kH,
                         Text(
-                          product['description'] ??
-                              appStrings.thisIsAHighQualityHandcrafted,
+                          controller.getProductDetailModel.value.data?.description??'description'
+                              ,
                           style:  TextStyle(
-                            fontSize: 15,
-                            color: Colors.black87,
-                            height: 1.5,
+                            fontSize: 14,
+                            color: Colors.black45,
+                            height: 1.2,
                           ),
                         ),
                         20.kH,
                         Row(
                           children: [
                             Text(
-                              "₹ ${product['price'] ?? "0"}",
+                              "₹ ${(controller.totalPrice)} ",
                               style:  TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
@@ -145,7 +133,7 @@ class ProductDetailScreen extends ParentWidget {
                               ),
                             ),
                             5.kW,
-                            Text("(₹250 per piece)",
+                            Text("(₹${double.tryParse(controller.getProductDetailModel.value.data?.productPricePerPiece?? "")} per piece)",
                                 style: TextStyle(fontSize: 13)),
                           ],
                         ),
@@ -175,7 +163,7 @@ class ProductDetailScreen extends ParentWidget {
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
                                       color: Colors.brown, width: 1.6)),
-                              child:  Center(child: Text('20')),
+                              child:  Center(child: Text('${controller.getProductDetailModel.value.data?.quantity?? ""}')),
                             )
                           ],
                         ),
@@ -189,22 +177,30 @@ class ProductDetailScreen extends ParentWidget {
                           ),
                         ),
                         12.kH,
-                        detailRow(appStrings.material, "High-grade ceramic with natural clay base"),
-                        detailRow(appStrings.netWeight, '850gm'),
-                        detailRow(appStrings.artTechnique, "Traditional pottery wheel throwing"),
-                        detailRow(appStrings.dimensionInLBHIn, '8\" X 8\" X 16\"'),
+                        detailRow(appStrings.material, "${controller.getProductDetailModel.value.data?.material?? ""} "),
+                        detailRow(appStrings.netWeight,"${controller.getProductDetailModel.value.data?.netWeight?? ""} "),
+                        detailRow(appStrings.artTechnique, "${controller.getProductDetailModel.value.data?.artUsed?? ""} "),
+                        detailRow(appStrings.dimensionInLBHIn, "${controller.getProductDetailModel.value.data?.dimension?? ""} "),
 
-                        detailRow(appStrings.texture, "Matte glazed finish with textured bands"),
-                        detailRow(appStrings.pattern, "Geometric relief patterns with organic motifs"),
+                        detailRow(appStrings.texture, "${controller.getProductDetailModel.value.data?.texture?? ""} "),
+                        detailRow(appStrings.pattern, "${controller.getProductDetailModel.value.data?.patternUsed?? ""} "),
                         8.kH,
                         Text(appStrings.careInstructions,style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500,color: Colors.black45),),
-                        2.kH,
-                        Container(margin: EdgeInsets.symmetric(vertical: 12),height: 60,width: double.infinity,decoration: BoxDecoration(
-                            color:Color.fromARGB(27, 96, 61, 1) ,borderRadius: BorderRadius.all(Radius.circular(12))
+                        14.kH,
+
+                        Container(
+                          padding:  EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                          decoration: BoxDecoration(
+                            color:  Color.fromARGB(27, 96, 61, 1),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: Text(
+                            controller.getProductDetailModel.value.data?.washCare ?? "",
+                            style:  TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                          ),
                         ),
-                          child: Center(child: Text(appStrings.handWashWithMildSoap,style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),)),
-                        ),
-                        20.kH,
+
+
                        // auction(context),
                        //  28.kH,
                        //  assurance(),

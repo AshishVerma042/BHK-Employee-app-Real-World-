@@ -102,6 +102,12 @@ class RoutesClass {
       transitionDuration: const Duration(milliseconds: 300),
     ),
     GetPage(
+      name: productdetail,
+      page: () => ProductDetailScreen(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
       name: address,
       page: () => AddressScreen(),
       transition: Transition.fade,
@@ -112,7 +118,8 @@ class RoutesClass {
       page: () => SettingProfile(),
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 300),
-    ), GetPage(
+    ),
+    GetPage(
       name: artisanSearchScreen,
       page: () => ArtisanSearchScreen(),
       transition: Transition.fade,
@@ -142,13 +149,6 @@ class RoutesClass {
       transition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 300),
     ),
-    GetPage(
-      name: productDetailsScreen,
-      page: () => ProductDetailScreen(product: Get.arguments),
-      transition: Transition.fade,
-      transitionDuration: const Duration(milliseconds: 300),
-    ),
-
 
     GetPage(
         name: login,

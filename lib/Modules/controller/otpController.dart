@@ -17,9 +17,7 @@ class OtpController extends GetxController
     with GetSingleTickerProviderStateMixin {
   final _api = OtpRepository();
   final _apiLogin = LoginRepository();
-  var checkInternetValue = false.obs();
   final verifyOTPData = VerifyOTPModel().obs;
-  dynamic errorMessage;
   var otpController = TextEditingController().obs;
   var otp = "".obs;
   final logInData = SignUpModel().obs;
@@ -152,7 +150,6 @@ class OtpController extends GetxController
   }
 
   redirect() {
-    //if (verifyOTPData.value.statusCode == 200) {
     print("Statuscode======> ${verifyOTPData.value.statusCode}");
     Utils.savePreferenceValues(
         Constants.accessToken, "${verifyOTPData.value.data?.accessToken}");

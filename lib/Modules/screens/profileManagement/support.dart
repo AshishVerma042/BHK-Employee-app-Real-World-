@@ -10,6 +10,8 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../../resources/appconstants.dart';
 import '../../../resources/colors.dart';
 import '../../controller/supportcontroller.dart';
+import '../dashboardManagement/home_screen.dart';
+import 'main_profile.dart';
 
 class Support extends ParentWidget {
   const Support({super.key});
@@ -19,19 +21,8 @@ class Support extends ParentWidget {
     final controller = Get.put(SupportController());
     return Scaffold(
       backgroundColor: appColors.backgroundColor,
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration:  BoxDecoration(
-            gradient: AppConstants.customGradient,
-          ),
-        ),
-        iconTheme:  IconThemeData(color: Colors.white),
-        title:  Text(
-          appStrings.support,
-          style: TextStyle(color: Colors.white, fontSize: 24),
-        ),
-        centerTitle: true,
-      ),
+      appBar:
+      topAppBar(appStrings.support),
       body: SingleChildScrollView(
         padding:  EdgeInsets.symmetric(horizontal: 20,vertical: 16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,17 +32,17 @@ class Support extends ParentWidget {
             commonComponent(appStrings.name,commonTextField(controller.nameController.value, controller.nameFocusNode.value, w, (value){},hint: appStrings.enterYourName,fontSize: 14),
             ),
             12.kH,
-            commonComponent(appStrings.email,commonTextField(controller.emailController.value, controller.nameFocusNode.value, w, (value){},hint: appStrings.enterYourEmail,fontSize: 14),
+            commonComponent(appStrings.email,commonTextField(controller.emailController.value, controller.emailFocusNode.value, w, (value){},hint: appStrings.enterYourEmail,fontSize: 14),
             ),
             12.kH,
-            commonComponent(appStrings.phoneNumber, commonTextField(controller.phoneController.value, controller.nameFocusNode.value, w, (value){},hint: appStrings.enterYourPhoneNumber,fontSize: 14),
+            commonComponent(appStrings.phoneNumber, commonTextField(controller.phoneController.value, controller.phoneFocusNode.value, w, (value){},hint: appStrings.enterYourPhoneNumber,fontSize: 14),
             ),
             12.kH,
-            commonComponent(appStrings.message,commonTextField(controller.messageController.value, controller.nameFocusNode.value, w,maxLines: 4, (value){},hint: appStrings.enterYourMessages,fontSize: 15),
+            commonComponent(appStrings.message,commonTextField(controller.messageController.value, controller.messageFocusNode.value, w,maxLines: 4, (value){},hint: appStrings.enterYourMessages,fontSize: 15),
             ),
             20.kH,
-            commonButton(w, 50, appColors.contentButtonBrown, Colors.white, (){},hint: appStrings.sendMessage),
-            SizedBox(height: 30,),
+            commonButton(w, 50, appColors.brownDarkText, Colors.white, (){},hint: appStrings.sendMessage),
+            30.kH,
             contactDetails(Icons.call,"(246)264 845"),
             contactDetails(Icons.email_outlined,"BharathasthKaushal@gmail.com"),
           
@@ -63,11 +54,13 @@ class Support extends ParentWidget {
 }
 
 
+
+
 Widget contactDetails(IconData icon, String details){
   return Row(mainAxisAlignment: MainAxisAlignment.start,
     children: [
       Icon( icon,size: 23,),
-      SizedBox(width: 6,),
+      6.kW,
       Text(details,style: TextStyle(fontSize: 18),)
     ],);
 }

@@ -12,13 +12,9 @@ import '../model/signUpModel.dart';
 import '../repository/loginRepository.dart';
 
 class LoginController extends GetxController with GetSingleTickerProviderStateMixin {
-  var emailController = TextEditingController().obs;
-  var emailFocusNode = FocusNode().obs;
   var phoneController = TextEditingController().obs;
-  var passwordController = TextEditingController().obs;
   var countryCode = "".obs;
   final _api = LoginRepository();
-  var checkInternetValue = false.obs();
   var phoneNumberFocusNode = FocusNode().obs;
   var errorMessage = "".obs;
 
@@ -39,39 +35,8 @@ class LoginController extends GetxController with GetSingleTickerProviderStateMi
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
    void setLoginData(SignUpModel value) => logInData.value = value;
 
-  var textFieldFocusNode = FocusNode().obs;
 
-  // Future<dynamic> signInWithGoogle() async {
-  //   try {
-  //     await GoogleSignIn().signOut();
-  //     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-  //
-  //     print(googleUser);
-  //
-  //     final GoogleSignInAuthentication? googleAuth =
-  //     await googleUser?.authentication;
-  //
-  //     final credential = GoogleAuthProvider.credential(
-  //       accessToken: googleAuth?.accessToken,
-  //       idToken: googleAuth?.idToken,
-  //     );
-  //     print("Id Token===>${credential.idToken}");
-  //
-  //     return await FirebaseAuth.instance.signInWithCredential(credential);
-  //   } on Exception catch (e) {
-  //     // TODO
-  //     print('exception->$e');
-  //   }
-  // }
 
-  // Future<bool> signOutFromGoogle() async {
-  //   try {
-  //     await FirebaseAuth.instance.signOut();
-  //     return true;
-  //   } on Exception catch (_) {
-  //     return false;
-  //   }
-  // }
 
   Future<void> logInAndRegister(context) async {
     var connection = await CommonMethods.checkInternetConnectivity();
@@ -81,9 +46,9 @@ class LoginController extends GetxController with GetSingleTickerProviderStateMi
       setRxRequestStatus(Status.LOADING);
 
       Map<String, dynamic> data = {
-        "identity": emailController.value.text.isNotEmpty ? emailController.value.text : phoneController.value.text,
+        "identity":  phoneController.value.text,
         "user_group": "EMPLOYEE",
-        if (phoneController.value.text.isNotEmpty) "countryCode": countryCode.value // Assume you have the country code stored
+        if (phoneController.value.text.isNotEmpty) "countryCode": countryCode.value
       };
       Utils.printLog(data);
       _api.logInApi(data).then((value) {
@@ -120,7 +85,7 @@ class LoginController extends GetxController with GetSingleTickerProviderStateMi
     );
     Get.toNamed(RoutesClass.gotoVerifyScreen(), arguments: {
       'referenceId': logInData.value.data?.referenceId,
-      "identity": emailController.value.text.isNotEmpty ? emailController.value.text : phoneController.value.text,
+      "identity":  phoneController.value.text,
       if (phoneController.value.text.isNotEmpty) "countryCode": countryCode.value
     } );
   }

@@ -195,12 +195,6 @@ final List<String> textureList = [
     totalPriceController.value.text = "0.0";
     getCategoryApi();
     artisanId.value = args['artisanId']?? 0;
-
-    // getBrandApi();
-    // getStoreApi();
-    // if (producteditId == true) {
-    //   getproductDetailsApi(productId);
-    // }
   }
 
   final rxRequestStatus = Status.COMPLETED.obs;

@@ -3,9 +3,11 @@ import 'dart:math';
 import 'package:bhk_employee/common/common_widgets.dart';
 import 'package:bhk_employee/common/myUtils.dart';
 import 'package:bhk_employee/main.dart';
+import 'package:bhk_employee/resources/colors.dart';
 import 'package:bhk_employee/resources/images.dart';
 import 'package:bhk_employee/resources/strings.dart';
 import 'package:bhk_employee/routes/RoutesClass.dart';
+import 'package:bhk_employee/utils/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -30,17 +32,17 @@ class OtpScreen extends ParentWidget {
                   child: Center(
                     child: SingleChildScrollView(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        padding:  EdgeInsets.symmetric(horizontal: 16.0),
                         child: Column(
                           children: [
                             Container(
                               width: 150,
                               height: 150,
                               decoration: BoxDecoration(
-                                color: Colors.white.withValues(alpha: .25),
+                                color: appColors.whiteShade,
                                 borderRadius: BorderRadius.circular(8),
                                 boxShadow: [
-                                  BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 10, offset: Offset(0, 4)),
+                                  BoxShadow(color: appColors.blackShade, blurRadius: 10, offset: Offset(0, 4)),
                                 ],
                               ),
                               child: Stack(
@@ -61,22 +63,18 @@ class OtpScreen extends ParentWidget {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 25),
+                            25.kH,
                             Text(
                               appStrings.phoneVerification,
                               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
+                            10.kH,
                             Text(
                               appStrings.weNeedToRegisterYourPhoneWithoutGettingStarted,
-                              style: const TextStyle(fontSize: 16, color: Colors.white),
+                              style:  TextStyle(fontSize: 16, color: Colors.white),
                               textAlign: TextAlign.center,
                             ),
-                            const SizedBox(
-                              height: 30,
-                            ),
+                            30.kH,
                             otpField(context, controller.otpController.value, 6, (pin) => controller.otp.value = pin.toString()),
                             controller.startTime.value > 0
                                 ? Padding(
@@ -96,7 +94,7 @@ class OtpScreen extends ParentWidget {
                                       padding: EdgeInsets.only(top: 6),
                                       child: Text(appStrings.reSend, style: TextStyle(fontSize: 14, color: Colors.white), textAlign: TextAlign.center),
                                     )),
-                            const SizedBox(height: 30),
+                            30.kH,
                             commonButton(w, 45, Color.fromARGB(255, 204, 157, 118), Colors.white, ()=>controller.otpVerification(context), hint: appStrings.verifyPhoneNumber, radius: 30),
                             Align(alignment: Alignment.topLeft, child: TextButton(onPressed: () => Get.offNamed(RoutesClass.gotoLoginScreen()), child: Text(appStrings.editNumber, style: TextStyle(color: Colors.white))
                             )

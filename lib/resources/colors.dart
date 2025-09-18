@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+
+
   get backgroundColor =>  const Color.fromARGB(195, 247, 243, 233);
   get backgroundColorSecond =>  const Color.fromARGB(249, 247, 243, 233);
   get brownDarkText =>Color.fromARGB(255, 123, 64, 35);
   get brownbuttonBg=>Color.fromARGB(255, 204, 157, 118);
+
 
   get  contentBrown=> getColor("#7B4023");
   get contentBrownLinearColor3 => getColor("#7B4023").withValues(alpha: 0.3);
@@ -37,6 +40,22 @@ class AppColors {
   get lightGrey => getColor("#E2E2E2");
   get selectServiceBottom =>getColor("#7B7979");
   get serviceContent=>getColor("#6D6C6C");
+
+/// BHK Employee App Colors
+  get whiteShade => Colors.white.withValues(alpha: .25);
+  get blackShade => Colors.black.withValues(alpha: 0.1);
+  get white => Colors.white;
+  get brown => Colors.brown;
+  get brownShade => Color.fromARGB(255, 155, 105, 89);
+  get blackShade54 => Colors.black54;
+  get black => Colors.black;
+  get red => Colors.red;
+  get blue => Colors.blue;
+  get orange => Colors.orange;
+  get grayShad => Colors.grey.withOpacity(0.1);
+  get redShade => Colors.redAccent;
+  get grey => Colors.grey;
+  get grayShade2 =>  Color.fromARGB(221, 100, 97, 97);
 
 
 
@@ -78,7 +97,6 @@ class AppColors {
   get colorPrimaryNew => getColorHexFromStr('#ffc07b');
   get buttonNew => getColorHexFromStr('#1f029a');
   get colorPrimaryNew2 => getColorHexFromStr('#fff6eb');
-  get black => getColorHexFromStr('#222222');
   get colorPrimary2 => getColorHexFromStr('#fcb52e');
   get internshipDescription => getColorHexFromStr('#57595b');
   get searchHint => getColorHexFromStr('#A7A9AC');

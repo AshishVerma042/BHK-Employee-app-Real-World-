@@ -79,7 +79,6 @@ class AddProductPage extends ParentWidget {
               ),
             ),
           ),
-          // progressBarTransparent(controller.rxRequestStatus.value == Status.LOADING, h, w),
           progressBarTransparentAnimationLoader(controller.rxRequestStatus.value == Status.LOADING, h, w),
 
         ],

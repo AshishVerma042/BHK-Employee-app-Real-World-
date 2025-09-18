@@ -1,3 +1,4 @@
+import 'package:bhk_employee/Modules/screens/profileManagement/main_profile.dart';
 import 'package:bhk_employee/common/common_widgets.dart';
 import 'package:bhk_employee/main.dart';
 import 'package:bhk_employee/resources/appconstants.dart';
@@ -28,13 +29,7 @@ class AddressScreen extends ParentWidget {
             children: [
               Scaffold(
                 backgroundColor: Color.fromARGB(255, 247, 243, 233),
-                appBar: AppBar(
-                  flexibleSpace: Container(decoration: const BoxDecoration(gradient: AppConstants.customGradient)),
-                  iconTheme: const IconThemeData(color: Colors.white),
-                  centerTitle: true,
-                  title: Text(appStrings.manageAddress.toUpperCase(), style: const TextStyle(fontSize: 16, color: Colors.white)),
-                ),
-
+                appBar: topAppBar(appStrings.manageAddress.toUpperCase()),
                 body: Obx(
                       () =>
                   (controller.getaddressModel.value.data?.isEmpty ?? true)
@@ -135,7 +130,7 @@ class AddressScreen extends ParentWidget {
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                padding:  EdgeInsets.symmetric(horizontal: 12.0),
                                 child: Text(
                                   "${controller.getaddressModel.value.data?[index].houseNo ?? ""}, ${controller.getaddressModel.value.data?[index].street ?? ""} ${controller.getaddressModel.value.data?[index].landmark ?? ""}, ${controller.getaddressModel.value.data?[index].state ?? ""}, ${controller
                                       .getaddressModel.value.data?[index].country ?? ""}, ${controller.getaddressModel.value.data?[index].state ?? ""}, ${controller.getaddressModel.value.data?[index].postalCode ?? ""}",
@@ -151,7 +146,7 @@ class AddressScreen extends ParentWidget {
                 ),
                 bottomNavigationBar: (controller.getaddressModel.value.data?.isEmpty ?? true)
                     ? Padding(
-                  padding: const EdgeInsets.only(left: 16, right: 16, bottom: 22),
+                  padding:  EdgeInsets.only(left: 16, right: 16, bottom: 22),
                   child: commonButton(
                     double.infinity,
                     45,
@@ -200,7 +195,6 @@ class AddressScreen extends ParentWidget {
         bool isUpdate = false,
         dynamic data,
       }) {
-    // ✅ Pre-fill controllers
     if (isUpdate && data != null) {
       controller.fillUpdateAddressFromLocation(data);
     } else {
@@ -215,7 +209,7 @@ class AddressScreen extends ParentWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
       ),
       builder: (context) {
-        return Container(
+        return SizedBox(
           height: h,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 20, top: 20, left: 16, right: 16),
@@ -412,9 +406,9 @@ class AddressScreen extends ParentWidget {
                     Colors.white,
                         () {
                       if (isUpdate && data != null) {
-                        controller.AddressUpdateApi(context, data.id);
+                        controller.AddressUpdateApi( data.id);
                       } else {
-                        controller.AddAddressApi(context);
+                        controller.AddAddressApi();
                       }
                       Get.back();
                     },

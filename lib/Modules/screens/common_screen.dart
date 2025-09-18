@@ -26,8 +26,8 @@ class CommonScreen extends ParentWidget {
           () => Scaffold(
         body: super.build(context),
         bottomNavigationBar: Container(height: 75,
-          decoration: BoxDecoration(color: appColors.backgroundColor, borderRadius: const BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
-            boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 4, offset: const Offset(0, -2))],),
+          decoration: BoxDecoration(color: appColors.backgroundColor, borderRadius:  BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
+            boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 4, offset:  Offset(0, -2))],),
           child: ClipRRect(
             borderRadius:  BorderRadius.vertical(top: Radius.circular(30)),
             child: Theme(

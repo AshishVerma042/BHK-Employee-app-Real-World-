@@ -7,7 +7,7 @@ import '../../common/map_geolocation/mapcontroller.dart';
 
 
 class Dashboardcontroller extends GetxController {
-  var scrollController = ScrollController().obs;
+
   LocationController locationController = Get.put(LocationController());
 
 

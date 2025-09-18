@@ -2,48 +2,97 @@ import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 
-class ProductController extends GetxController {
-  final String image;
-  late Timer timer;
-  var currentIndex = 0.obs;
+import '../../Constants/utils.dart';
+import '../../common/CommonMethods.dart';
+import '../../common/common_widgets.dart';
+import '../../data/response/status.dart';
+import '../../resources/strings.dart';
+import '../model/productDetailsModel.dart';
+import '../repository/ArtisansRepository.dart';
 
+class ProductController extends GetxController {
+  final _api = ArtisansListRepository();
+  var currentIndex = 0.obs;
   final carouselController = CarouselSliderController();
 
-  final Rx<Duration> remaining = const Duration(hours: 2).obs;
+  var imagesfetch = <String>[].obs;
 
-  ProductController({required this.image});
 
-  late final List<String> imagesfetch = [
-    image.isNotEmpty ? image : "assets/images/ArticianImage1.jpg",
-    "assets/images/ArticianImage1.jpg",
-    "assets/images/ArticianImage4.jpg",
-    "assets/images/ArticianImage1.jpg",
-    "assets/images/ArticianImage4.jpg",
-  ];
+  var productId = 0.obs;
 
   @override
   void onInit() {
     super.onInit();
-    timer = Timer.periodic(const Duration(seconds: 1), (t) {
-      if (remaining.value.inSeconds > 0) {
-        remaining.value = remaining.value - const Duration(seconds: 1);
-      } else {
-        timer.cancel();
-      }
-    });
+
+    final args = Get.arguments as Map;
+
+    productId.value = int.tryParse(args['productId'].toString()) ?? 0;
+    getArtisanDetailsApi();
+
   }
 
-  @override
-  void onClose() {
-    timer.cancel();
-    super.onClose();
+
+  void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+  final rxRequestStatus = Status.COMPLETED.obs;
+  void setError(String value) => error.value = value;
+  RxString error = ''.obs;
+
+
+
+
+  final getProductDetailModel = ProductDetailsModel().obs;
+  void setgetProductDetailsModeldata(ProductDetailsModel value) => getProductDetailModel.value = value;
+
+  Future<void> getArtisanDetailsApi() async {
+    setRxRequestStatus(Status.LOADING);
+
+    var connection = await CommonMethods.checkInternetConnectivity();
+    Utils.printLog("CheckInternetConnection===> ${connection.toString()}");
+
+    if (connection == true) {
+      _api.getproductDetailsApi(productId.value).then((value) {
+        setRxRequestStatus(Status.COMPLETED);
+        setgetProductDetailsModeldata(value);
+        calculateTotalPrice();
+
+        imagesfetch.clear();
+        if (value.data?.images != null && value.data!.images!.isNotEmpty) {
+          imagesfetch.addAll(
+            value.data!.images!.map((img) => img.imageUrl ?? "").toList(),
+          );
+        }
+        Utils.printLog("Response===> ${value.toString()}");
+      }).onError((error, stackTrace) {
+        handleApiError(error, stackTrace,
+            setError: setError, setRxRequestStatus: setRxRequestStatus);
+      });
+    } else {
+      CommonMethods.showToast(appStrings.weUnableCheckData);
+    }
   }
 
-  String formatDuration(Duration d) {
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
-    String h = twoDigits(d.inHours);
-    String m = twoDigits(d.inMinutes.remainder(60));
-    String s = twoDigits(d.inSeconds.remainder(60));
-    return "$h h $m m $s s";
+ final totalPrice = "".obs;
+
+  void calculateTotalPrice() {
+    double? price = double.tryParse(
+      getProductDetailModel.value.data?.productPricePerPiece?.toString() ?? "",
+    );
+
+    double? unit = double.tryParse(
+      getProductDetailModel.value.data?.quantity?.toString() ?? "",
+    );
+
+    if (price != null && unit != null) {
+      totalPrice.value = (price * unit).toStringAsFixed(1);
+    } else {
+      totalPrice.value = "0.0";
+    }
   }
+
+
+
+
+
+
+
 }

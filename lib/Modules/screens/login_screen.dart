@@ -38,10 +38,10 @@ class LoginScreen extends ParentWidget {
                     if (controller.errorMessage.value != "") errorToggle(controller),
                     SizedBox(height: h * 0.1),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      padding:  EdgeInsets.symmetric(horizontal: 12.0),
                       child: Text(
                         appStrings.letsSignIn,
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
@@ -51,17 +51,17 @@ class LoginScreen extends ParentWidget {
                     ),
                     5.kH,
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      padding:  EdgeInsets.symmetric(horizontal: 12.0),
                       child: Text(
                         appStrings.welcomeBack,
-                        style: const TextStyle(fontSize: 15, color: Colors.white, decoration: TextDecoration.none),
+                        style:  TextStyle(fontSize: 15, color: Colors.white, decoration: TextDecoration.none),
                       ),
                     ),
 
                     60.kH,
                     Center(
                       child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          padding:  EdgeInsets.symmetric(horizontal: 16.0),
                           child: phoneTextField(controller.phoneController.value, controller.phoneNumberFocusNode.value, w, 40,
                               onCountryChanged: (country) {
                              controller.countryCode.value = country.dialCode;
@@ -71,17 +71,14 @@ class LoginScreen extends ParentWidget {
                               onCountryCodeChange: (phone) {
                             controller.errorMessage.value = "";
                             controller.countryCode.value = phone.countryCode;
-                            if (phone.number.isNotEmpty) {
-                              controller.emailController.value.text = "";
-                            }
                           },
                               hint: appStrings.phone, inputFormatters: [NoLeadingZeroFormatter(), FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(10)])),
                     ),
                     20.kH,
                     Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        padding:  EdgeInsets.symmetric(horizontal: 16.0),
                         child: commonButton(w, 45, Color.fromARGB(255, 204, 157, 118), Colors.white, () {
-                          if (controller.emailController.value.text.isEmpty && controller.phoneController.value.text.isEmpty) {
+                          if ( controller.phoneController.value.text.isEmpty) {
                             controller.errorMessage.value = appStrings.loginerrormessage;
                           } else {
                             controller.errorMessage.value = "";
@@ -141,8 +138,8 @@ Widget topRoundedHeader(double w,double h, LoginController controller){
 
 Widget errorToggle(LoginController controller) {
   return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 16.0),
-    padding: const EdgeInsets.all(12.0),
+    margin:  EdgeInsets.symmetric(horizontal: 16.0),
+    padding:  EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       color: Colors.red[100],
       borderRadius: BorderRadius.circular(8.0),
@@ -150,12 +147,12 @@ Widget errorToggle(LoginController controller) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Icon(Icons.error, color: Colors.red),
-        const SizedBox(width: 8.0),
+         Icon(Icons.error, color: Colors.red),
+        8.kW,
         Expanded(
           child: Text(
             controller.errorMessage.value,
-            style: const TextStyle(color: Colors.red),
+            style:  TextStyle(color: Colors.red),
           ),
         ),
       ],

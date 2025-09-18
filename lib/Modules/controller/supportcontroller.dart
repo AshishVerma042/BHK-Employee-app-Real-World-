@@ -12,4 +12,5 @@ class SupportController extends GetxController {
   var phoneFocusNode = FocusNode().obs;
   var messageFocusNode = FocusNode().obs;
 
+
 }

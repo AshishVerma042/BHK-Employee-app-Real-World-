@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bhk_employee/Constants/utils.dart';
 import 'package:bhk_employee/common/commonmethods.dart';
 import 'package:bhk_employee/data/response/status.dart';
+import 'package:bhk_employee/resources/colors.dart';
 import 'package:bhk_employee/resources/strings.dart';
 import 'package:bhk_employee/routes/RoutesClass.dart';
 import 'package:bhk_employee/utils/sized_box_extension.dart';
@@ -50,13 +51,11 @@ class ProfileController extends GetxController {
 
   final repository = ProfileRepository();
 
-  // Group Value for Radio Button.
   int indexs = 1;
 
   final logoutModel = LogoutModel().obs;
   void setLogoutdata(LogoutModel value) => logoutModel.value = value;
 
-  var isLoading = false.obs;
   final rxRequestStatus = Status.COMPLETED.obs;
 
   final getProfileModel = GetProfileModel().obs;
@@ -77,7 +76,6 @@ class ProfileController extends GetxController {
 
   @override
   void onReady() {
-    // TODO: implement onReady
     super.onReady();
     getProfileApi();
   }
@@ -115,9 +113,7 @@ class ProfileController extends GetxController {
   }
 
   Future<void> profileRefresh() async {
-    // Simulate network fetch or database query
     await Future.delayed(Duration(seconds: 2));
-    // Update the list of items and refresh the UI
     getProfileApi();
     print("items.length");
   }
@@ -165,27 +161,27 @@ class ProfileController extends GetxController {
     return Column(
       children: [
         ListTile(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 15),
+          contentPadding:  EdgeInsets.symmetric(horizontal: 15),
           leading: Icon(icon, color: Colors.brown[700]),
           title:
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(title, style:  TextStyle(fontWeight: FontWeight.bold)),
           subtitle: Text(subtitle,
-              style: const TextStyle(fontSize: 12, color: Colors.grey)),
+              style:  TextStyle(fontSize: 12, color: Colors.grey)),
           onTap: () {
             profile(index);
           },
         ),
-        const Divider(
+         Divider(
           height: 3,
           thickness: 0.25,
           endIndent: 0,
-          color: Colors.black,
+          color: appColors.black,
         ),
       ],
     );
   }
 
-  Widget logoutbuildProfileOptionCard(
+  Widget logoutBuildProfileOptionCard(
       String title, String subtitle, IconData icon) {
     return Column(
       children: [
@@ -199,10 +195,10 @@ class ProfileController extends GetxController {
             Get.dialog(
               AlertDialog(
                 insetPadding:  EdgeInsets.symmetric(horizontal: 80, vertical: 24),
-                backgroundColor:Colors.white,
+                backgroundColor:appColors.white,
                 title:  Row(
                   children: [
-                     Icon(Icons.logout,color: Colors.brown,),
+                     Icon(Icons.logout,color: appColors.brown,),
                     4.kW,
                     Text(appStrings.confirmLogout,style: TextStyle( fontWeight: FontWeight.bold,fontSize: 18),),
                   ],
@@ -220,26 +216,13 @@ class ProfileController extends GetxController {
                         children: [
                           InkWell(
                             onTap: ()=>Get.back(),
-                            child:  Text(appStrings.cancel,style: TextStyle(fontWeight: FontWeight.bold,color: Color.fromARGB(255, 155, 105, 89)),),
+                            child:  Text(appStrings.cancel,style: TextStyle(fontWeight: FontWeight.bold,color: appColors.brownShade),),
                           ),
                           InkWell(
                             onTap: (){logOutApi();},
-                            child:  Text(appStrings.logout,style: TextStyle(fontWeight: FontWeight.bold,color: Color.fromARGB(255, 155, 105, 89)),),
+                            child:  Text(appStrings.logout,style: TextStyle(fontWeight: FontWeight.bold,color: appColors.brownShade),),
                           ),
-                          // ElevatedButton(
-                          //   onPressed: () {
-                          //     logOutApi();
-                          //     },
-                          //   style: ElevatedButton.styleFrom(
-                          //     backgroundColor: Colors.white,
-                          //     padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 8.0),
-                          //     foregroundColor: const Color.fromARGB(255, 155, 105, 89),
-                          //     shape: RoundedRectangleBorder(
-                          //       borderRadius: BorderRadius.circular(18.0),
-                          //     ),
-                          //   ),
-                          //   child:  Text(appStrings.logout, style: TextStyle(fontSize: 12)),
-                          // ),
+
                         ],
                       ),
                     ],

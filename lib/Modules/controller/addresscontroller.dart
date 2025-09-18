@@ -105,7 +105,7 @@ class AddressController extends GetxController{
   void setAddressData(AddAddressModel value) => addAddressData.value = value;
 
 
-  Future<void> AddAddressApi(context) async {
+  Future<void> AddAddressApi() async {
     var connection = await CommonMethods.checkInternetConnectivity();
     Utils.printLog("CheckInternetConnection===> ${connection.toString()}");
 
@@ -200,7 +200,7 @@ class AddressController extends GetxController{
   void setupdateAddressModeldata(AddressUpdateModel value) => AddressUpdateData.value = value;
 
 
-  Future<void> AddressUpdateApi(context, id) async {
+  Future<void> AddressUpdateApi( id) async {
     var connection = await CommonMethods.checkInternetConnectivity();
     Utils.printLog("CheckInternetConnection===> ${connection.toString()}");
 

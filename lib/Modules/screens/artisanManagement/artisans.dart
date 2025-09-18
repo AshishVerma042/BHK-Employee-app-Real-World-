@@ -97,12 +97,10 @@ class Artisans extends ParentWidget {
                                       return  artisanDetailCard(
                                         Artisancontroller.getArtisanListModel.value.data?.docs?[index],
                                         onTap: ()  {
-                                          final artisan = Artisancontroller.getArtisanListModel.value.data?.docs?[index];
                                           final artisanId = Artisancontroller.getArtisanListModel.value.data?.docs?[index].id;
-                                          if (artisan != null) {
+                                          if (artisanId != null) {
                                             Get.toNamed(RoutesClass.gotoArtisanProfileScreen(),arguments: {
-                                              'artisan': artisan,
-                                              'extraData': artisanId,
+                                              'artisanId': artisanId,
                                             },   );
                                           }
                                         },

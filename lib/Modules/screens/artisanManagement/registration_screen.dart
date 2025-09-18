@@ -1,3 +1,4 @@
+import 'package:bhk_employee/Modules/screens/profileManagement/main_profile.dart';
 import 'package:bhk_employee/common/common_widgets.dart';
 import 'package:bhk_employee/main.dart';
 import 'package:bhk_employee/resources/validator.dart';
@@ -11,6 +12,7 @@ import '../../../resources/images.dart';
 import '../../../resources/inputformatter.dart';
 import '../../../resources/strings.dart';
 import '../../controller/registrationcontroller.dart';
+import 'VideoPlayerScreen.dart';
 
 class Registration extends ParentWidget {
   const Registration({super.key});
@@ -27,12 +29,7 @@ class Registration extends ParentWidget {
         children: [
           Scaffold(
             backgroundColor: appColors.backgroundColor,
-            appBar: AppBar(
-              flexibleSpace: Container(decoration: const BoxDecoration(gradient: AppConstants.customGradient)),
-              iconTheme: const IconThemeData(color: Colors.white),
-              title:  Text(appStrings.registration, style: TextStyle(color: Colors.white, fontSize: 24)),
-              centerTitle: true,
-            ),
+            appBar: topAppBar(appStrings.registration),
             body: RefreshIndicator(
               color: Colors.brown,
               onRefresh: controller.profileRefresh,
@@ -41,170 +38,88 @@ class Registration extends ParentWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 30.0),
-                        child: Stack(
-                          fit: StackFit.loose,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                controller.imageFiles.value == null
-                                    ? Container(
-                                        alignment: const Alignment(0.0, 2.5),
-                                        child: CircleAvatar(backgroundColor: Color.fromARGB(195, 250, 248, 242), backgroundImage: AssetImage(AppImages.profile), radius: 70.0),
-                                      )
-                                    : Container(
-                                        alignment: const Alignment(0.0, 2.5),
-                                        child: CircleAvatar(backgroundImage: FileImage(controller.imageFiles.value!), radius: 70.0),
-                                      ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 100.0, left: 90.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CircleAvatar(
-                                    backgroundColor: Colors.green,
-                                    radius: 20.0,
-                                    child: IconButton(
-                                      icon:   Icon(Icons.camera_alt),
-                                      color: Colors.white,
-                                      onPressed: () {
-                                        controller.openImages(context);
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    artisanAvatar(controller,context),
                     Padding(
                       padding: EdgeInsets.only(top: 15),
                       child: Center(
                         child: Column(
                           children: [
-                            Text("${appStrings.maximumFileSize} 5 MB*", style: TextStyle(color: const Color.fromARGB(221, 100, 97, 97))),
-                            Text("${appStrings.acceptedFileTypes} jpg,png,jpeg", style: TextStyle(color: const Color.fromARGB(221, 100, 97, 97))),
+                            Text("${appStrings.maximumFileSize} 5 MB*", style: TextStyle(color: appColors.grayShade2)),
+                            Text("${appStrings.acceptedFileTypes} jpg,png,jpeg", style: TextStyle(color: appColors.grayShade2)),
                           ],
                         ),
                       ),
                     ),
                     20.kH,
-                    Row(
-                      children: [
-                        const Icon(Icons.edit_document, size: 20.0, color: Colors.blue),
-                        8.kW,
-                        Text(appStrings.personalInformation, style: const TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                    20.kH,
-
-                    commonComponent(appStrings.firstName, commonTextField(controller.fNameController.value, controller.fNameFocusNode.value, w, (value) {}, hint: appStrings.enterYourFirstName, fontSize: 14)),
+                    detailForm(controller, w, h),
                     12.kH,
-                    commonComponent(appStrings.lastName, commonTextField(controller.lNameController.value, controller.lNameFocusNode.value, w, (value) {}, hint: appStrings.enterYourLastName, fontSize: 14)),
-                    12.kH,
-                    commonComponent(appStrings.aadhaarNumber, commonTextField(controller.aadhaarController.value, controller.aadhaarFocusNode.value, maxLength: 16, keyboardType: TextInputType.number, w, (value) {}, hint: appStrings.enterYourAadhaarNumber, fontSize: 14,isCounter: true)),
 
-                    commonComponentRedStar(appStrings.phoneNumber),
-                    innerPhoneTextField(
-                      controller.phoneController.value,
-                      controller.phoneFocusNode.value,
-                      w,
-                      40,
-                      onCountryChanged: (country) {
-                        controller.countryCode.value = country.dialCode;
-                        controller.phoneController.value.text = "";
-                        print('${controller.phoneController.value.text} ${country.dialCode}');
-                      },
-                      onCountryCodeChange: (phone) {
-                        controller.errorMessage.value = "";
-                        controller.countryCode.value = phone.countryCode;
-                        if (phone.number.isNotEmpty) {
-                          controller.emailController.value.text = "";
-                        }
-                      },
-                      hint: appStrings.phone,
-                      inputFormatters: [NoLeadingZeroFormatter(), FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(10)],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: commonComponent(
-                            appStrings.category,
-                            commonDropdownButton(
-                              controller.casteCategories.map((item) {
-                                return DropdownMenuItem<String>(
-                                  value: item,
-                                  child: Text(item),
-                                );
-                              }).toList(),
-                              controller.selectedCast.value,
-                              w,h,
-                              appColors.backgroundColor,
-                                  (value) {
-                                  controller.selectedCast.value = value;
+                    commonComponentRedStar("Inro Video",mandatory: false),
+                    Container(padding: EdgeInsets.all(8),decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(width: 1.2,color: Colors.grey)),
+                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Introductory Video",style: TextStyle(color: Colors.black54,fontWeight: FontWeight.w400),),
+                          Obx(() {
+                            final hasVideo = controller.introVideoFile.value != null;
+
+                            return GestureDetector(
+                              onTap: () {
+                                if (hasVideo) {
+                                  Get.to(() => VideoPlayerScreen(), arguments: {
+                                    'videoFile': controller.introVideoFile.value!
+                                  });
+                                } else {
+
+                                  bottomDrawerVideoFile(
+                                    context,
+                                    h * 0.25,
+                                    w,
+                                    controller.introVideoFile,
+                                        () {
+                                      pickVideoFromGallery(controller.introVideoFile, true);
+                                    },
+                                        () {
+                                      pickVideoFromGallery(controller.introVideoFile, false);
+                                    },
+                                  );
+                                }
                               },
-                              hint: appStrings.selectCategory,
-                              borderColor: appColors.border,
-                            ),
-                          ),
-                        ),
-                        10.kW,
-                        Expanded(
-                          child: commonComponent(
-                            "Caste",
-                            commonTextField(controller.subCastController.value, controller.subCastFocusNode.value, w, (value) {}, hint: "Enter your Community", fontSize: 14),
-
-                          ),
-                        ),
-                      ],
-                    ),
-                    12.kH,
-
-
-                    Text(appStrings.email, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                    5.kH,
-                    commonTextField(controller.emailController.value, controller.emailFocusNode.value, w, (value) {}, keyboardType: TextInputType.emailAddress, hint: appStrings.enterYourEmail, fontSize: 14),
-                    12.kH,
-                    commonComponent(appStrings.address, commonTextField(controller.addressController.value, controller.addressFocusNode.value, w, maxLines: 4, (value) {}, hint: appStrings.enterYourCurrentAddress, fontSize: 14)),
-                    12.kH,
-                    // commonComponentRedStar("Expertise"),
-                    // 5.kH,
-                    // dropDownList(controller),
-                    commonComponent(
-                      appStrings.expertise,
-                      commonDropdownButton(
-                        controller.subExpertise.map((item) {
-                          return DropdownMenuItem<String>(
-                            value: item,
-                            child: Text(item),
-                          );
-                        }).toList(),
-                        controller.selectedExpertise.value,
-                        w,h,
-                        appColors.backgroundColor,
-                            (Value) {
-                          controller.selectedExpertise.value = Value;
-                        },
-                        hint: appStrings.selectExpertise,
-                        borderColor: appColors.border,
+                              child: Container(
+                                padding:  EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                                decoration: BoxDecoration(
+                                  color: appColors.brownDarkText,
+                                  borderRadius: BorderRadius.circular(30),
+                                  border: Border.all(color: appColors.brown, width: 1.5),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                     Icon(hasVideo ? Icons.play_circle_fill:Icons.emergency_recording, color: appColors.white, size: 20),
+                                     SizedBox(width: 6),
+                                    Text(
+                                      hasVideo ? "Preview" : "Add video",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                        ],
                       ),
-                    ),
-                    Text(controller.errormessage, style: TextStyle(color: Colors.red)),
+                    )
+
                   ],
                 ),
               ),
 
             ),
             bottomNavigationBar: Padding(
-              padding: const EdgeInsets.only(top: 16.0,bottom: 32,right: 16,left: 16),
+              padding:  EdgeInsets.only(top: 16.0,bottom: 32,right: 16,left: 16),
               child: commonButton(
                 double.infinity,
                 50,
@@ -241,7 +156,7 @@ class Registration extends ParentWidget {
       isDismissible: false,
       context: context,
       isScrollControlled: true,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      shape:  RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       builder: (context) {
         return Padding(
           padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom, left: 16, right: 16, top: 20),
@@ -251,14 +166,14 @@ class Registration extends ParentWidget {
               Container(
                 height: 5,
                 width: 50,
-                decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(10)),
+                decoration: BoxDecoration(color: appColors.grey[300], borderRadius: BorderRadius.circular(10)),
               ),
               16.kH,
               Text(appStrings.OTPVerification, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               8.kH,
               Text(
                 appStrings.enterTheOTPSentToYourPhone,
-                style: TextStyle(fontSize: 14, color: Colors.grey),
+                style: TextStyle(fontSize: 14, color: appColors.grey),
                 textAlign: TextAlign.center,
               ),
               20.kH,
@@ -270,7 +185,7 @@ class Registration extends ParentWidget {
               Obx(() => controller.startTime.value > 0
                   ? Text(
                 "${appStrings.resendIn} ${controller.startTime.value} ${appStrings.sec}",
-                style: TextStyle(fontSize: 14, color: Colors.black),
+                style: TextStyle(fontSize: 14, color: appColors.black),
               )
                   : InkWell(
                 onTap: () {
@@ -279,53 +194,14 @@ class Registration extends ParentWidget {
                 },
                 child: Text(
                   appStrings.resendOTP,
-                  style: TextStyle(fontSize: 14, color: Colors.blue),
+                  style: TextStyle(fontSize: 14, color: appColors.blue),
                 ),
               )),
-
-              //  InkWell(
-              //   onTap: () {
-              //     controller.resendOtp(context);
-              //   },
-              //   child: const Padding(
-              //     padding: EdgeInsets.only(top: 6),
-              //     child: Text(
-              //       "Resend OTP",
-              //       style: TextStyle(fontSize: 14, color: Colors.blue),
-              //       textAlign: TextAlign.center,
-              //     ),
-              //   ),
-              // ),
-              // controller.startTime.value > 0
-              //     ? Padding(
-              //   padding: EdgeInsets.only(top: 6),
-              //   child: Text(
-              //     '${appStrings.reSendCode}${controller.startTime.value} ${appStrings.sec}',
-              //     style: TextStyle(
-              //       fontSize: 14,
-              //       color: Colors.white,
-              //     ),
-              //     textAlign: TextAlign.center,
-              //   ),
-              // )
-              //     : InkWell(
-              //   onTap: () {
-              //     controller.resendOtp(context);
-              //   },
-              //   child: const Padding(
-              //     padding: EdgeInsets.only(top: 6),
-              //     child: Text(
-              //       "Resend OTP",
-              //       style: TextStyle(fontSize: 14, color: Colors.blue),
-              //       textAlign: TextAlign.center,
-              //     ),
-              //   ),
-              // ),
 
 
               18.kH,
 
-              commonButton(double.infinity, 45, appColors.brownDarkText, Colors.white, () => controller.otpVerification(), hint: appStrings.verifyPhoneNumber, radius: 30),
+              commonButton(double.infinity, 45, appColors.brownDarkText, appColors.white, () => controller.otpVerification(), hint: appStrings.verifyPhoneNumber, radius: 30),
 
               20.kH,
             ],
@@ -334,5 +210,164 @@ class Registration extends ParentWidget {
       },
     );
   }
+}
+
+Widget artisanAvatar (RegistrationController controller,context){
+  return  Center(
+    child: Padding(
+      padding: EdgeInsets.only(top: 30.0),
+      child: Stack(
+        fit: StackFit.loose,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              controller.imageFiles.value == null
+                  ? Container(
+                alignment: const Alignment(0.0, 2.5),
+                child: ClipRRect(borderRadius: BorderRadius.circular(70),
+                    child: Image.asset(AppImages.profile,height: 140,width: 140,fit: BoxFit.cover,)),
+              )
+                  : Container(
+                  alignment: const Alignment(0.0, 2.5),
+                  child:ClipRRect(
+                    borderRadius: BorderRadius.circular(70),
+                    child: Image.file(controller.imageFiles.value!,height: 140,width: 140,fit: BoxFit.cover,),
+
+                  )
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 100.0, left: 90.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    color: Colors.green,
+                    height: 40,
+                    width: 40,
+                    child: IconButton(
+                      icon: Icon(Icons.camera_alt, color: Colors.white),
+                      onPressed: () {
+                        controller.openImages(context);
+                      },
+                    ),
+                  ),
+                )
+
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget detailForm (RegistrationController controller,double w,double h){
+  return Column(crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Row(
+        children: [
+          Icon(Icons.edit_document, size: 20.0, color: appColors.blue),
+          8.kW,
+          Text(appStrings.personalInformation, style:  TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold)),
+        ],
+      ),
+      20.kH,
+      commonComponent(appStrings.firstName, commonTextField(controller.fNameController.value, controller.fNameFocusNode.value, w, (value) {}, hint: appStrings.enterYourFirstName, fontSize: 14)),
+      12.kH,
+      commonComponent(appStrings.lastName, commonTextField(controller.lNameController.value, controller.lNameFocusNode.value, w, (value) {}, hint: appStrings.enterYourLastName, fontSize: 14)),
+      12.kH,
+      commonComponent(appStrings.aadhaarNumber, commonTextField(controller.aadhaarController.value, controller.aadhaarFocusNode.value, maxLength: 16, keyboardType: TextInputType.number, w, (value) {}, hint: appStrings.enterYourAadhaarNumber, fontSize: 14,isCounter: true)),
+
+      commonComponentRedStar(appStrings.phoneNumber),
+      innerPhoneTextField(
+        controller.phoneController.value,
+        controller.phoneFocusNode.value,
+        w,
+        40,
+        onCountryChanged: (country) {
+          controller.countryCode.value = country.dialCode;
+          controller.phoneController.value.text = "";
+          print('${controller.phoneController.value.text} ${country.dialCode}');
+        },
+        onCountryCodeChange: (phone) {
+          controller.errorMessage.value = "";
+          controller.countryCode.value = phone.countryCode;
+          if (phone.number.isNotEmpty) {
+            controller.emailController.value.text = "";
+          }
+        },
+        hint: appStrings.phone,
+        inputFormatters: [NoLeadingZeroFormatter(), FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(10)],
+      ),
+      Row(
+        children: [
+          Expanded(
+            child: commonComponent(
+              appStrings.category,
+              commonDropdownButton(
+                controller.casteCategories.map((item) {
+                  return DropdownMenuItem<String>(
+                    value: item,
+                    child: Text(item),
+                  );
+                }).toList(),
+                controller.selectedCast.value,
+                w,h,
+                appColors.backgroundColor,
+                    (value) {
+                  controller.selectedCast.value = value;
+                },
+                hint: appStrings.selectCategory,
+                borderColor: appColors.border,
+              ),
+            ),
+          ),
+          10.kW,
+          Expanded(
+            child: commonComponent(
+              "Caste",
+              commonTextField(controller.subCastController.value, controller.subCastFocusNode.value, w, (value) {}, hint: "Enter your Community", fontSize: 14),
+
+            ),
+          ),
+        ],
+      ),
+      12.kH,
+
+
+      Text(appStrings.email, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+      5.kH,
+      commonTextField(controller.emailController.value, controller.emailFocusNode.value, w, (value) {}, keyboardType: TextInputType.emailAddress, hint: appStrings.enterYourEmail, fontSize: 14),
+      12.kH,
+      commonComponent(appStrings.address, commonTextField(controller.addressController.value, controller.addressFocusNode.value, w, maxLines: 4, (value) {}, hint: appStrings.enterYourCurrentAddress, fontSize: 14)),
+      12.kH,
+      commonComponent(
+        appStrings.expertise,
+        commonDropdownButton(
+          controller.Expertise.map((item) {
+            return DropdownMenuItem<String>(
+              value: item,
+              child: Text(item),
+            );
+          }).toList(),
+          controller.selectedExpertise.value,
+          w,h,
+          appColors.backgroundColor,
+              (value) {
+            controller.selectedExpertise.value = value;
+          },
+          hint: appStrings.selectExpertise,
+          borderColor: appColors.border,
+        ),
+      ),
+    ],
+  );
 }
 

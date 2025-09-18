@@ -1,6 +1,7 @@
 import '../../data/app_url/app_url.dart';
 import '../../data/network/network_api_services.dart';
 import '../model/artisanRegistrationModel.dart';
+import '../model/expertiseModel.dart';
 import '../model/verifyOtpModel.dart';
 
 class RegistrationRepository {
@@ -14,5 +15,9 @@ class RegistrationRepository {
   Future<VerifyOTPModel> verifyOtpApi(var data) async {
     dynamic response = await _apiServices.postEncodeApi(data, AppUrl.verifyOtp);
     return VerifyOTPModel.fromJson(response);
+  }
+  Future<ExpertiseModel> getexpertiseApi() async {
+    dynamic response = await _apiServices.getApi( AppUrl.categorylist);
+    return ExpertiseModel.fromJson(response);
   }
 }

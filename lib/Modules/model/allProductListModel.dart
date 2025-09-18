@@ -1,10 +1,10 @@
-class ArtisanProductListModel {
+class AllProductListModel {
   String? message;
   Data? data;
 
-  ArtisanProductListModel({this.message, this.data});
+  AllProductListModel({this.message, this.data});
 
-  ArtisanProductListModel.fromJson(Map<String, dynamic> json) {
+  AllProductListModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
@@ -78,8 +78,8 @@ class Docs {
   int? discount;
   String? netWeight;
   String? dimension;
-  dynamic? color;
-  dynamic? size;
+  List<dynamic>? color;
+  List<dynamic>? size;
   String? productStatus;
   String? adminApprovalStatus;
   Null? adminRemarks;
@@ -91,11 +91,11 @@ class Docs {
   String? patternUsed;
   String? createdAt;
   String? updatedAt;
+  String? buildStatus;
   List<Images>? images;
   Category? category;
   SubCategory? subCategory;
   Artisan? artisan;
-  AddedBy? addedBy;
 
   Docs(
       {this.productId,
@@ -121,11 +121,11 @@ class Docs {
         this.patternUsed,
         this.createdAt,
         this.updatedAt,
+        this.buildStatus,
         this.images,
         this.category,
         this.subCategory,
-        this.artisan,
-        this.addedBy});
+        this.artisan});
 
   Docs.fromJson(Map<String, dynamic> json) {
     productId = json['productId'];
@@ -138,8 +138,13 @@ class Docs {
     discount = json['discount'];
     netWeight = json['netWeight'];
     dimension = json['dimension'];
-    color = json['color'];
-    size = json['size'];
+    if (json['color'] != null) {
+      color = List<String>.from(json['color']);
+    }
+    if (json['size'] != null) {
+      size = List<String>.from(json['size']);
+    }
+
     productStatus = json['product_status'];
     adminApprovalStatus = json['admin_approval_status'];
     adminRemarks = json['adminRemarks'];
@@ -151,6 +156,7 @@ class Docs {
     patternUsed = json['patternUsed'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    buildStatus = json['build_status'];
     if (json['images'] != null) {
       images = <Images>[];
       json['images'].forEach((v) {
@@ -165,8 +171,6 @@ class Docs {
         : null;
     artisan =
     json['artisan'] != null ? new Artisan.fromJson(json['artisan']) : null;
-    addedBy =
-    json['addedBy'] != null ? new AddedBy.fromJson(json['addedBy']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -181,8 +185,12 @@ class Docs {
     data['discount'] = this.discount;
     data['netWeight'] = this.netWeight;
     data['dimension'] = this.dimension;
-    data['color'] = this.color;
-    data['size'] = this.size;
+    if (this.color != null) {
+      data['color'] = this.color!.map((v) => v.toJson()).toList();
+    }
+    if (this.size != null) {
+      data['size'] = this.size!.map((v) => v.toJson()).toList();
+    }
     data['product_status'] = this.productStatus;
     data['admin_approval_status'] = this.adminApprovalStatus;
     data['adminRemarks'] = this.adminRemarks;
@@ -194,6 +202,7 @@ class Docs {
     data['patternUsed'] = this.patternUsed;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
+    data['build_status'] = this.buildStatus;
     if (this.images != null) {
       data['images'] = this.images!.map((v) => v.toJson()).toList();
     }
@@ -206,9 +215,6 @@ class Docs {
     if (this.artisan != null) {
       data['artisan'] = this.artisan!.toJson();
     }
-    if (this.addedBy != null) {
-      data['addedBy'] = this.addedBy!.toJson();
-    }
     return data;
   }
 }
@@ -217,25 +223,25 @@ class Images {
   int? imageId;
   String? imageUrl;
   int? imageOrder;
-  int? productId;
   String? createdAt;
   String? updatedAt;
+  int? productId;
 
   Images(
       {this.imageId,
         this.imageUrl,
         this.imageOrder,
-        this.productId,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.productId});
 
   Images.fromJson(Map<String, dynamic> json) {
     imageId = json['imageId'];
     imageUrl = json['imageUrl'];
     imageOrder = json['imageOrder'];
-    productId = json['productId'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    productId = json['productId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -243,9 +249,9 @@ class Images {
     data['imageId'] = this.imageId;
     data['imageUrl'] = this.imageUrl;
     data['imageOrder'] = this.imageOrder;
-    data['productId'] = this.productId;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
+    data['productId'] = this.productId;
     return data;
   }
 }
@@ -407,127 +413,6 @@ class Artisan {
         this.guestUserId});
 
   Artisan.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    createdAt = json['createdAt'];
-    name = json['name'];
-    firstName = json['firstName'];
-    lastName = json['lastName'];
-    email = json['email'];
-    phoneNo = json['phoneNo'];
-    isPhoneNoVerified = json['isPhoneNoVerified'];
-    isEmailVerified = json['isEmailVerified'];
-    countryCode = json['countryCode'];
-    avatar = json['avatar'];
-    password = json['password'];
-    status = json['status'];
-    verifyStatus = json['verifyStatus'];
-    roleName = json['roleName'];
-    userGroup = json['user_group'];
-    expertizeField = json['expertizeField'];
-    userCasteCategory = json['user_caste_category'];
-    religion = json['religion'];
-    subCaste = json['subCaste'];
-    introVideo = json['introVideo'];
-    aadhaarNumber = json['aadhaarNumber'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
-    loginSource = json['loginSource'];
-    platform = json['platform'];
-    guestUserId = json['guestUserId'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['createdAt'] = this.createdAt;
-    data['name'] = this.name;
-    data['firstName'] = this.firstName;
-    data['lastName'] = this.lastName;
-    data['email'] = this.email;
-    data['phoneNo'] = this.phoneNo;
-    data['isPhoneNoVerified'] = this.isPhoneNoVerified;
-    data['isEmailVerified'] = this.isEmailVerified;
-    data['countryCode'] = this.countryCode;
-    data['avatar'] = this.avatar;
-    data['password'] = this.password;
-    data['status'] = this.status;
-    data['verifyStatus'] = this.verifyStatus;
-    data['roleName'] = this.roleName;
-    data['user_group'] = this.userGroup;
-    data['expertizeField'] = this.expertizeField;
-    data['user_caste_category'] = this.userCasteCategory;
-    data['religion'] = this.religion;
-    data['subCaste'] = this.subCaste;
-    data['introVideo'] = this.introVideo;
-    data['aadhaarNumber'] = this.aadhaarNumber;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    data['loginSource'] = this.loginSource;
-    data['platform'] = this.platform;
-    data['guestUserId'] = this.guestUserId;
-    return data;
-  }
-}
-
-class AddedBy {
-  int? id;
-  String? createdAt;
-  Null? name;
-  Null? firstName;
-  Null? lastName;
-  Null? email;
-  String? phoneNo;
-  bool? isPhoneNoVerified;
-  bool? isEmailVerified;
-  String? countryCode;
-  Null? avatar;
-  Null? password;
-  String? status;
-  String? verifyStatus;
-  String? roleName;
-  String? userGroup;
-  Null? expertizeField;
-  Null? userCasteCategory;
-  Null? religion;
-  Null? subCaste;
-  Null? introVideo;
-  Null? aadhaarNumber;
-  Null? latitude;
-  Null? longitude;
-  Null? loginSource;
-  Null? platform;
-  Null? guestUserId;
-
-  AddedBy(
-      {this.id,
-        this.createdAt,
-        this.name,
-        this.firstName,
-        this.lastName,
-        this.email,
-        this.phoneNo,
-        this.isPhoneNoVerified,
-        this.isEmailVerified,
-        this.countryCode,
-        this.avatar,
-        this.password,
-        this.status,
-        this.verifyStatus,
-        this.roleName,
-        this.userGroup,
-        this.expertizeField,
-        this.userCasteCategory,
-        this.religion,
-        this.subCaste,
-        this.introVideo,
-        this.aadhaarNumber,
-        this.latitude,
-        this.longitude,
-        this.loginSource,
-        this.platform,
-        this.guestUserId});
-
-  AddedBy.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     createdAt = json['createdAt'];
     name = json['name'];

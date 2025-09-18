@@ -7,9 +7,7 @@ import 'package:get/get.dart';
 import '../../../common/common_widgets.dart';
 import '../../../resources/appconstants.dart';
 import '../../../routes/RoutesClass.dart';
-import '../../controller/artisanSearchCoontroller.dart';
 import '../../controller/artisancontroller.dart';
-import '../../controller/artisanproductcontroller.dart';
 
 class ArtisanSearchScreen extends ParentWidget {
   const ArtisanSearchScreen({super.key});
@@ -17,7 +15,6 @@ class ArtisanSearchScreen extends ParentWidget {
   @override
   Widget buildingView(BuildContext context, double h, double w) {
     ArtisanController Artisancontroller = Get.put(ArtisanController());
-    ArtisanSearchController controller = Get.put(ArtisanSearchController());
 
     return Scaffold(
       backgroundColor: appColors.backgroundColor,
@@ -65,25 +62,7 @@ class ArtisanSearchScreen extends ParentWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    // ListView.builder(
-                    //   shrinkWrap: true,
-                    //   physics: NeverScrollableScrollPhysics(),
-                    //   itemCount: Artisancontroller.getArtisanListModel.value.data?.docs?.length,
-                    //   itemBuilder: (context, index) {
-                    //     return artisanDetailCard(
-                    //       Artisancontroller.getArtisanListModel.value.data?.docs?[index],
-                    //       onTap: ()  {
-                    //         final artisanId = Artisancontroller.getArtisanListModel.value.data?.docs?[index].id;
-                    //         if (artisanId != null) {
-                    //           Get.toNamed(RoutesClass.gotoArtisanProfileScreen(),arguments: artisanId  );
-                    //         }
-                    //       },
-                    //       onAddProduct: () {
-                    //         Get.toNamed(RoutesClass.gotoAddProductPage());
-                    //       },
-                    //     );
-                    //   },
-                    // ),
+
                     Obx(() {
                       if (Artisancontroller.filteredArtisans.isEmpty) {
                         return SizedBox(width: w,height: h * 0.6 ,
@@ -110,12 +89,11 @@ class ArtisanSearchScreen extends ParentWidget {
                           return artisanDetailCard(
                             artisan,
                             onTap: () {
-                              final artisanId = artisan.id;
+                              final artisanId = Artisancontroller.getArtisanListModel.value.data?.docs?[index].id;
                               if (artisanId != null) {
-                                Get.toNamed(
-                                  RoutesClass.gotoArtisanProfileScreen(),
-                                  arguments: artisanId,
-                                );
+                                Get.toNamed(RoutesClass.gotoArtisanProfileScreen(),arguments: {
+                                  'artisanId': artisanId,
+                                },   );
                               }
                             },
                             onAddProduct: () {
