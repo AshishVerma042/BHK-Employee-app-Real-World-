@@ -22,13 +22,13 @@ class HomeScreen extends ParentWidget {
 
   @override
   Widget buildingView(BuildContext context, double h, double w) {
-    HomeScreenController homeScreenController = Get.put(HomeScreenController());
+    HomeScreenController controller = Get.put(HomeScreenController());
 
     return Obx(
       () => Stack(
         children: [
           Scaffold(
-            appBar: topAppBarHome(homeScreenController),
+            appBar: topAppBarHome(controller),
             backgroundColor: appColors.backgroundColor,
             body: SingleChildScrollView(
               child: Column(
@@ -42,7 +42,7 @@ class HomeScreen extends ParentWidget {
                           Icon(Icons.location_pin, color: Colors.redAccent, size: 22),
                           Expanded(
                             child: Text(
-                              homeScreenController.locationController.location.value,
+                              controller.locationController.location.value,
                               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: appColors.brown),
                             ),
                           ),
@@ -51,7 +51,7 @@ class HomeScreen extends ParentWidget {
                     ),
                   ),
 
-                  collections(w, h, homeScreenController),
+                  collections(w, h, controller),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
@@ -72,7 +72,7 @@ class HomeScreen extends ParentWidget {
                                 ),
                               ],
                             ),
-                            (homeScreenController.artisanController.getArtisanListModel.value.data?.docs?.isEmpty ?? true)
+                            (controller.artisanController.getArtisanListModel.value.data?.docs?.isEmpty ?? true)
                                 ? Container(
                               height: Get.height * 0.44,
                               width: double.infinity,
@@ -116,12 +116,12 @@ class HomeScreen extends ParentWidget {
                                 : ListView.builder(
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
-                                    itemCount: homeScreenController.artisanController.getArtisanListModel.value.data?.docs == null ? 0
-                                        : (homeScreenController.artisanController.getArtisanListModel.value.data!.docs!.length > 5 ? 5
-                                        : homeScreenController.artisanController.getArtisanListModel.value.data!.docs!.length),
+                                    itemCount: controller.artisanController.getArtisanListModel.value.data?.docs == null ? 0
+                                        : (controller.artisanController.getArtisanListModel.value.data!.docs!.length > 5 ? 5
+                                        : controller.artisanController.getArtisanListModel.value.data!.docs!.length),
                                     itemBuilder: (context, index) {
                                       return artisanDetailCard(
-                                        homeScreenController.artisanController.getArtisanListModel.value.data?.docs?[index],
+                                        controller.artisanController.getArtisanListModel.value.data?.docs?[index],
                                         onTap: () {},
                                         onAddProduct: () {
                                           Get.toNamed(RoutesClass.gotoAddProductPage());
@@ -133,12 +133,12 @@ class HomeScreen extends ParentWidget {
                         ),
 
                         20.kH,
-                        (homeScreenController.artisanController.getArtisanListModel.value.data?.docs?.isEmpty ?? true)?
+                        (controller.artisanController.getArtisanListModel.value.data?.docs?.isEmpty ?? true)?
                         SizedBox.shrink()
                             :Text(appStrings.recentlyAddedArtisansProducts, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                         12.kH,
 
-                        (homeScreenController.getAllProductListModel.value.data?.docs?.isEmpty ?? true)?
+                        (controller.getAllProductListModel.value.data?.docs?.isEmpty ?? true)?
                         Container(
                           height: Get.height * 0.34,
                           width: double.infinity,
@@ -172,8 +172,8 @@ class HomeScreen extends ParentWidget {
                                 45,
                                 appColors.brownDarkText,
                                 Colors.white,
-                                    () {  final artisanId = homeScreenController.artisanController.getArtisanListModel.value.data?.docs?[0].id;
-                                Get.toNamed(RoutesClass.gotoAddProductPage(), arguments:{ 'artisanId' :artisanId});
+                                    () {  final artisanId = controller.artisanController.getArtisanListModel.value.data?.docs?[0].id;
+                                Get.toNamed(RoutesClass.gotoAddProductPage(), arguments:controller.artisanController.getArtisanListModel.value.data?.docs?[0].id);
                                 },
 
 
@@ -187,10 +187,10 @@ class HomeScreen extends ParentWidget {
                         GridView.builder(
                           shrinkWrap: true,
                           physics:  NeverScrollableScrollPhysics(),
-                          itemCount: homeScreenController.getAllProductListModel.value.data?.docs?.length?? 0,
+                          itemCount: controller.getAllProductListModel.value.data?.docs?.length?? 0,
                           gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 12, mainAxisSpacing: 12, childAspectRatio: 0.71),
                           itemBuilder: (context, index) {
-                            return myProductCardReview(homeScreenController.getAllProductListModel.value.data?.docs?[index]);
+                            return myProductCardReview(controller.getAllProductListModel.value.data?.docs?[index]);
                           },
                         ),
                         12.kH,
@@ -201,7 +201,7 @@ class HomeScreen extends ParentWidget {
               ),
             ),
           ),
-          progressBarTransparentAnimationLoader(homeScreenController.artisanController.rxRequestStatus.value == Status.LOADING, MediaQuery.of(context).size.height, MediaQuery.of(context).size.width),
+          progressBarTransparentAnimationLoader(controller.artisanController.rxRequestStatus.value == Status.LOADING, MediaQuery.of(context).size.height, MediaQuery.of(context).size.width),
         ],
       ),
     );

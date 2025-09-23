@@ -194,7 +194,7 @@ final List<String> textureList = [
     final args = Get.arguments as Map;
     totalPriceController.value.text = "0.0";
     getCategoryApi();
-    artisanId.value = args['artisanId']?? 0;
+    artisanId.value = Get.arguments?? 0;
   }
 
   final rxRequestStatus = Status.COMPLETED.obs;

@@ -18,8 +18,8 @@ class ArtisanProfileScreen extends ParentWidget {
   Widget buildingView(BuildContext context, double h, double w) {
     ArtisanProfileController controller = Get.put(ArtisanProfileController());
 
-    return Obx(()
-      => Scaffold(
+    return Obx(
+      () => Scaffold(
         backgroundColor: appColors.backgroundColor,
         body: SingleChildScrollView(
           child: Column(
@@ -31,10 +31,7 @@ class ArtisanProfileScreen extends ParentWidget {
                     height: 260,
                     decoration: const BoxDecoration(
                       gradient: AppConstants.customGradient,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
-                      ),
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
                     ),
                   ),
                   Positioned(
@@ -42,25 +39,17 @@ class ArtisanProfileScreen extends ParentWidget {
                     left: 16,
                     child: GestureDetector(
                       onTap: () => Get.back(),
-                      child: Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                        size: 28,
-                      ),
+                      child: Icon(Icons.arrow_back, color: Colors.white, size: 28),
                     ),
                   ),
                   Positioned(
                     top: 40,
                     right: 16,
                     child: GestureDetector(
-                    //   onTap: () =>
-                    //       // Get.toNamed(RoutesClass.(), arguments:{ 'artisanId' :artisanId})
-                    // ,
-                      child: Icon(
-                        Icons.settings,
-                        color: Colors.white,
-                        size: 28,
-                      ),
+                      //   onTap: () =>
+                      //       // Get.toNamed(RoutesClass.(), arguments:{ 'artisanId' :artisanId})
+                      // ,
+                      child: Icon(Icons.settings, color: Colors.white, size: 28),
                     ),
                   ),
                   Positioned(
@@ -74,31 +63,19 @@ class ArtisanProfileScreen extends ParentWidget {
                           children: [
                             Container(
                               margin: EdgeInsets.symmetric(horizontal: 16),
-                              padding: EdgeInsets.only(
-                                  top: 45, left: 20, right: 20, bottom: 20),
+                              padding: EdgeInsets.only(top: 45, left: 20, right: 20, bottom: 20),
                               decoration: BoxDecoration(
                                 color: appColors.cardBackground,
                                 borderRadius: BorderRadius.circular(20),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black12,
-                                    blurRadius: 8,
-                                    spreadRadius: 2,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
+                                boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 8, spreadRadius: 2, offset: const Offset(0, 4))],
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
                                     // "${controller.getArtisanProductListModel.value.data?.docs?[0].artisan?.firstName ?? ""} ${controller.getArtisanProductListModel.value.data?.docs?[0].artisan?.lastName?? ""}",
-                                    "${controller.getArtisanDetailModel.value.data?.firstName ?? ''} ${controller.getArtisanDetailModel.value.data?.lastName?? ''}",
-                                    style:  TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
+                                    "${controller.getArtisanDetailModel.value.data?.firstName ?? ''} ${controller.getArtisanDetailModel.value.data?.lastName ?? ''}",
+                                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
                                   ),
                                   6.kH,
                                   Obx(() {
@@ -107,20 +84,17 @@ class ArtisanProfileScreen extends ParentWidget {
                                     return GestureDetector(
                                       onTap: () {
                                         if (hasVideo) {
-                                          Get.to(() => VideoPlayerScreen(), arguments: {
-                                            'videoFile': controller.introVideoFile.value!
-                                          });
+                                          Get.to(() => VideoPlayerScreen(), arguments: {'videoFile': controller.introVideoFile.value!});
                                         } else {
-
                                           bottomDrawerVideoFile(
                                             context,
                                             h * 0.25,
                                             w,
                                             controller.introVideoFile,
-                                                () {
+                                            () {
                                               pickVideoFromGallery(controller.introVideoFile, true);
                                             },
-                                                () {
+                                            () {
                                               pickVideoFromGallery(controller.introVideoFile, false);
                                             },
                                           );
@@ -140,11 +114,7 @@ class ArtisanProfileScreen extends ParentWidget {
                                             const SizedBox(width: 6),
                                             Text(
                                               hasVideo ? "Preview" : "Intro video",
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.brown.shade800,
-                                              ),
+                                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.brown.shade800),
                                             ),
                                           ],
                                         ),
@@ -154,89 +124,63 @@ class ArtisanProfileScreen extends ParentWidget {
 
                                   16.kH,
                                   Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Row(
                                         children: [
-                                          Icon(Icons.badge,
-                                              size: 16,
-                                              color: Colors.grey[700]),
+                                          Icon(Icons.badge, size: 16, color: Colors.grey[700]),
                                           6.kW,
-                                          Text(
-                                            "BHKE ID: ${controller.getArtisanDetailModel.value.data?.id?? ''} ",
-                                            style: TextStyle(fontSize: 14),
-                                          ),
+                                          Text("BHKE ID: ${controller.getArtisanDetailModel.value.data?.id ?? ''} ", style: TextStyle(fontSize: 14)),
                                         ],
                                       ),
                                       20.kW,
                                       Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          const Icon(Icons.email,
-                                              size: 16, color: Colors.black54),
+                                          const Icon(Icons.email, size: 16, color: Colors.black54),
                                           6.kW,
-                                          Text(
-                                            "${controller.getArtisanDetailModel.value.data?.email?? ''}",
-                                            style: TextStyle(fontSize: 14),
-                                          ),
+                                          Text("${controller.getArtisanDetailModel.value.data?.email ?? ''}", style: TextStyle(fontSize: 14)),
                                         ],
                                       ),
                                     ],
                                   ),
                                   10.kH,
                                   Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          const Icon(Icons.phone,
-                                              size: 16, color: Colors.black54),
+                                          const Icon(Icons.phone, size: 16, color: Colors.black54),
                                           6.kW,
                                           Text(
                                             // "${controller.getArtisanProductListModel.value.data?.docs?[0].artisan?.countryCode?? "00"} ${controller.getArtisanProductListModel.value.data?.docs?[0].artisan?.phoneNo?? "00"}",
-                                            "${controller.getArtisanDetailModel.value.data?.countryCode?? ''} ${controller.getArtisanDetailModel.value.data?.phoneNo?? ''}",
+                                            "${controller.getArtisanDetailModel.value.data?.countryCode ?? ''} ${controller.getArtisanDetailModel.value.data?.phoneNo ?? ''}",
                                             style: TextStyle(fontSize: 14),
                                           ),
                                         ],
                                       ),
-
                                     ],
                                   ),
                                   10.kH,
 
                                   Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          const Icon(Icons.groups,
-                                              size: 16, color: Colors.black54),
+                                          const Icon(Icons.groups, size: 16, color: Colors.black54),
                                           6.kW,
-                                          Text(
-                                            "Caste",
-                                            style: TextStyle(fontSize: 14),
-                                          ),
+                                          Text("Caste", style: TextStyle(fontSize: 14)),
                                         ],
                                       ),
                                       Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          const Icon(Icons.account_tree,
-                                              size: 16, color: Colors.black54),
+                                          const Icon(Icons.account_tree, size: 16, color: Colors.black54),
                                           6.kW,
-                                          Text(
-                                            "SubCaste",
-                                            style: TextStyle(fontSize: 14),
-                                          ),
+                                          Text("SubCaste", style: TextStyle(fontSize: 14)),
                                         ],
                                       ),
                                     ],
@@ -246,40 +190,26 @@ class ArtisanProfileScreen extends ParentWidget {
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            // controller.getArtisanProductListModel.value.data?.docs?[0].artisan?.expertizeField?? "00",
-                                             "${controller.getArtisanDetailModel.value.data?.expertizeField}",
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-
-                                        ]),
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          // controller.getArtisanProductListModel.value.data?.docs?[0].artisan?.expertizeField?? "00",
+                                          "${controller.getArtisanDetailModel.value.data?.expertizeField}",
+                                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   12.kH,
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       "Skills",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.brown.shade700,
-                                      ),
+                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.brown.shade700),
                                     ),
                                   ),
                                   6.kH,
-                                  Text(
-                                    "Beautifully crafted design, branding, and creative direction.",
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: Colors.black54,
-                                    ),
-                                  ),
+                                  Text("Beautifully crafted design, branding, and creative direction.", style: TextStyle(fontSize: 13, color: Colors.black54)),
                                 ],
                               ),
                             ),
@@ -290,22 +220,14 @@ class ArtisanProfileScreen extends ParentWidget {
                               child: Center(
                                 child: Container(
                                   padding: EdgeInsets.all(1),
-                                  decoration: BoxDecoration(
-                                      color: appColors.cardBackground,
-                                      borderRadius:
-                                      BorderRadius.all(Radius.circular(50))),
+                                  decoration: BoxDecoration(color: appColors.cardBackground, borderRadius: BorderRadius.all(Radius.circular(50))),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(30),
-                                    child: Image.asset(
-                                      "assets/images/Profile.png",
-                                      height: 90,
-                                      width: 90,
-                                      fit: BoxFit.cover,
-                                    ),
+                                    child: Image.asset("assets/images/Profile.png", height: 90, width: 90, fit: BoxFit.cover),
                                   ),
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ],
@@ -320,75 +242,46 @@ class ArtisanProfileScreen extends ParentWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Products",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
                   ),
                 ),
               ),
               10.kH,
               (controller.getArtisanProductListModel.value.data?.docs?.isEmpty ?? true)
                   ? Container(
-                height: Get.height * 0.34,
-                width: double.infinity,
-                alignment: Alignment.center,
-                padding: EdgeInsets.all(24),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-
-                    20.kH,
-                    Text(
-                      "No Product Found",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: appColors.brownDarkText,
+                      height: Get.height * 0.34,
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(24),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          20.kH,
+                          Text(
+                            "No Product Found",
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: appColors.brownDarkText),
+                          ),
+                          10.kH,
+                          Text(
+                            "Start by adding your first Product to manage them here.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                          ),
+                          20.kH,
+                          commonButton(150, 45, appColors.brownDarkText, Colors.white, () => Get.toNamed(RoutesClass.addProductScreen, arguments: controller.artisanId.value), hint: "Add Product"),
+                        ],
                       ),
-                    ),
-                    10.kH,
-                    Text(
-                      "Start by adding your first Product to manage them here.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                    20.kH,
-                    commonButton(
-                      150,
-                      45,
-                      appColors.brownDarkText,
-                      Colors.white,
-                          () {  final artisanId = controller.artisanId.value;
-                          Get.toNamed(RoutesClass.gotoAddProductPage(), arguments:{ 'artisanId' :artisanId});
-                        },
-
-
-
-                      hint: "Add Product",
                     )
-                  ],
-                ),
-              )
                   : GridView.builder(
-                shrinkWrap: true,
-                physics:  NeverScrollableScrollPhysics(),
-                itemCount:controller.getArtisanProductListModel.value.data?.docs?.length?? 0,
-                padding:  EdgeInsets.all(16),
-                gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
-                  childAspectRatio: 0.70,
-                ),
-                itemBuilder: (context, index) {
-                  return  myProductCardReview(controller.getArtisanProductListModel.value.data?.docs?[index]);
-                },
-              ),
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: controller.getArtisanProductListModel.value.data?.docs?.length ?? 0,
+                      padding: EdgeInsets.all(16),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 12, mainAxisSpacing: 12, childAspectRatio: 0.70),
+                      itemBuilder: (context, index) {
+                        return myProductCardReview(controller.getArtisanProductListModel.value.data?.docs?[index]);
+                      },
+                    ),
             ],
           ),
         ),
@@ -401,26 +294,12 @@ Widget myProductCardReview(dynamic artisan, {bool isFavorite = false}) {
   return Container(
     width: double.infinity,
     decoration: BoxDecoration(
-      image: DecorationImage(
-        image: (artisan?.images != null &&
-            artisan!.images!.isNotEmpty &&
-            (artisan.images![0].imageUrl?.isNotEmpty ?? false))
-            ? CachedNetworkImageProvider(artisan.images![0].imageUrl!)
-            : const AssetImage("assets/images/Product2.png") as ImageProvider,
-        fit: BoxFit.cover,
-      ),
-
+      image: DecorationImage(image: (artisan?.images != null && artisan!.images!.isNotEmpty && (artisan.images![0].imageUrl?.isNotEmpty ?? false)) ? CachedNetworkImageProvider(artisan.images![0].imageUrl!) : const AssetImage("assets/images/Product2.png") as ImageProvider, fit: BoxFit.cover),
 
       border: Border.all(color: Colors.grey.shade300),
       borderRadius: BorderRadius.circular(16),
       color: Colors.white,
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.05),
-          blurRadius: 6,
-          offset: const Offset(0, 3),
-        ),
-      ],
+      boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 6, offset: const Offset(0, 3))],
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -434,29 +313,24 @@ Widget myProductCardReview(dynamic artisan, {bool isFavorite = false}) {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding:
-                    EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                     decoration: BoxDecoration(
-                      color: artisan?.adminApprovalStatus== "PENDING"? Colors.brown.shade800 : Colors.green,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(14),
-                        bottomRight: Radius.circular(14),
-                      ),
+                      color: artisan?.adminApprovalStatus == "PENDING" ? Colors.brown.shade800 : Colors.green,
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(14), bottomRight: Radius.circular(14)),
                     ),
                     child: Row(
                       children: [
-                        artisan?.adminApprovalStatus == "PENDING"
-                            ?  SizedBox.shrink()
-                            :  Icon(Icons.check, size: 14, color: Colors.white),
+                        artisan?.adminApprovalStatus == "PENDING" ? SizedBox.shrink() : Icon(Icons.check, size: 14, color: Colors.white),
                         SizedBox(width: 2),
-                        Text(artisan?.adminApprovalStatus?? "",
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.white,fontWeight: FontWeight.bold)),
+                        Text(
+                          artisan?.adminApprovalStatus ?? "",
+                          style: TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
                         SizedBox(width: 2),
                       ],
                     ),
                   ),
+
                   // GestureDetector(
                   //     onTap: () {
                   //       isFavorite = !isFavorite;
@@ -474,7 +348,6 @@ Widget myProductCardReview(dynamic artisan, {bool isFavorite = false}) {
                   //       ),
                   //     ),
                   //   ),
-
                 ],
               ),
             ],
@@ -483,16 +356,8 @@ Widget myProductCardReview(dynamic artisan, {bool isFavorite = false}) {
         Container(
           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(16),
-              bottomLeft: Radius.circular(16),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.6),
-                blurRadius: 6,
-              )
-            ],
+            borderRadius: BorderRadius.only(bottomRight: Radius.circular(16), bottomLeft: Radius.circular(16)),
+            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.6), blurRadius: 6)],
           ),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 4, vertical: 0),
@@ -504,14 +369,12 @@ Widget myProductCardReview(dynamic artisan, {bool isFavorite = false}) {
                   children: [
                     Expanded(
                       child: Text(
-                        artisan?.productName?? "",
+                        artisan?.productName ?? "",
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          shadows: [
-                            Shadow(color: Colors.grey, blurRadius: 5)
-                          ],
+                          shadows: [Shadow(color: Colors.grey, blurRadius: 5)],
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -519,31 +382,33 @@ Widget myProductCardReview(dynamic artisan, {bool isFavorite = false}) {
                     ),
                   ],
                 ),
-                 SizedBox(height: 2),
+                SizedBox(height: 2),
                 Row(
                   children: [
-                     Icon(Icons.workspace_premium,
-                        color: Colors.white70, size: 14),
-                    Text( artisan?.category?.categoryName?? "",
-                        style:  TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white70)),
+                    Icon(Icons.workspace_premium, color: Colors.white70, size: 14),
+                    Text(
+                      artisan?.category?.categoryName ?? "",
+                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white70),
+                    ),
                   ],
                 ),
                 Center(
                   child: commonButton(
-                      double.infinity, 35, appColors.brownDarkText, Colors.white,
-                          () {
-                            final productId = artisan?.productId;
-                            if (productId != null) {
-                              Get.toNamed(RoutesClass.gotoProductDetailScreen(), arguments:{ 'productId' :productId});
-                            }
-                      },
-                      hint: "Preview",
-                      fontSize: 14,
-                      radius: 50),
-                )
+                    double.infinity,
+                    35,
+                    appColors.brownDarkText,
+                    Colors.white,
+                    () {
+                      final productId = artisan?.productId;
+                      if (productId != null) {
+                        Get.toNamed(RoutesClass.gotoProductDetailScreen(), arguments: {'productId': productId});
+                      }
+                    },
+                    hint: "Preview",
+                    fontSize: 14,
+                    radius: 50,
+                  ),
+                ),
               ],
             ),
           ),

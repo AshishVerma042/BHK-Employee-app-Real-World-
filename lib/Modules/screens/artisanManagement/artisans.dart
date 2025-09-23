@@ -21,7 +21,7 @@ class Artisans extends ParentWidget {
 
   @override
   Widget buildingView(BuildContext context, double h, double w) {
-    ArtisanController Artisancontroller = Get.put(ArtisanController());
+    ArtisanController controller = Get.put(ArtisanController());
 
     return Obx(
           () => Stack(
@@ -49,7 +49,7 @@ class Artisans extends ParentWidget {
 
                   body: RefreshIndicator(
                     color: Colors.brown,
-                    onRefresh: Artisancontroller.artisansRefresh,
+                    onRefresh: controller.artisansRefresh,
                     child: Padding(
                       padding:  EdgeInsets.symmetric(horizontal: 12.0,),
                       child: Column(
@@ -86,7 +86,7 @@ class Artisans extends ParentWidget {
                           ),
 
                           Expanded(
-                            child:  (Artisancontroller.getArtisanListModel.value.data?.docs?.isEmpty ?? true)
+                            child:  (controller.getArtisanListModel.value.data?.docs?.isEmpty ?? true)
                                 ? Container(
                               width: double.infinity,
                               alignment: Alignment.center,
@@ -127,26 +127,19 @@ class Artisans extends ParentWidget {
                               ),
                             )
                                 : ListView.builder(
-                                    itemCount: Artisancontroller.getArtisanListModel.value.data?.docs?.length?? 0,
+                                    itemCount: controller.getArtisanListModel.value.data?.docs?.length?? 0,
                                     itemBuilder: (context, index) {
                                       return  artisanDetailCard(
-                                        Artisancontroller.getArtisanListModel.value.data?.docs?[index],
+                                        controller.getArtisanListModel.value.data?.docs?[index],
                                         onTap: ()  {
-                                          final artisanId = Artisancontroller.getArtisanListModel.value.data?.docs?[index].id;
+                                          final artisanId = controller.getArtisanListModel.value.data?.docs?[index].id;
                                           if (artisanId != null) {
                                             Get.toNamed(RoutesClass.gotoArtisanProfileScreen(),arguments: {
                                               'artisanId': artisanId,
                                             },   );
                                           }
                                         },
-
-
-                                        onAddProduct: () {
-                                          final artisanId = Artisancontroller.getArtisanListModel.value.data?.docs?[index].id;
-                                           if (artisanId != null) {
-                                             Get.toNamed(RoutesClass.gotoAddProductPage(), arguments:{ 'artisanId' :artisanId});
-                                           }
-                                        },
+                                        onAddProduct: ()  => Get.toNamed(RoutesClass.addProductScreen, arguments: controller.getArtisanListModel.value.data?.docs?[index].id),
                                       );
                                     },
                                   ),
