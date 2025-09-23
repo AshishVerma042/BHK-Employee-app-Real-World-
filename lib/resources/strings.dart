@@ -39,7 +39,11 @@ class AppStrings {
   String get recentlyAddedArtisans => "Recently Added Artisans";
   String get viewAll => "View All";
   String get addProduct => "Add Product";
-  String get recentlyAddedArtisansProducts => "Recently Added Artisans Products";
+  String get recentlyAddedArtisansProducts => "Recently Added Products";
+  String get introVideo => 'Intro Video';
+  String get addANewProduct => 'Add a new product to your store.';
+  String get previousStep => 'Previous step';
+  String get nextStep => 'Next step';
   String get totalArtisans => "Total Artisans";
   String get approvedArtisans => "Approved Artisans";
   String get pendingArtisans => "Pending Artisans";
@@ -60,9 +64,11 @@ class AppStrings {
   String get category => "Category";
   String get selectCategory => "Select Category";
   String get aadhaarNumber => "Aadhaar Number";
+  String get gSTNumber => "GST Number ";
   String get enterYourLastName => "Enter your Last Name";
   String get enterYourFirstName => "Enter your First Name";
   String get enterYourAadhaarNumber => "Enter your Aadhaar Number";
+  String get enterYourGSTrNumber => "Enter your GST Number";
   String get registration => "Registration";
   String get products => "Products";
   String get noProductsFound => "No products found";
@@ -240,7 +246,6 @@ class AppStrings {
   String get enterADescriptionHere => 'Enter a description here...';
   String get saveAsDraft => 'Save as draft';
   String get save => 'Save';
-  String get nextStep => 'Next step';
   String get uploadYourImagesHere => 'Upload your images here';
   String get addUpToImagesAndVideoToYourProduct => 'Add up to 4 images and 1 Video to your product. Used to represent your product during checkout, in email, social sharing, and more.';
   String get yourProductImages => 'Your Product Images:';
@@ -249,6 +254,10 @@ class AppStrings {
 
   String get subCategory => 'SubCategory';
   String get brand => "Brand";
+  String get addressDetails => "Address Details";
+  String get updateAddress => "Update Address";
+
+  String get addVideo => "Add video";
   String get selectSubCategory => 'Select SubCategory';
   String get selectBrand => 'Select Brand';
   String get requiredFieldPleaseEnterProductName => '*Required Field! Please enter Product name';

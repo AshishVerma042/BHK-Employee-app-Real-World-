@@ -50,6 +50,20 @@ class ArtisanProfileScreen extends ParentWidget {
                     ),
                   ),
                   Positioned(
+                    top: 40,
+                    right: 16,
+                    child: GestureDetector(
+                    //   onTap: () =>
+                    //       // Get.toNamed(RoutesClass.(), arguments:{ 'artisanId' :artisanId})
+                    // ,
+                      child: Icon(
+                        Icons.settings,
+                        color: Colors.white,
+                        size: 28,
+                      ),
+                    ),
+                  ),
+                  Positioned(
                     bottom: -220,
                     left: 0,
                     right: 0,
@@ -349,10 +363,12 @@ class ArtisanProfileScreen extends ParentWidget {
                       45,
                       appColors.brownDarkText,
                       Colors.white,
-                          () {  final artisanId = controller.artisanId;
-                          if (artisanId != null) {
-                            Get.toNamed(RoutesClass.gotoAddProductPage(), arguments:{ 'artisanId' :artisanId});
-                          }},
+                          () {  final artisanId = controller.artisanId.value;
+                          Get.toNamed(RoutesClass.gotoAddProductPage(), arguments:{ 'artisanId' :artisanId});
+                        },
+
+
+
                       hint: "Add Product",
                     )
                   ],

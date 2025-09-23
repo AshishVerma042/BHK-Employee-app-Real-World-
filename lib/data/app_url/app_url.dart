@@ -17,7 +17,7 @@ class AppUrl {
   static String loggedinuser = '$baseUrl3/api/users/userdetails';
   static String updateprofile = '$baseUrl3/api/users/updateprofile';
 
-  static String categorylist = '$baseUrl/api/category/main-categories?page=1&pageSize=10';
+  static String categorylist = '$baseUrl/api/category/main-categories?page=1&pageSize=100';
 
   static String subcategorylist = '$baseUrl/api/category/getsubcategory';
   static String artisanslist = '$baseUrl/api/product/artisan_added_by_employee';

@@ -10,7 +10,7 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../../resources/appconstants.dart';
 import '../../../resources/colors.dart';
 import '../../controller/supportcontroller.dart';
-import '../dashboardManagement/home_screen.dart';
+import '../home_screen.dart';
 import 'main_profile.dart';
 
 class Support extends ParentWidget {

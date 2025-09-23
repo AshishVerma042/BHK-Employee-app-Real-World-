@@ -8,6 +8,7 @@ import '../../../common/common_widgets.dart';
 import '../../../resources/appconstants.dart';
 import '../../../routes/RoutesClass.dart';
 import '../../controller/artisancontroller.dart';
+import 'artisans.dart';
 
 class ArtisanSearchScreen extends ParentWidget {
   const ArtisanSearchScreen({super.key});

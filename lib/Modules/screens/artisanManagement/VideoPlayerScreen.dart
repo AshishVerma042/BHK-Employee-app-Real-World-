@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:bhk_employee/main.dart';
+import 'package:bhk_employee/resources/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
@@ -13,17 +14,10 @@ class VideoPlayerScreen extends ParentWidget {
 
   @override
   Widget buildingView(BuildContext context, double h, double w) {
-    final args = Get.arguments as Map<String, dynamic>;
-    final File videoFile = args['videoFile'];
-    if (!controller.isInitialized.value) {
-      controller.initializeVideo(videoFile);
-    }
-
-
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text("Intro Video"),
+        title: Text(appStrings.introVideo),
         backgroundColor: Colors.transparent,
       ),
       body: Center(
@@ -59,13 +53,6 @@ class VideoPlayerScreen extends ParentWidget {
           ),
         ),
       ),
-
-      // floatingActionButton: Obx(() => FloatingActionButton(backgroundColor: Colors.transparent,
-      //   onPressed: () => controller.togglePlayPause(),
-      //   child: Icon(
-      //     controller.isPlaying.value ? Icons.pause : Icons.play_arrow,
-      //   color: Colors.white,),
-      // )),
     );
   }
 }

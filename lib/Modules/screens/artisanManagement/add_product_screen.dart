@@ -23,7 +23,7 @@ class AddProductPage extends ParentWidget {
         children: [
           Scaffold(
             backgroundColor: appColors.backgroundColor,
-            appBar: commonAppBar("Add Product"),
+            appBar: commonAppBar(appStrings.addProduct),
             body: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -34,12 +34,12 @@ class AddProductPage extends ParentWidget {
                       5.kW,
                       Icon(Icons.shopping_cart, size: 20.0, color: Colors.blue),
                       10.kW,
-                      Text('Add Product', style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold)),
+                      Text(appStrings.addProduct, style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold)),
                     ],
                   ),
                   5.kH,
                   Text(
-                    'Add a new product to your store.',
+                    appStrings.addANewProduct,
                     style: TextStyle(fontSize: 11.0, color: appColors.contentdescBrownColor, fontWeight: FontWeight.bold),
                   ),
                   25.kH,
@@ -56,8 +56,8 @@ class AddProductPage extends ParentWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  controller.selectedIndex.value > 0 ? commonOutlinedButtonIcon(w * 0.2, 48, Colors.black, () => controller.selectedIndex.value--, hint: "Previous step", radius: 25, forward: false, icon: Icons.arrow_back) : SizedBox(),
-                  controller.selectedIndex.value < 2 ? commonButtonIcon(w * 0.2, 48, Colors.white, () => controller.selectedIndex.value++, hint: "Next step", radius: 25, backgroundColor: appColors.contentButtonBrown) : SizedBox(),
+                  controller.selectedIndex.value > 0 ? commonOutlinedButtonIcon(w * 0.2, 48, Colors.black, () => controller.selectedIndex.value--, hint: appStrings.previousStep, radius: 25, forward: false, icon: Icons.arrow_back) : SizedBox(),
+                  controller.selectedIndex.value < 2 ? commonButtonIcon(w * 0.2, 48, Colors.white, () => controller.selectedIndex.value++, hint: appStrings.nextStep, radius: 25, backgroundColor: appColors.contentButtonBrown) : SizedBox(),
                   if (controller.selectedIndex.value == 2)
                     commonButtonIcon(
                       w * 0.2,

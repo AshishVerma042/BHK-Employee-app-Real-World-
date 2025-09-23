@@ -26,6 +26,7 @@ class RegistrationController extends GetxController {
 
   var introVideoFile = Rxn<File>();
 
+  var isExpertiseDropdownOpen = false.obs;
 
 
   var imagefiles = <String>[].obs;
@@ -33,6 +34,7 @@ class RegistrationController extends GetxController {
   var fNameController = TextEditingController().obs;
   var lNameController = TextEditingController().obs;
   var aadhaarController = TextEditingController().obs;
+  var GSTController = TextEditingController().obs;
   var emailController = TextEditingController().obs;
   var phoneController = TextEditingController().obs;
   var addressController = TextEditingController().obs;
@@ -48,12 +50,15 @@ class RegistrationController extends GetxController {
 
 
   void setVerifyData(VerifyOTPModel value) => verifyOTPData.value = value;
+  var selectedExpertise = "".obs;
 
-  var selectedExpertise = Rxn<String>();
+
+  RxList<String> selectedExpertises = <String>[].obs; // multiple selected
   var selectedCast = Rxn<String>();
   var expertiseFocusNode = FocusNode().obs;
   var subCastFocusNode = FocusNode().obs;
   var aadhaarFocusNode = FocusNode().obs;
+  var GSTFocusNode = FocusNode().obs;
   var emailFocusNode = FocusNode().obs;
   var fNameFocusNode = FocusNode().obs;
   var lNameFocusNode = FocusNode().obs;
@@ -96,7 +101,7 @@ class RegistrationController extends GetxController {
         "lastName": lNameController.value.text,
         "phoneNo": phoneController.value.text,
         "countryCode": countryCode.value,
-        "expertizeField": selectedExpertise.value,
+        "expertizeField": selectedExpertises.join(),
         "longitude":locationController.longitude.value,
         "latitude":locationController.latitude.value
         // "aadharNumber": addressController.value.text,
@@ -172,6 +177,7 @@ class RegistrationController extends GetxController {
           Expertise.addAll(
             value.data!.docs!.map((doc) => doc.categoryName ?? "").toList(),
           );
+          selectedExpertise.value = Expertise.first;
         }
       })
           .onError((error, stackTrace) {
@@ -227,7 +233,7 @@ class RegistrationController extends GetxController {
 
   Future<void> profileRefresh() async {
     await Future.delayed(const Duration(seconds: 1));
-    selectedExpertise.value = "";
+    selectedExpertises.value = [];
     fNameController.value.clear();
     lNameController.value.clear();
     emailController.value.clear();
@@ -271,21 +277,12 @@ class RegistrationController extends GetxController {
     }
   }
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   if (Get.arguments != null && Get.arguments is Map && Get.arguments.containsKey("referenceId")) {
-  //     referenceId.value = Get.arguments["referenceId"];
-  //   } else {
-  //     referenceId.value = 0;
-  //   }
-  // }
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  // }
+  void removeIntroVideo() {
+    introVideoFile.value = null;
+  }
 
-@override
+
+  @override
   void onInit() {
     super.onInit();
     getExpertiseApi();

@@ -3,21 +3,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import '../../../common/common_widgets.dart';
-import '../../../common/map_geolocation/mapcontroller.dart';
-import '../../../common/myUtils.dart';
-import '../../../data/response/status.dart';
-import '../../../main.dart';
-import '../../../resources/appconstants.dart';
-import '../../../resources/colors.dart';
-import '../../../resources/images.dart';
-import '../../../resources/strings.dart';
-import '../../../routes/RoutesClass.dart';
-import '../../controller/artisancontroller.dart';
-import '../../controller/commondashcontroller.dart';
-import '../../controller/dashboardcontroller.dart';
-import '../../controller/homescreencontroller.dart';
-import '../artisanManagement/artisan_profile_screen.dart';
+import '../../common/common_widgets.dart';
+import '../../common/myUtils.dart';
+import '../../data/response/status.dart';
+import '../../main.dart';
+import '../../resources/appconstants.dart';
+import '../../resources/colors.dart';
+import '../../resources/images.dart';
+import '../../resources/strings.dart';
+import '../../routes/RoutesClass.dart';
+import '../controller/commondashcontroller.dart';
+import '../controller/homescreencontroller.dart';
+import 'artisanManagement/artisan_profile_screen.dart';
+import 'artisanManagement/artisans.dart';
 
 class HomeScreen extends ParentWidget {
   const HomeScreen({super.key});
@@ -30,7 +28,7 @@ class HomeScreen extends ParentWidget {
       () => Stack(
         children: [
           Scaffold(
-            appBar: topAppBarHome(),
+            appBar: topAppBarHome(homeScreenController),
             backgroundColor: appColors.backgroundColor,
             body: SingleChildScrollView(
               child: Column(
@@ -76,16 +74,19 @@ class HomeScreen extends ParentWidget {
                             ),
                             (homeScreenController.artisanController.getArtisanListModel.value.data?.docs?.isEmpty ?? true)
                                 ? Container(
-                              height: Get.height * 0.54,
+                              height: Get.height * 0.44,
                               width: double.infinity,
                               alignment: Alignment.center,
                               padding: EdgeInsets.all(24),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   20.kH,
+                                  Image.asset('assets/images/icon1.png',scale: 9,fit: BoxFit.cover,),
+                                  10.kH,
                                   Text(
-                                    "No Artisans Found",
+                                    appStrings.noArtisansFound,
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
@@ -93,22 +94,21 @@ class HomeScreen extends ParentWidget {
                                     ),
                                   ),
                                   10.kH,
-                                  Text(
-                                    "Start by adding your first artisan to manage them here.",
+                                  Text("No artisans have been added to your list.\n Click Add Artisan to get \n started.",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 14,
                                       color: Colors.grey.shade600,
                                     ),
                                   ),
-                                  20.kH,
+                                  8.kH,
                                   commonButton(
                                     150,
                                     45,
                                     appColors.brownDarkText,
                                     appColors.white,
                                         () => Get.toNamed(RoutesClass.gotoRegistration()),
-                                    hint: "Add Artisan",
+                                    hint: appStrings.addArtisan,
                                   )
                                 ],
                               ),
@@ -116,7 +116,9 @@ class HomeScreen extends ParentWidget {
                                 : ListView.builder(
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
-                                    itemCount: homeScreenController.artisanController.getArtisanListModel.value.data?.docs == null ? 0 : (homeScreenController.artisanController.getArtisanListModel.value.data!.docs!.length > 5 ? 5 : homeScreenController.artisanController.getArtisanListModel.value.data!.docs!.length),
+                                    itemCount: homeScreenController.artisanController.getArtisanListModel.value.data?.docs == null ? 0
+                                        : (homeScreenController.artisanController.getArtisanListModel.value.data!.docs!.length > 5 ? 5
+                                        : homeScreenController.artisanController.getArtisanListModel.value.data!.docs!.length),
                                     itemBuilder: (context, index) {
                                       return artisanDetailCard(
                                         homeScreenController.artisanController.getArtisanListModel.value.data?.docs?[index],
@@ -131,8 +133,57 @@ class HomeScreen extends ParentWidget {
                         ),
 
                         20.kH,
-                        Text(appStrings.recentlyAddedArtisansProducts, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        (homeScreenController.artisanController.getArtisanListModel.value.data?.docs?.isEmpty ?? true)?
+                        SizedBox.shrink()
+                            :Text(appStrings.recentlyAddedArtisansProducts, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                         12.kH,
+
+                        (homeScreenController.getAllProductListModel.value.data?.docs?.isEmpty ?? true)?
+                        Container(
+                          height: Get.height * 0.34,
+                          width: double.infinity,
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(24),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+
+                              20.kH,
+                              Text(
+                                "No Product Found",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: appColors.brownDarkText,
+                                ),
+                              ),
+                              10.kH,
+                              Text(
+                                "Start by adding your first Product to manage them here.",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey.shade600,
+                                ),
+                              ),
+                              20.kH,
+                              commonButton(
+                                150,
+                                45,
+                                appColors.brownDarkText,
+                                Colors.white,
+                                    () {  final artisanId = homeScreenController.artisanController.getArtisanListModel.value.data?.docs?[0].id;
+                                Get.toNamed(RoutesClass.gotoAddProductPage(), arguments:{ 'artisanId' :artisanId});
+                                },
+
+
+
+                                hint: "Add Product",
+                              )
+                            ],
+                          ),
+                        )
+                            :
                         GridView.builder(
                           shrinkWrap: true,
                           physics:  NeverScrollableScrollPhysics(),
@@ -219,9 +270,10 @@ Widget cards(double w, Color color, Color lightColor, IconData icon, String titl
 }
 
 
-PreferredSizeWidget topAppBarHome() {
+
+PreferredSizeWidget topAppBarHome(HomeScreenController controller) {
   return AppBar(
-    flexibleSpace: Container(decoration:  BoxDecoration(gradient: AppConstants.customGradient)),
+    flexibleSpace: Container(decoration: BoxDecoration(gradient: AppConstants.customGradient)),
     elevation: 0,
     automaticallyImplyLeading: true,
     iconTheme: IconThemeData(color: appColors.white),
@@ -230,7 +282,7 @@ PreferredSizeWidget topAppBarHome() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          appStrings.goodMorning,
+          controller.getGreeting(),
           style: TextStyle(fontSize: 22, color: appColors.white, fontWeight: FontWeight.bold),
         ),
         Text(
@@ -241,7 +293,7 @@ PreferredSizeWidget topAppBarHome() {
     ),
     actions: [
       CircleAvatar(backgroundImage: AssetImage(AppImages.logo), radius: 20),
-     16.kW
+      16.kW
     ],
   );
 }

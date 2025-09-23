@@ -45,6 +45,15 @@ class VideoPlayingController extends GetxController {
   }
 
 
+  @override
+  void onInit() {
+    super.onInit();
+    final args = Get.arguments as Map<String, dynamic>;
+    final File videoFile = args['videoFile'];
+    initializeVideo(videoFile);
+
+
+  }
 
 
   @override

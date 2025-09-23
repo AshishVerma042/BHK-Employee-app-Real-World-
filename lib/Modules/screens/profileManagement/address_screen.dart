@@ -1,14 +1,12 @@
 import 'package:bhk_employee/Modules/screens/profileManagement/main_profile.dart';
 import 'package:bhk_employee/common/common_widgets.dart';
 import 'package:bhk_employee/main.dart';
-import 'package:bhk_employee/resources/appconstants.dart';
 import 'package:bhk_employee/resources/colors.dart';
 import 'package:bhk_employee/resources/enumAddress.dart';
 import 'package:bhk_employee/resources/strings.dart';
 import 'package:bhk_employee/utils/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../common/map_geolocation/mapcontroller.dart';
 import '../../../common/myUtils.dart';
 import '../../../data/response/status.dart';
@@ -45,7 +43,6 @@ class AddressScreen extends ParentWidget {
                       itemCount: controller.getaddressModel.value.data?.length,
                       itemBuilder: (context, index) {
                         final addressType = controller.getaddressModel.value.data?[index].addressType?.toUpperCase().toAddressType();
-
                         return Container(
                           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                           margin: EdgeInsets.only(bottom: 12),
@@ -197,9 +194,20 @@ class AddressScreen extends ParentWidget {
       }) {
     if (isUpdate && data != null) {
       controller.fillUpdateAddressFromLocation(data);
+
+      controller.selectedType.value = data.addressType?.toUpperCase();
+
+      controller.usedAddressTypes.clear();
+      AddressType.values.forEach((type) {
+        if (type.addressValue.toUpperCase() != data.addressType?.toUpperCase()) {
+          controller.usedAddressTypes.add(type.addressValue.toLowerCase());
+        }
+      });
     } else {
       controller.fillAddressFromLocation(locationController);
+      controller.usedAddressTypes.clear();
     }
+
 
     showModalBottomSheet(
       backgroundColor: appColors.backgroundColorSecond,
@@ -235,7 +243,7 @@ class AddressScreen extends ParentWidget {
                       children: [
                         const Icon(Icons.location_pin, color: Colors.brown),
                         Text(
-                          "Address Details",
+                          appStrings.addressDetails,
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -398,7 +406,7 @@ class AddressScreen extends ParentWidget {
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
+                  padding:  EdgeInsets.only(top: 8.0),
                   child: commonButton(
                     double.infinity,
                     45,
@@ -409,6 +417,7 @@ class AddressScreen extends ParentWidget {
                         controller.AddressUpdateApi( data.id);
                       } else {
                         controller.AddAddressApi();
+                        controller.getAddressListApi();
                       }
                       Get.back();
                     },

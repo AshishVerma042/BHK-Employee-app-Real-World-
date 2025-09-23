@@ -3,10 +3,10 @@ import 'package:bhk_employee/common/common_widgets.dart';
 import 'package:bhk_employee/main.dart';
 import 'package:bhk_employee/resources/validator.dart';
 import 'package:bhk_employee/utils/sized_box_extension.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../../../resources/appconstants.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/images.dart';
 import '../../../resources/inputformatter.dart';
@@ -84,28 +84,52 @@ class Registration extends ParentWidget {
                                   );
                                 }
                               },
-                              child: Container(
-                                padding:  EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                                decoration: BoxDecoration(
-                                  color: appColors.brownDarkText,
-                                  borderRadius: BorderRadius.circular(30),
-                                  border: Border.all(color: appColors.brown, width: 1.5),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                     Icon(hasVideo ? Icons.play_circle_fill:Icons.emergency_recording, color: appColors.white, size: 20),
-                                     SizedBox(width: 6),
-                                    Text(
-                                      hasVideo ? "Preview" : "Add video",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white,
+                              child: Row(crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+
+                                  Container(
+                                    padding:  EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                                    decoration: BoxDecoration(
+                                      color: appColors.brownDarkText,
+                                      borderRadius: BorderRadius.circular(30),
+                                      border: Border.all(color: appColors.brown, width: 1.5),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                         Icon(hasVideo ? Icons.play_circle_fill:Icons.emergency_recording, color: appColors.white, size: 20),
+                                         SizedBox(width: 6),
+                                        Text(
+                                          hasVideo ? appStrings.preview : appStrings.addVideo,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  if (controller.introVideoFile.value != null)
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: GestureDetector(
+                                        onTap: () => controller.removeIntroVideo(),
+                                        child: Align(
+                                          alignment: Alignment.topRight,
+                                          child: Container(
+                                            decoration: BoxDecoration(color: appColors.brown.shade300, shape: BoxShape.circle),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(2),
+                                              child: Icon(Icons.close, size: 17, color: appColors.white),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ],
-                                ),
+
+                                ],
                               ),
                             );
                           }),
@@ -131,7 +155,7 @@ class Registration extends ParentWidget {
                       controller.phoneController.value.text.isEmpty ||
                       controller.addressController.value.text.isEmpty ||
                       !Validator.isEmailValid(controller.emailController.value.text) ||
-                      controller.selectedExpertise.value?.isEmpty== true ) {
+                      controller.selectedExpertises.isEmpty== true ) {
                     controller.errorMessage.value = appStrings.artisanRegistererrormessage;
                   } else {
                     controller.errorMessage.value = "";
@@ -284,6 +308,7 @@ Widget detailForm (RegistrationController controller,double w,double h){
       commonComponent(appStrings.lastName, commonTextField(controller.lNameController.value, controller.lNameFocusNode.value, w, (value) {}, hint: appStrings.enterYourLastName, fontSize: 14)),
       12.kH,
       commonComponent(appStrings.aadhaarNumber, commonTextField(controller.aadhaarController.value, controller.aadhaarFocusNode.value, maxLength: 16, keyboardType: TextInputType.number, w, (value) {}, hint: appStrings.enterYourAadhaarNumber, fontSize: 14,isCounter: true)),
+      commonComponent(mandatory: false,appStrings.gSTNumber, commonTextField(controller.GSTController.value, controller.GSTFocusNode.value, maxLength: 15, keyboardType: TextInputType.number, w, (value) {}, hint: appStrings.enterYourGSTrNumber, fontSize: 14,isCounter: true)),
 
       commonComponentRedStar(appStrings.phoneNumber),
       innerPhoneTextField(
@@ -348,26 +373,188 @@ Widget detailForm (RegistrationController controller,double w,double h){
       12.kH,
       commonComponent(appStrings.address, commonTextField(controller.addressController.value, controller.addressFocusNode.value, w, maxLines: 4, (value) {}, hint: appStrings.enterYourCurrentAddress, fontSize: 14)),
       12.kH,
-      commonComponent(
-        appStrings.expertise,
-        commonDropdownButton(
-          controller.Expertise.map((item) {
-            return DropdownMenuItem<String>(
-              value: item,
-              child: Text(item),
-            );
-          }).toList(),
-          controller.selectedExpertise.value,
-          w,h,
-          appColors.backgroundColor,
-              (value) {
-            controller.selectedExpertise.value = value;
-          },
-          hint: appStrings.selectExpertise,
-          borderColor: appColors.border,
-        ),
-      ),
+      // commonComponent(
+      //   appStrings.expertise,
+      //   commonDropdownButton(
+      //     controller.Expertise.map((item) {
+      //       return DropdownMenuItem<String>(
+      //         value: item,
+      //         child: Text(item),
+      //       );
+      //     }).toList(),
+      //     controller.selectedExpertise.value,
+      //     w,h,
+      //     appColors.backgroundColor,
+      //         (value) {
+      //       controller.selectedExpertise.value = value!;
+      //     },
+      //     hint: appStrings.selectExpertise,
+      //     borderColor: appColors.border,
+      //   ),
+      // ),
+      multiSelectExpertiseInline(controller, w,h),
+
     ],
   );
 }
 
+// Widget multiSelectExpertiseInline(RegistrationController controller, double w) {
+//   return Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     children: [
+//       Text("Expertise", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+//       5.kH,
+//       Obx(() => Column(
+//         children: [
+//           InkWell(
+//             onTap: () {
+//               controller.isExpertiseDropdownOpen.value = !controller.isExpertiseDropdownOpen.value;
+//             },
+//             child: Container(
+//               width: w,
+//               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//               decoration: BoxDecoration(
+//                 border: Border.all(color: appColors.border),
+//                 borderRadius: BorderRadius.circular(8),
+//               ),
+//               child: Row(
+//                 children: [
+//                   Expanded(
+//                     child: Wrap(
+//                       spacing: 4,
+//                       children: controller.selectedExpertises.isEmpty
+//                           ? [Text("Select Expertise", style: TextStyle(fontSize: 14, color: Colors.grey))]
+//                           : controller.selectedExpertises.map((exp) {
+//                         return Chip(
+//                           label: Text(exp, style: TextStyle(fontSize: 12)),
+//                           backgroundColor: appColors.backgroundColorSecond,
+//                           deleteIcon: Icon(Icons.close, size: 16),
+//                           onDeleted: () {
+//                             controller.selectedExpertises.remove(exp);
+//                           },
+//                           shape: RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.circular(50),
+//                           ),
+//                         );
+//                       }).toList(),
+//                     ),
+//                   ),
+//                   Icon(controller.isExpertiseDropdownOpen.value
+//                       ? Icons.arrow_drop_up
+//                       : Icons.arrow_drop_down),
+//                 ],
+//               ),
+//             ),
+//           ),
+//           if (controller.isExpertiseDropdownOpen.value)
+//             Container(
+//               margin: EdgeInsets.only(top: 4),
+//               padding: EdgeInsets.all(8),
+//               decoration: BoxDecoration(
+//                 borderRadius: BorderRadius.circular(8),
+//                 color: appColors.cardBackground,
+//               ),
+//               child: SizedBox(height: 200,
+//                 child: SingleChildScrollView(
+//                   child: Column(
+//                     children: controller.Expertise.map((exp) {
+//                       return Obx(() => CheckboxListTile(
+//                         title: Text(exp),
+//                         value: controller.selectedExpertises.contains(exp),
+//                         controlAffinity: ListTileControlAffinity.leading,
+//                         contentPadding: EdgeInsets.zero,
+//                         onChanged: (val) {
+//                           if (val == true) {
+//                             controller.selectedExpertises.add(exp);
+//                           } else {
+//                             controller.selectedExpertises.remove(exp);
+//                           }
+//                         },
+//                       ));
+//                     }).toList(),
+//                   ),
+//                 ),
+//               ),
+//             ),
+//         ],
+//       )),
+//     ],
+//   );
+// }
+Widget multiSelectExpertiseInline(
+    RegistrationController controller, double width, double height) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text("Expertise", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+      5.kH,
+      Obx(() {
+        String selectedText = controller.selectedExpertises.isEmpty
+            ? "Select Expertise"
+            : controller.selectedExpertises.join(" ,  ");
+
+        return commonDropdownButtonWidgetHint(
+
+          controller.Expertise.map((exp) {
+            return DropdownMenuItem<String>(
+              value: exp,
+              enabled: false,
+              child: Obx(() => CheckboxListTile(
+                value: controller.selectedExpertises.contains(exp),
+                title: Text(exp, style: const TextStyle(fontSize: 14)),
+                controlAffinity: ListTileControlAffinity.leading,
+                contentPadding: EdgeInsets.zero,
+                onChanged: (val) {
+                  if (val == true) {
+                    controller.selectedExpertises.add(exp);
+                  } else {
+                    controller.selectedExpertises.remove(exp);
+                  }
+                },
+              )),
+            );
+          }).toList(),
+          null,
+          width,
+          height,
+          Colors.white,
+            Chip(
+                          label: Text(selectedText, style: TextStyle(fontSize: 12)),
+                          backgroundColor: appColors.backgroundColorSecond,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                        ),
+              (val) {},
+          hint: selectedText,
+          borderColor: appColors.border,
+        );
+      }),
+    ],
+  );
+}
+
+Widget commonDropdownButtonWidgetHint(List<DropdownMenuItem<String>>? items,String? selectedValue, double width, double height, Color color,Widget hintWidget ,void Function(String?) onChanged, {String hint = '', Color borderColor = Colors.transparent}) {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+    decoration: BoxDecoration(
+      border: Border.all(color: borderColor, width: 1.5),
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+    child: DropdownButton2<String>(
+      hint: hintWidget,
+      style: TextStyle(fontSize: 14, color: Colors.black),
+      value: selectedValue,
+      items: items,
+      onChanged: onChanged,
+      dropdownStyleData: DropdownStyleData(
+        maxHeight: height * .25,
+        width: width * .918,
+        offset: const Offset(-9, -3),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
+      ),
+      isExpanded: true,
+      underline: const SizedBox(),
+    ),
+  );
+}
