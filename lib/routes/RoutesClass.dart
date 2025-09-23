@@ -28,7 +28,6 @@ class RoutesClass {
   static String verify = '/verify';
 
   static String products = '/products';
-  static String addproducts = '/addproducts';
   static String addproductdetails = '/addproductdetails';
   static String addproductmedia = '/addproductmedia';
   static String orders = '/orders';
@@ -72,7 +71,6 @@ class RoutesClass {
   static String gotoVerifyScreen() => verify;
 
   static String gotoProductScreen() => products;
-  static String gotoaddProductScreen() => addproducts;
   static String gotoaddProductdetailsScreen() => addproductdetails;
   static String gotoaddProductmediaScreen() => addproductmedia;
   static String gotoOrderScreen() => orders;
