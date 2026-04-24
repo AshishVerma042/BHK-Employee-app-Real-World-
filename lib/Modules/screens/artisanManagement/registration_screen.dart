@@ -373,114 +373,14 @@ Widget detailForm (RegistrationController controller,double w,double h){
       12.kH,
       commonComponent(appStrings.address, commonTextField(controller.addressController.value, controller.addressFocusNode.value, w, maxLines: 4, (value) {}, hint: appStrings.enterYourCurrentAddress, fontSize: 14)),
       12.kH,
-      // commonComponent(
-      //   appStrings.expertise,
-      //   commonDropdownButton(
-      //     controller.Expertise.map((item) {
-      //       return DropdownMenuItem<String>(
-      //         value: item,
-      //         child: Text(item),
-      //       );
-      //     }).toList(),
-      //     controller.selectedExpertise.value,
-      //     w,h,
-      //     appColors.backgroundColor,
-      //         (value) {
-      //       controller.selectedExpertise.value = value!;
-      //     },
-      //     hint: appStrings.selectExpertise,
-      //     borderColor: appColors.border,
-      //   ),
-      // ),
+
       multiSelectExpertiseInline(controller, w,h),
 
     ],
   );
 }
 
-// Widget multiSelectExpertiseInline(RegistrationController controller, double w) {
-//   return Column(
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: [
-//       Text("Expertise", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-//       5.kH,
-//       Obx(() => Column(
-//         children: [
-//           InkWell(
-//             onTap: () {
-//               controller.isExpertiseDropdownOpen.value = !controller.isExpertiseDropdownOpen.value;
-//             },
-//             child: Container(
-//               width: w,
-//               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-//               decoration: BoxDecoration(
-//                 border: Border.all(color: appColors.border),
-//                 borderRadius: BorderRadius.circular(8),
-//               ),
-//               child: Row(
-//                 children: [
-//                   Expanded(
-//                     child: Wrap(
-//                       spacing: 4,
-//                       children: controller.selectedExpertises.isEmpty
-//                           ? [Text("Select Expertise", style: TextStyle(fontSize: 14, color: Colors.grey))]
-//                           : controller.selectedExpertises.map((exp) {
-//                         return Chip(
-//                           label: Text(exp, style: TextStyle(fontSize: 12)),
-//                           backgroundColor: appColors.backgroundColorSecond,
-//                           deleteIcon: Icon(Icons.close, size: 16),
-//                           onDeleted: () {
-//                             controller.selectedExpertises.remove(exp);
-//                           },
-//                           shape: RoundedRectangleBorder(
-//                             borderRadius: BorderRadius.circular(50),
-//                           ),
-//                         );
-//                       }).toList(),
-//                     ),
-//                   ),
-//                   Icon(controller.isExpertiseDropdownOpen.value
-//                       ? Icons.arrow_drop_up
-//                       : Icons.arrow_drop_down),
-//                 ],
-//               ),
-//             ),
-//           ),
-//           if (controller.isExpertiseDropdownOpen.value)
-//             Container(
-//               margin: EdgeInsets.only(top: 4),
-//               padding: EdgeInsets.all(8),
-//               decoration: BoxDecoration(
-//                 borderRadius: BorderRadius.circular(8),
-//                 color: appColors.cardBackground,
-//               ),
-//               child: SizedBox(height: 200,
-//                 child: SingleChildScrollView(
-//                   child: Column(
-//                     children: controller.Expertise.map((exp) {
-//                       return Obx(() => CheckboxListTile(
-//                         title: Text(exp),
-//                         value: controller.selectedExpertises.contains(exp),
-//                         controlAffinity: ListTileControlAffinity.leading,
-//                         contentPadding: EdgeInsets.zero,
-//                         onChanged: (val) {
-//                           if (val == true) {
-//                             controller.selectedExpertises.add(exp);
-//                           } else {
-//                             controller.selectedExpertises.remove(exp);
-//                           }
-//                         },
-//                       ));
-//                     }).toList(),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//         ],
-//       )),
-//     ],
-//   );
-// }
+
 Widget multiSelectExpertiseInline(
     RegistrationController controller, double width, double height) {
   return Column(

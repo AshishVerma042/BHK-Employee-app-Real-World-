@@ -20,6 +20,7 @@ class AppImages {
   static get firststock => 'assets/images/firststock.png';
   static get loaderouter => 'assets/images/splashscreenouter.png';
   static get support => "assets/images/support.png";
+  static get artisanIcon => "assets/images/icon1.png";
 
   static final AppImages _appImages = AppImages._internal();
   factory AppImages() {

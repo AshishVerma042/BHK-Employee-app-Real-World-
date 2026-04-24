@@ -277,40 +277,7 @@ Widget artisanDetailCard(dynamic artisan,{
                 ),
               ],
             ),
-            // Wrap(
-            //   spacing: 8,
-            //   runSpacing: 4,
-            //   children: List.generate(
-            //     artisan['skills'].length,
-            //     (index) => Container(
-            //       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-            //       decoration: BoxDecoration(color: Colors.brown.shade50, borderRadius: BorderRadius.circular(20)),
-            //       child: Text(
-            //         artisan['skills'][index],
-            //         style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.brown),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-
             10.kH,
-
-            // SizedBox(
-            //   height: 30,
-            //   child: ListView.builder(
-            //     scrollDirection: Axis.horizontal,
-            //     itemCount: artisan['skills'].length,
-            //     itemBuilder: (context, index) {
-            //       var skill = artisan['skills'][index];
-            //       return Padding(
-            //         padding: const EdgeInsets.only(right: 8.0),
-            //         child: skillCard(skill),
-            //       );
-            //     },
-            //   ),
-            // ),
-
-
           ],
         ),
       ),

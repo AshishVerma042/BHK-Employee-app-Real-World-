@@ -2,7 +2,6 @@ import 'package:bhk_employee/utils/sized_box_extension.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../../common/common_widgets.dart';
 import '../../../main.dart';
 import '../../../resources/appconstants.dart';
@@ -331,23 +330,6 @@ Widget myProductCardReview(dynamic artisan, {bool isFavorite = false}) {
                     ),
                   ),
 
-                  // GestureDetector(
-                  //     onTap: () {
-                  //       isFavorite = !isFavorite;
-                  //     },
-                  //     child: Container(
-                  //       padding: EdgeInsets.all(6),
-                  //       decoration: BoxDecoration(
-                  //         color: Colors.black.withOpacity(0.3),
-                  //         shape: BoxShape.circle,
-                  //       ),
-                  //       child: Icon(
-                  //         isFavorite? Icons.favorite : Icons.favorite_border,
-                  //         color: isFavorite? Colors.red : Colors.white,
-                  //         size: 18,
-                  //       ),
-                  //     ),
-                  //   ),
                 ],
               ),
             ],

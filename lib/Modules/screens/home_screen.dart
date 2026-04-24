@@ -1,8 +1,6 @@
 import 'package:bhk_employee/utils/sized_box_extension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../common/common_widgets.dart';
 import '../../common/myUtils.dart';
 import '../../data/response/status.dart';
@@ -83,7 +81,7 @@ class HomeScreen extends ParentWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   20.kH,
-                                  Image.asset('assets/images/icon1.png',scale: 9,fit: BoxFit.cover,),
+                                  Image.asset(AppImages.artisanIcon,scale: 9,fit: BoxFit.cover,),
                                   10.kH,
                                   Text(
                                     appStrings.noArtisansFound,
@@ -94,7 +92,7 @@ class HomeScreen extends ParentWidget {
                                     ),
                                   ),
                                   10.kH,
-                                  Text("No artisans have been added to your list.\n Click Add Artisan to get \n started.",
+                                  Text(appStrings.noArtisansHaveBeenAdded,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 14,
@@ -172,7 +170,7 @@ class HomeScreen extends ParentWidget {
                                 45,
                                 appColors.brownDarkText,
                                 Colors.white,
-                                    () {  final artisanId = controller.artisanController.getArtisanListModel.value.data?.docs?[0].id;
+                                    () {
                                 Get.toNamed(RoutesClass.gotoAddProductPage(), arguments:controller.artisanController.getArtisanListModel.value.data?.docs?[0].id);
                                 },
 

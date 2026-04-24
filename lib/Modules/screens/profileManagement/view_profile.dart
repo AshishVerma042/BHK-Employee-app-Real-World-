@@ -1,6 +1,5 @@
 import 'package:bhk_employee/Modules/screens/profileManagement/main_profile.dart';
 import 'package:bhk_employee/main.dart';
-import 'package:bhk_employee/resources/appconstants.dart';
 import 'package:bhk_employee/resources/images.dart';
 import 'package:bhk_employee/resources/strings.dart';
 import 'package:bhk_employee/utils/sized_box_extension.dart';

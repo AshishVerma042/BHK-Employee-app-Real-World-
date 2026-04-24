@@ -57,6 +57,7 @@ class AppStrings {
   String get enterTheOTPSentToYourPhone => "Enter the OTP sent to your phone";
   String get OTPVerification => "OTP Verificatione";
   String get selectExpertise => "Select Expertise";
+  String get noArtisansHaveBeenAdded=> "No artisans have been added to your list.\n Click Add Artisan to get \n started.";
   String get expertise => "Expertise";
   String get address => "Address";
   String get enterYourCurrentAddress => "Enter your Current Address";
