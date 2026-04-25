@@ -78,7 +78,7 @@ If a pot maker receives an order:
 ### 🔐 Authentication
 
 <p align="center">
-  <img src="App Screenshots/Login & SignUp" width="250"/>
+  <img src="App Screenshots/Login%20%26%20SignUp" width="250"/>
   <img src="App Screenshots/OTP Screen.jpeg" width="250"/>
 </p>
 
@@ -93,8 +93,8 @@ If a pot maker receives an order:
 </p>
 
 <p align="center">
-  <img src="App Screenshots/View profile.jpeg" width="250"/>
-  <img src="App Screenshots/Edit Profile.jpeg" width="250"/>
+  <img src="App Screenshots/View Profile.jpeg" width="250"/>
+  <img src="App Screenshots/Edit profile.jpeg" width="250"/>
   <img src="App Screenshots/Settings.jpeg" width="250"/>
 </p>
 
@@ -109,7 +109,7 @@ If a pot maker receives an order:
 <p align="center">
   <img src="App Screenshots/Artisans Registration.jpeg" width="250"/>
   <img src="App Screenshots/Artisans List.jpeg" width="250"/>
-  <img src="App Screenshots/Artisan Detail.jpeg" width="250"/>
+  <img src="App Screenshots/Artisan Detail Screen.jpeg" width="250"/>
 </p>
 
 <p align="center">
@@ -122,7 +122,7 @@ If a pot maker receives an order:
 
 <p align="center">
   <img src="App Screenshots/Products List.jpeg" width="250"/>
-  <img src="App Screenshots/Product Details.jpeg" width="250"/>
+  <img src="App Screenshots/Product Details Screen.jpeg" width="250"/>
   <img src="App Screenshots/Product Management.jpeg" width="250"/>
 </p>
 
