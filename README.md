@@ -76,48 +76,67 @@ If a pot maker receives an order:
 ## 📱 App Screens
 
 ## 🖼️ App Screenshots
+## 🖼️ App Screenshots
 
 ### 🔐 Authentication
 
-![Login & SignUp](App%20Screenshots/login_signup.png)
-![OTP Screen](App%20Screenshots/otp_screen.png)
+<p align="center">
+  <img src="App%20Screenshots/login_signup.png" width="250"/>
+  <img src="App%20Screenshots/otp_screen.png" width="250"/>
+</p>
 
 ---
 
 ### 🏠 Main Screens
 
-![Splash Screen](App%20Screenshots/splash_screen.png)
-![Home Screen](App%20Screenshots/home_screen.png)
-![Profile](App%20Screenshots/profile.png)
-![View Profile](App%20Screenshots/view_profile.png)
-![Edit Profile](App%20Screenshots/edit_profile.png)
-![Settings](App%20Screenshots/settings.png)
-![Support Screen](App%20Screenshots/support_screen.png)
+<p align="center">
+  <img src="App%20Screenshots/splash_screen.png" width="250"/>
+  <img src="App%20Screenshots/home_screen.png" width="250"/>
+  <img src="App%20Screenshots/profile.png" width="250"/>
+</p>
+
+<p align="center">
+  <img src="App%20Screenshots/view_profile.png" width="250"/>
+  <img src="App%20Screenshots/edit_profile.png" width="250"/>
+  <img src="App%20Screenshots/settings.png" width="250"/>
+</p>
+
+<p align="center">
+  <img src="App%20Screenshots/support_screen.png" width="250"/>
+</p>
 
 ---
 
 ### 👨‍🔧 Artisan Module
 
-![Artisans Registration](App%20Screenshots/artisans_registration.png)
-![Artisans List](App%20Screenshots/artisans_list.png)
-![Artisan Detail Screen](App%20Screenshots/artisan_detail.png)
-![Artisans Search](App%20Screenshots/artisans_search.png)
+<p align="center">
+  <img src="App%20Screenshots/artisans_registration.png" width="250"/>
+  <img src="App%20Screenshots/artisans_list.png" width="250"/>
+  <img src="App%20Screenshots/artisan_detail.png" width="250"/>
+</p>
+
+<p align="center">
+  <img src="App%20Screenshots/artisans_search.png" width="250"/>
+</p>
 
 ---
 
 ### 📦 Product Module
 
-![Products List](App%20Screenshots/products_list.png)
-![Product Details Screen](App%20Screenshots/product_details.png)
-![Product Management](App%20Screenshots/product_management.png)
+<p align="center">
+  <img src="App%20Screenshots/products_list.png" width="250"/>
+  <img src="App%20Screenshots/product_details.png" width="250"/>
+  <img src="App%20Screenshots/product_management.png" width="250"/>
+</p>
 
 ---
 
 ### 📍 Other Screens
 
-![Address Management](App%20Screenshots/address_management.png)
-![WhatsApp Image](App%20Screenshots/whatsapp_image.png)
-
+<p align="center">
+  <img src="App%20Screenshots/address_management.png" width="250"/>
+  <img src="App%20Screenshots/whatsapp_image.png" width="250"/>
+</p>
 
 ---
 
