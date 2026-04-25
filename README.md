@@ -73,16 +73,13 @@ If a pot maker receives an order:
 
 ---
 
-## 📱 App Screens
-
-## 🖼️ App Screenshots
 ## 🖼️ App Screenshots
 
 ### 🔐 Authentication
 
 <p align="center">
-  <img src="App%20Screenshots/login_signup.png" width="250"/>
-  <img src="App%20Screenshots/otp_screen.png" width="250"/>
+  <img src="App Screenshots/login_signup.jpeg" width="250"/>
+  <img src="App Screenshots/OTP Screen.jpeg" width="250"/>
 </p>
 
 ---
@@ -90,19 +87,19 @@ If a pot maker receives an order:
 ### 🏠 Main Screens
 
 <p align="center">
-  <img src="App%20Screenshots/splash_screen.png" width="250"/>
-  <img src="App%20Screenshots/home_screen.png" width="250"/>
-  <img src="App%20Screenshots/profile.png" width="250"/>
+  <img src="App%20Screenshots/splash_screen.jpeg" width="250"/>
+  <img src="App%20Screenshots/home_screen.jpeg" width="250"/>
+  <img src="App%20Screenshots/profile.jpeg" width="250"/>
 </p>
 
 <p align="center">
-  <img src="App%20Screenshots/view_profile.png" width="250"/>
-  <img src="App%20Screenshots/edit_profile.png" width="250"/>
-  <img src="App%20Screenshots/settings.png" width="250"/>
+  <img src="App%20Screenshots/view_profile.jpeg" width="250"/>
+  <img src="App%20Screenshots/edit_profile.jpeg" width="250"/>
+  <img src="App%20Screenshots/settings.jpeg" width="250"/>
 </p>
 
 <p align="center">
-  <img src="App%20Screenshots/support_screen.png" width="250"/>
+  <img src="App%20Screenshots/support_screen.jpeg" width="250"/>
 </p>
 
 ---
@@ -110,13 +107,13 @@ If a pot maker receives an order:
 ### 👨‍🔧 Artisan Module
 
 <p align="center">
-  <img src="App%20Screenshots/artisans_registration.png" width="250"/>
-  <img src="App%20Screenshots/artisans_list.png" width="250"/>
-  <img src="App%20Screenshots/artisan_detail.png" width="250"/>
+  <img src="App%20Screenshots/artisans_registration.jpeg" width="250"/>
+  <img src="App%20Screenshots/artisans_list.jpeg" width="250"/>
+  <img src="App%20Screenshots/artisan_detail.jpeg" width="250"/>
 </p>
 
 <p align="center">
-  <img src="App%20Screenshots/artisans_search.png" width="250"/>
+  <img src="App%20Screenshots/artisans_search.jpeg" width="250"/>
 </p>
 
 ---
@@ -124,9 +121,9 @@ If a pot maker receives an order:
 ### 📦 Product Module
 
 <p align="center">
-  <img src="App%20Screenshots/products_list.png" width="250"/>
-  <img src="App%20Screenshots/product_details.png" width="250"/>
-  <img src="App%20Screenshots/product_management.png" width="250"/>
+  <img src="App%20Screenshots/products_list.jpeg" width="250"/>
+  <img src="App%20Screenshots/product_details.jpeg" width="250"/>
+  <img src="App%20Screenshots/product_management.jpeg" width="250"/>
 </p>
 
 ---
@@ -134,9 +131,10 @@ If a pot maker receives an order:
 ### 📍 Other Screens
 
 <p align="center">
-  <img src="App%20Screenshots/address_management.png" width="250"/>
-  <img src="App%20Screenshots/whatsapp_image.png" width="250"/>
+  <img src="App%20Screenshots/address_management.jpeg" width="250"/>
+  <img src="App%20Screenshots/whatsapp_image.jpeg" width="250"/>
 </p>
+
 
 ---
 
