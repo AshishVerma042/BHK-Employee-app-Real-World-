@@ -78,7 +78,7 @@ If a pot maker receives an order:
 ### 🔐 Authentication
 
 <p align="center">
-  <img src="App Screenshots/Login_SignUp" width="250"/>
+  <img src="App Screenshots/Login_SignUp.jpeg" width="250"/>
   <img src="App Screenshots/OTP Screen.jpeg" width="250"/>
 </p>
 
