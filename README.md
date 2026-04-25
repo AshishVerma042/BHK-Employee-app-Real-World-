@@ -4,8 +4,6 @@
 
 **BHK Employee App** is a digital platform designed to empower **artisans (craft workers)** by helping them manage their work, products, and employees efficiently.
 
-Many artisans are not comfortable using mobile apps. This platform allows a **primary artisan (owner/manager)** to add employees who can operate the app on their behalf.
-
 It also enables **collaboration between different artisans**, allowing them to complete products together and increase their productivity and sales.
 
 ---
@@ -16,22 +14,6 @@ It also enables **collaboration between different artisans**, allowing them to c
 * Simplify product showcasing and selling
 * Enable teamwork between artisans
 * Help artisans who are not tech-savvy
-
----
-
-## 👥 User Roles
-
-### 👨‍🔧 Artisan / Owner
-
-* Add and manage employees
-* Upload and manage products
-* Receive and assign orders
-
-### 👷 Employee
-
-* Operate the app on behalf of artisan
-* Handle products and orders
-* Assist in completing tasks
 
 ---
 
@@ -93,102 +75,49 @@ If a pot maker receives an order:
 
 ## 📱 App Screens
 
+## 🖼️ App Screenshots
+
 ### 🔐 Authentication
 
-* Login & SignUp
-* OTP Screen
+![Login & SignUp](App%20Screenshots/login_signup.png)
+![OTP Screen](App%20Screenshots/otp_screen.png)
+
+---
 
 ### 🏠 Main Screens
 
-* Splash Screen
-* Home Screen
-* Profile
-* View Profile
-* Edit Profile
-* Settings
-* Support Screen
-
-### 👨‍🔧 Artisan Management
-
-* Artisans Registration
-* Artisans List
-* Artisan Detail Screen
-* Artisans Search
-
-### 📦 Product Management
-
-* Products List
-* Product Details Screen
-* Product Management
-
-### 📍 Address & Others
-
-* Address Management
+![Splash Screen](App%20Screenshots/splash_screen.png)
+![Home Screen](App%20Screenshots/home_screen.png)
+![Profile](App%20Screenshots/profile.png)
+![View Profile](App%20Screenshots/view_profile.png)
+![Edit Profile](App%20Screenshots/edit_profile.png)
+![Settings](App%20Screenshots/settings.png)
+![Support Screen](App%20Screenshots/support_screen.png)
 
 ---
 
-## 🖼️ Screenshots
+### 👨‍🔧 Artisan Module
 
-> Add your screenshots inside a folder named `/screenshots` in your repo.
-
-### Authentication
-
-* ![Login & SignUp](screenshots/login_signup.png)
-* ![OTP Screen](screenshots/otp_screen.png)
-
-### Core Screens
-
-* ![Splash Screen](screenshots/splash_screen.png)
-* ![Home Screen](screenshots/home_screen.png)
-* ![Profile](screenshots/profile.png)
-* ![View Profile](screenshots/view_profile.png)
-* ![Edit Profile](screenshots/edit_profile.png)
-* ![Settings](screenshots/settings.png)
-* ![Support Screen](screenshots/support_screen.png)
-
-### Artisan Module
-
-* ![Artisans Registration](screenshots/artisans_registration.png)
-* ![Artisans List](screenshots/artisans_list.png)
-* ![Artisan Detail Screen](screenshots/artisan_detail.png)
-* ![Artisans Search](screenshots/artisan_search.png)
-
-### Product Module
-
-* ![Products List](screenshots/products_list.png)
-* ![Product Details Screen](screenshots/product_details.png)
-* ![Product Management](screenshots/product_management.png)
-
-### Others
-
-* ![Address Management](screenshots/address_management.png)
-* ![WhatsApp Image](screenshots/whatsapp_image.png)
+![Artisans Registration](App%20Screenshots/artisans_registration.png)
+![Artisans List](App%20Screenshots/artisans_list.png)
+![Artisan Detail Screen](App%20Screenshots/artisan_detail.png)
+![Artisans Search](App%20Screenshots/artisans_search.png)
 
 ---
 
-## 📂 Folder Structure Suggestion
+### 📦 Product Module
 
-```
-/screenshots
-   login_signup.png
-   otp_screen.png
-   splash_screen.png
-   home_screen.png
-   profile.png
-   view_profile.png
-   edit_profile.png
-   settings.png
-   support_screen.png
-   artisans_registration.png
-   artisans_list.png
-   artisan_detail.png
-   artisan_search.png
-   products_list.png
-   product_details.png
-   product_management.png
-   address_management.png
-   whatsapp_image.png
-```
+![Products List](App%20Screenshots/products_list.png)
+![Product Details Screen](App%20Screenshots/product_details.png)
+![Product Management](App%20Screenshots/product_management.png)
+
+---
+
+### 📍 Other Screens
+
+![Address Management](App%20Screenshots/address_management.png)
+![WhatsApp Image](App%20Screenshots/whatsapp_image.png)
+
 
 ---
 
