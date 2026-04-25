@@ -149,3 +149,9 @@ Feel free to fork the repo and submit pull requests.
 This project is created to support and empower artisans digitally.
 
 ---
+
+## ▶️ Getting Started
+
+```bash
+flutter pub get
+flutter run
